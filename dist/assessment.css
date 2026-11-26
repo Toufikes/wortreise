@@ -1,0 +1,16 @@
+/* Independent 20-point Kapitel assessment — fits Wortreise V2 Lime theme */
+.own-exam-group{margin-top:20px}
+.own-exam-group h3{display:flex;justify-content:space-between;align-items:center;gap:12px;color:var(--accent,#daff65);font-size:clamp(19px,2.5vw,26px);line-height:1.5;margin:0 0 14px}
+.own-exam-points{color:#b6c4ae;font-family:var(--font-lat,system-ui,sans-serif);font-size:13px;white-space:nowrap;direction:ltr}
+.own-exam-item{padding:15px 0;border-top:1px solid #ffffff17}
+.own-exam-item label{display:block;font-size:clamp(15px,1.9vw,19px);color:var(--text,#f6f6f3);font-weight:600;line-height:1.75;overflow-wrap:anywhere}
+.own-exam-item label [lang="de"]{display:inline;unicode-bidi:isolate;font-family:var(--font-lat,system-ui,sans-serif);line-height:1.55}
+.own-exam-index{font-family:var(--font-lat,system-ui,sans-serif);color:var(--accent,#daff65);font-size:14px;margin-inline-end:8px}
+.own-exam-item small{display:block;color:#a8b5b1;margin:5px 0 0;font-weight:400}
+.own-exam-item textarea{display:block;box-sizing:border-box;width:100%;min-height:90px;resize:vertical;font-size:17px;line-height:1.6;margin:12px 0 0;padding:12px 15px;border:1px solid #46534d;background:#0d151b;color:#f8faf6;border-radius:10px;scroll-margin-top:15vh}
+.own-exam-item textarea:focus{outline:2px solid var(--accent,#daff65);outline-offset:1px;border-color:var(--accent,#daff65)}
+.own-exam-passage{margin:10px 0 20px;padding:18px;border-inline-start:3px solid var(--accent,#daff65);background:#202b27;color:#ecf1ea;border-radius:0 12px 12px 0;font:500 16px/1.8 var(--font-lat,system-ui,sans-serif);white-space:pre-wrap}
+.own-exam-actions button{margin:7px 0;min-height:51px}
+#own-exam-status{padding:4px 0;color:var(--text,#f6f6f3);line-height:1.6}
+#own-exam-status a{overflow-wrap:anywhere}
+@media(max-width:520px){.own-exam-group{padding:15px}.own-exam-item{padding:14px 0}.own-exam-item textarea{min-height:85px}.own-exam-passage{padding:13px;font-size:15px}}
