@@ -1,0 +1,2303 @@
+{
+  "archive": "Wortreise_Source(1).zip",
+  "source_kind": "exported static HTML/JS/CSS and Supabase SQL (not original build project)",
+  "included_original_files": [
+    {
+      "path": ".openai/hosting.json",
+      "bytes": 106,
+      "sha256": "bc58219a8d823dec223823fd7f3f5dc23c8d48424695bc582117fc8c4de67a99"
+    },
+    {
+      "path": "dist/atlas.svg",
+      "bytes": 1058,
+      "sha256": "8ec224ceadfe3d4d3bd4d17156bcc1b471572c381fe4c9b0aa1f5d8a24e7fa41"
+    },
+    {
+      "path": "dist/audio-page-map.js",
+      "bytes": 1546,
+      "sha256": "71ccf90d3203a7861fdfe95f9f4a3a36760dca1c3cf737c511bbd1fef917255a"
+    },
+    {
+      "path": "dist/book-audio-data.js",
+      "bytes": 8485,
+      "sha256": "0151beea807e6955fcaa87c947adc9a95a7b3713d6bec57361a6d37c104fed95"
+    },
+    {
+      "path": "dist/book-audio.js",
+      "bytes": 7142,
+      "sha256": "98221b6265c2dcfc12d9517ebc4f8652f5e79dae73e15ed4381f66b49b15de31"
+    },
+    {
+      "path": "dist/book-test.js",
+      "bytes": 2424,
+      "sha256": "8aafb890724b393c68792dc77e71cd038c0ade3e103b441d35161304b6d1ef37"
+    },
+    {
+      "path": "dist/book1.js",
+      "bytes": 20792,
+      "sha256": "413afc66cd31b2d47b408206be1ca3e01de82cc90079c4d67823637d1402a2d2"
+    },
+    {
+      "path": "dist/book2.js",
+      "bytes": 20645,
+      "sha256": "2bb10f41b88ae5d89d221ad8a42b3ca3153e8067f2645efe720cdd75df6d7f7f"
+    },
+    {
+      "path": "dist/book3.js",
+      "bytes": 19490,
+      "sha256": "e902fd1aa951387c17343534ba89ffdefb326ab23d0a3e953831a7295c427026"
+    },
+    {
+      "path": "dist/cases.js",
+      "bytes": 10518,
+      "sha256": "14f6fe0c582a2cf10839d5bd304ba05ed3c89bdfd384848d93f99ea031dedacc"
+    },
+    {
+      "path": "dist/chapter-exam.js",
+      "bytes": 8019,
+      "sha256": "deab59617878c823b5b4ad02172ea7ecf180346c7380b225211d4a561eedfedd"
+    },
+    {
+      "path": "dist/chapter-stories.js",
+      "bytes": 28425,
+      "sha256": "1321723c8316c4c0d9fdd61fd8cb8a76abe15c901b7602515f8571e8fc1fab87"
+    },
+    {
+      "path": "dist/cloud.js",
+      "bytes": 11619,
+      "sha256": "34354c3b0d59d76469ee5cbce295cd6ea0faa1d616cc8696ca47e690bc5b8428"
+    },
+    {
+      "path": "dist/cockpit.js",
+      "bytes": 1030,
+      "sha256": "feab14aae288016ceb0593e1e6b76f646e45fb979f41628ace680acc6188d6d6"
+    },
+    {
+      "path": "dist/course-data.js",
+      "bytes": 18629,
+      "sha256": "9ed786e8082ec46ad66527ad2c7eda4d9d3798e7781a51cf27d2384ce38e5688"
+    },
+    {
+      "path": "dist/course.css",
+      "bytes": 7636,
+      "sha256": "49b67f7823a5374524760929b06e55f2a90b7ce2b968697840bb52095766d5dd"
+    },
+    {
+      "path": "dist/course.js",
+      "bytes": 12158,
+      "sha256": "fd7fe019b61d4e206cd64a3228e34f729bfa410bdd44cdc417b060ee572e47e6"
+    },
+    {
+      "path": "dist/deck.js",
+      "bytes": 38987,
+      "sha256": "b548d4c2fea66ff51a82f38fe408d49368164690b402fe237601660cd12c8d43"
+    },
+    {
+      "path": "dist/design.css",
+      "bytes": 5941,
+      "sha256": "4261515c5c5d20542cf3f09da651f00386dbab94a85a555819a717a99d21ac88"
+    },
+    {
+      "path": "dist/exam-paper.css",
+      "bytes": 1032,
+      "sha256": "70f8f83433eeea6ab38a646746b5cd501b195eb9ec8d31bf68443a5c8e4ddcbe"
+    },
+    {
+      "path": "dist/font-license.txt",
+      "bytes": 5208,
+      "sha256": "075f91382875da1c4b491f1facf2586f55448705133264d98ce15cab6211b125"
+    },
+    {
+      "path": "dist/index.html",
+      "bytes": 2861,
+      "sha256": "132b9c34d3255938b5d4a6a6b4b60b498d5d552618330008ecfedd1282df7fbc"
+    },
+    {
+      "path": "dist/inner1.js",
+      "bytes": 3818,
+      "sha256": "62a5c6b2d6f10801f76c9b62e59143dfe5c5ddb9e65f451c78db5bd9db2ed0d4"
+    },
+    {
+      "path": "dist/inner2.js",
+      "bytes": 6730,
+      "sha256": "7ee457a88112fb41013cbd9890e85d7d277e5445da3a6eb0b7670ea1777862c5"
+    },
+    {
+      "path": "dist/interface.js",
+      "bytes": 13586,
+      "sha256": "05ce726701ea3512be5684202301c8b3c0b4c423f171d68d0037542672dadf25"
+    },
+    {
+      "path": "dist/manifest.webmanifest",
+      "bytes": 349,
+      "sha256": "9ba3f47f8cd09482a2524ca900296015d74f46ae8f6f709337586c083471d48f"
+    },
+    {
+      "path": "dist/mascot.js",
+      "bytes": 1947,
+      "sha256": "fc3d9abffcaa9b2c3b5e6914a74b303eaa9fe5b1f02cc64001effd13206ef395"
+    },
+    {
+      "path": "dist/mascot/celebrate.webp",
+      "bytes": 30464,
+      "sha256": "8341afca303c4606cd9b4130b2221d1c50dff73fc2a57d475988d6a126ac5d13"
+    },
+    {
+      "path": "dist/mascot/correct.webp",
+      "bytes": 27016,
+      "sha256": "2363eca16ec258bf303d748c0a5930128564cb76e09a10ef2ee074906a9278ef"
+    },
+    {
+      "path": "dist/mascot/encourage.webp",
+      "bytes": 29820,
+      "sha256": "95bbcb9399d7ed2d4f6bb07f4494141c437fb39399cb2b6a99c99bf63059c0e7"
+    },
+    {
+      "path": "dist/mascot/hint.webp",
+      "bytes": 32744,
+      "sha256": "a56efa31f0b1fb33226f8963eeec0a181cdc6737a5bc0c5b9014532904915d10"
+    },
+    {
+      "path": "dist/mascot/icon-180.png",
+      "bytes": 47834,
+      "sha256": "1ed822d3637b6823cec9776964a1fd3b1ec64df35d8da6fa41e281c6628eafe8"
+    },
+    {
+      "path": "dist/mascot/icon-192.png",
+      "bytes": 53886,
+      "sha256": "e47caf5bd74c2d3f0ea8482509d2bf5795af585fa52d1911edac7ddb86555cfe"
+    },
+    {
+      "path": "dist/mascot/icon-512.png",
+      "bytes": 365490,
+      "sha256": "4106f4ef85161aa50fb2220417bc36a0548f2c62b160b6b712de1104a53a2438"
+    },
+    {
+      "path": "dist/mascot/icon.webp",
+      "bytes": 32496,
+      "sha256": "3895c808f0cced895c57491f7d3536a2b156d30d868cf908c46322a23db4f661"
+    },
+    {
+      "path": "dist/mascot/thinking.webp",
+      "bytes": 24314,
+      "sha256": "e06db6b62c3d91d9e160e7695522a6ae9bfd60cf63a893da497f3566169066c4"
+    },
+    {
+      "path": "dist/mascot/welcome.webp",
+      "bytes": 31424,
+      "sha256": "ef45b1ff9663cdf93e50ef436e0a19ffa718817fbfc34f076a56fb51e288dfeb"
+    },
+    {
+      "path": "dist/memory-game.js",
+      "bytes": 5792,
+      "sha256": "641cb4c37488b11e281fcca45c55fb2855af1fc1fafef14101f9844fdf461a60"
+    },
+    {
+      "path": "dist/memory.html",
+      "bytes": 1167,
+      "sha256": "3cf8b3e5bd551dbdbec73c9ae4810ded1a8ce0b171f458f49e1c09b865387925"
+    },
+    {
+      "path": "dist/paper-export.js",
+      "bytes": 4486,
+      "sha256": "e957bb81a4b253162ea3c7a3d87dc5c00c1a2cc0279e884f75d619b9cc489b4a"
+    },
+    {
+      "path": "dist/passport.js",
+      "bytes": 3601,
+      "sha256": "8fdc7fae96253781ab83af4c2d95f2d3367d7c58c9c816403125a8b77a08711b"
+    },
+    {
+      "path": "dist/phrase-story.js",
+      "bytes": 5602,
+      "sha256": "2dfc6fde3dc28b329f7ce163d1fa9102d21cb4b29a25539cb2ea1010e84998b0"
+    },
+    {
+      "path": "dist/play.js",
+      "bytes": 5792,
+      "sha256": "641cb4c37488b11e281fcca45c55fb2855af1fc1fafef14101f9844fdf461a60"
+    },
+    {
+      "path": "dist/reader-models.js",
+      "bytes": 14227,
+      "sha256": "fadda589d09909e18cc8a6253202657edb291c8b0d676893acbf91d2fc54c450"
+    },
+    {
+      "path": "dist/reader.css",
+      "bytes": 4284,
+      "sha256": "0effb88ce67034f6ba1f31127b16cf5f3fc6ab7468e1c0196aa3772eb4b6c65d"
+    },
+    {
+      "path": "dist/reader.js",
+      "bytes": 13233,
+      "sha256": "bb23d22c7b35fbd17a374618aad4e8558758aebea23a94a89790de735f4bacf0"
+    },
+    {
+      "path": "dist/revision.js",
+      "bytes": 4703,
+      "sha256": "db3e1d4be51b7e58d01d3154b2155b78a3e92663f1f1ec34f292bcc23100fe18"
+    },
+    {
+      "path": "dist/settings.js",
+      "bytes": 664,
+      "sha256": "4af16978d21ee0d992d73720b1369f8b82b8adee566f82e79d8e43d5766eed94"
+    },
+    {
+      "path": "dist/sprachhilfe.js",
+      "bytes": 11898,
+      "sha256": "0a4c66f742ec9ddbadd53be37a880bb330d3b887aef87a07636b487086946240"
+    },
+    {
+      "path": "dist/vendor/pdf-lib-LICENSE.md",
+      "bytes": 1070,
+      "sha256": "f2c9fc00fdb66eb99ac156ba52d734af66d8d309f65753ae809ad34ee2883bcb"
+    },
+    {
+      "path": "dist/vendor/pdf-lib.min.js",
+      "bytes": 525099,
+      "sha256": "0f9a5cad07941f0826586c94e089d89b918c46e5c17cf2d5a3c6f666e3bc694f"
+    },
+    {
+      "path": "dist/verbsets.js",
+      "bytes": 31313,
+      "sha256": "6109563dc31e6d4f3407a8914593ac244c4f3661d431de6a8ba511eac1a3bf29"
+    },
+    {
+      "path": "dist/vocab-set.js",
+      "bytes": 3925,
+      "sha256": "d494c6dcd72aa78d04930b61b801f97f4e55893a487e26acbb4462e92f23fe71"
+    },
+    {
+      "path": "dist/written-exam.js",
+      "bytes": 7069,
+      "sha256": "84adc0f4b962516494b8e041c59dae703f2ddfa34fd5c4481f7487ea043c3d0a"
+    },
+    {
+      "path": "supabase/migrations/001_wortreise_progress.sql",
+      "bytes": 865,
+      "sha256": "61768d1e66350f9fecc745cb36ee8c5a112efc86f4e9ade4a9a6f220721b7988"
+    },
+    {
+      "path": "supabase/migrations/002_passport.sql",
+      "bytes": 1469,
+      "sha256": "ca711579d4106331c6751018efa26fdf7f8151f7f91146881e7db580efd0419c"
+    }
+  ],
+  "excluded_original_files": [
+    {
+      "path": "dist/audio/cd1/01.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 703359
+    },
+    {
+      "path": "dist/audio/cd1/02.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 503993
+    },
+    {
+      "path": "dist/audio/cd1/03.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 469302
+    },
+    {
+      "path": "dist/audio/cd1/04.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 490618
+    },
+    {
+      "path": "dist/audio/cd1/05.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1175235
+    },
+    {
+      "path": "dist/audio/cd1/06.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 457599
+    },
+    {
+      "path": "dist/audio/cd1/07.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 561253
+    },
+    {
+      "path": "dist/audio/cd1/08.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 900218
+    },
+    {
+      "path": "dist/audio/cd1/09.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 309642
+    },
+    {
+      "path": "dist/audio/cd1/10.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2231836
+    },
+    {
+      "path": "dist/audio/cd1/11.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 972943
+    },
+    {
+      "path": "dist/audio/cd1/12.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 624783
+    },
+    {
+      "path": "dist/audio/cd1/13.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 420819
+    },
+    {
+      "path": "dist/audio/cd1/14.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1084956
+    },
+    {
+      "path": "dist/audio/cd1/15.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1078269
+    },
+    {
+      "path": "dist/audio/cd1/16.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1115467
+    },
+    {
+      "path": "dist/audio/cd1/17.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 983810
+    },
+    {
+      "path": "dist/audio/cd1/18.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1339493
+    },
+    {
+      "path": "dist/audio/cd1/19.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1412636
+    },
+    {
+      "path": "dist/audio/cd1/20.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 610154
+    },
+    {
+      "path": "dist/audio/cd1/21.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 766053
+    },
+    {
+      "path": "dist/audio/cd1/22.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 798654
+    },
+    {
+      "path": "dist/audio/cd1/23.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 705031
+    },
+    {
+      "path": "dist/audio/cd1/24.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 885590
+    },
+    {
+      "path": "dist/audio/cd1/25.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2033723
+    },
+    {
+      "path": "dist/audio/cd1/26.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1193208
+    },
+    {
+      "path": "dist/audio/cd1/27.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1316506
+    },
+    {
+      "path": "dist/audio/cd1/28.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 509008
+    },
+    {
+      "path": "dist/audio/cd1/29.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2751777
+    },
+    {
+      "path": "dist/audio/cd1/30.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1323611
+    },
+    {
+      "path": "dist/audio/cd1/31.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 914429
+    },
+    {
+      "path": "dist/audio/cd1/32.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1863196
+    },
+    {
+      "path": "dist/audio/cd1/33.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2049188
+    },
+    {
+      "path": "dist/audio/cd1/34.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 797818
+    },
+    {
+      "path": "dist/audio/cd1/35.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 618932
+    },
+    {
+      "path": "dist/audio/cd1/36.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1425593
+    },
+    {
+      "path": "dist/audio/cd1/37.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 542445
+    },
+    {
+      "path": "dist/audio/cd1/38.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 720914
+    },
+    {
+      "path": "dist/audio/cd1/39.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 412878
+    },
+    {
+      "path": "dist/audio/cd1/40.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2028290
+    },
+    {
+      "path": "dist/audio/cd1/41.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1007216
+    },
+    {
+      "path": "dist/audio/cd1/42.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1984822
+    },
+    {
+      "path": "dist/audio/cd1/43.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 780264
+    },
+    {
+      "path": "dist/audio/cd1/44.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 861766
+    },
+    {
+      "path": "dist/audio/cd1/45.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 682879
+    },
+    {
+      "path": "dist/audio/cd1/46.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1000110
+    },
+    {
+      "path": "dist/audio/cd1/47.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 565433
+    },
+    {
+      "path": "dist/audio/cd1/48.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 897292
+    },
+    {
+      "path": "dist/audio/cd1/49.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1492466
+    },
+    {
+      "path": "dist/audio/cd1/50.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2272378
+    },
+    {
+      "path": "dist/audio/cd1/51.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 808267
+    },
+    {
+      "path": "dist/audio/cd1/52.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 292506
+    },
+    {
+      "path": "dist/audio/cd1/53.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 644845
+    },
+    {
+      "path": "dist/audio/cd1/54.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1866540
+    },
+    {
+      "path": "dist/audio/cd1/55.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 886426
+    },
+    {
+      "path": "dist/audio/cd1/56.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 567941
+    },
+    {
+      "path": "dist/audio/cd1/57.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1747003
+    },
+    {
+      "path": "dist/audio/cd1/58.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2013243
+    },
+    {
+      "path": "dist/audio/cd1/59.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1144306
+    },
+    {
+      "path": "dist/audio/cd1/60.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1884512
+    },
+    {
+      "path": "dist/audio/cd1/61.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 556238
+    },
+    {
+      "path": "dist/audio/cd1/62.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 367320
+    },
+    {
+      "path": "dist/audio/cd1/63.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 712972
+    },
+    {
+      "path": "dist/audio/cd1/64.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2651885
+    },
+    {
+      "path": "dist/audio/cd1/65.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 676610
+    },
+    {
+      "path": "dist/audio/cd1/66.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1477002
+    },
+    {
+      "path": "dist/audio/cd1/67.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1103346
+    },
+    {
+      "path": "dist/audio/cd1/68.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2607163
+    },
+    {
+      "path": "dist/audio/cd1/69.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 539937
+    },
+    {
+      "path": "dist/audio/cd1/70.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 493962
+    },
+    {
+      "path": "dist/audio/cd2/01.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 723003
+    },
+    {
+      "path": "dist/audio/cd2/02.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1671771
+    },
+    {
+      "path": "dist/audio/cd2/03.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 758112
+    },
+    {
+      "path": "dist/audio/cd2/04.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1376692
+    },
+    {
+      "path": "dist/audio/cd2/05.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1925890
+    },
+    {
+      "path": "dist/audio/cd2/06.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 524473
+    },
+    {
+      "path": "dist/audio/cd2/07.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 340153
+    },
+    {
+      "path": "dist/audio/cd2/08.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 723003
+    },
+    {
+      "path": "dist/audio/cd2/09.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1755363
+    },
+    {
+      "path": "dist/audio/cd2/10.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1426429
+    },
+    {
+      "path": "dist/audio/cd2/11.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1581492
+    },
+    {
+      "path": "dist/audio/cd2/12.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 301701
+    },
+    {
+      "path": "dist/audio/cd2/13.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 936581
+    },
+    {
+      "path": "dist/audio/cd2/14.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 315493
+    },
+    {
+      "path": "dist/audio/cd2/15.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 284564
+    },
+    {
+      "path": "dist/audio/cd2/16.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 611408
+    },
+    {
+      "path": "dist/audio/cd2/17.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 588421
+    },
+    {
+      "path": "dist/audio/cd2/18.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 542027
+    },
+    {
+      "path": "dist/audio/cd2/19.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1567699
+    },
+    {
+      "path": "dist/audio/cd2/20.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1744496
+    },
+    {
+      "path": "dist/audio/cd2/21.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1719418
+    },
+    {
+      "path": "dist/audio/cd2/22.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1423503
+    },
+    {
+      "path": "dist/audio/cd2/23.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 770651
+    },
+    {
+      "path": "dist/audio/cd2/24.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1185684
+    },
+    {
+      "path": "dist/audio/cd2/25.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2247301
+    },
+    {
+      "path": "dist/audio/cd2/26.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 355617
+    },
+    {
+      "path": "dist/audio/cd2/27.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 334719
+    },
+    {
+      "path": "dist/audio/cd2/28.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1207418
+    },
+    {
+      "path": "dist/audio/cd2/29.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2017841
+    },
+    {
+      "path": "dist/audio/cd2/30.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1146396
+    },
+    {
+      "path": "dist/audio/cd2/31.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 600123
+    },
+    {
+      "path": "dist/audio/cd2/32.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2781452
+    },
+    {
+      "path": "dist/audio/cd2/33.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1936339
+    },
+    {
+      "path": "dist/audio/cd2/34.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1673861
+    },
+    {
+      "path": "dist/audio/cd2/35.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1109198
+    },
+    {
+      "path": "dist/audio/cd2/36.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1321939
+    },
+    {
+      "path": "dist/audio/cd2/37.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 853407
+    },
+    {
+      "path": "dist/audio/cd2/38.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2588355
+    },
+    {
+      "path": "dist/audio/cd2/39.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2320443
+    },
+    {
+      "path": "dist/audio/cd2/40.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2524408
+    },
+    {
+      "path": "dist/audio/cd2/41.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 905234
+    },
+    {
+      "path": "dist/audio/cd2/42.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 528652
+    },
+    {
+      "path": "dist/audio/cd2/43.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 843376
+    },
+    {
+      "path": "dist/audio/cd2/44.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1992763
+    },
+    {
+      "path": "dist/audio/cd2/45.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 524055
+    },
+    {
+      "path": "dist/audio/cd2/46.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 807431
+    },
+    {
+      "path": "dist/audio/cd2/47.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 404937
+    },
+    {
+      "path": "dist/audio/cd2/48.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2729626
+    },
+    {
+      "path": "dist/audio/cd2/49.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 700434
+    },
+    {
+      "path": "dist/audio/cd2/50.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2082625
+    },
+    {
+      "path": "dist/audio/cd2/51.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 509426
+    },
+    {
+      "path": "dist/audio/cd2/52.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 801162
+    },
+    {
+      "path": "dist/audio/cd2/53.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2295366
+    },
+    {
+      "path": "dist/audio/cd2/54.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 381113
+    },
+    {
+      "path": "dist/audio/cd2/55.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1814713
+    },
+    {
+      "path": "dist/audio/cd2/56.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1089972
+    },
+    {
+      "path": "dist/audio/cd2/57.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 888933
+    },
+    {
+      "path": "dist/audio/cd2/58.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 2849998
+    },
+    {
+      "path": "dist/audio/cd2/59.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1707297
+    },
+    {
+      "path": "dist/audio/cd2/60.mp3",
+      "reason": "book-media-or-scans",
+      "bytes": 1819728
+    },
+    {
+      "path": "dist/book-pages/10.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 142431
+    },
+    {
+      "path": "dist/book-pages/100.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 159995
+    },
+    {
+      "path": "dist/book-pages/101.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 116201
+    },
+    {
+      "path": "dist/book-pages/102.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 165658
+    },
+    {
+      "path": "dist/book-pages/103.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 173123
+    },
+    {
+      "path": "dist/book-pages/104.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 196917
+    },
+    {
+      "path": "dist/book-pages/105.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 166922
+    },
+    {
+      "path": "dist/book-pages/106.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 129100
+    },
+    {
+      "path": "dist/book-pages/107.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 140985
+    },
+    {
+      "path": "dist/book-pages/108.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 159250
+    },
+    {
+      "path": "dist/book-pages/109.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 187185
+    },
+    {
+      "path": "dist/book-pages/11.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 134943
+    },
+    {
+      "path": "dist/book-pages/110.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 107692
+    },
+    {
+      "path": "dist/book-pages/111.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 85245
+    },
+    {
+      "path": "dist/book-pages/112.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 152308
+    },
+    {
+      "path": "dist/book-pages/113.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 177975
+    },
+    {
+      "path": "dist/book-pages/114.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 134878
+    },
+    {
+      "path": "dist/book-pages/115.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 157214
+    },
+    {
+      "path": "dist/book-pages/116.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 147564
+    },
+    {
+      "path": "dist/book-pages/117.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 182100
+    },
+    {
+      "path": "dist/book-pages/118.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 143078
+    },
+    {
+      "path": "dist/book-pages/119.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 173228
+    },
+    {
+      "path": "dist/book-pages/12.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 124640
+    },
+    {
+      "path": "dist/book-pages/120.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 175800
+    },
+    {
+      "path": "dist/book-pages/121.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 132929
+    },
+    {
+      "path": "dist/book-pages/122.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 175324
+    },
+    {
+      "path": "dist/book-pages/123.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 137389
+    },
+    {
+      "path": "dist/book-pages/124.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 183200
+    },
+    {
+      "path": "dist/book-pages/125.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 144890
+    },
+    {
+      "path": "dist/book-pages/126.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 147974
+    },
+    {
+      "path": "dist/book-pages/127.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 148859
+    },
+    {
+      "path": "dist/book-pages/128.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 152458
+    },
+    {
+      "path": "dist/book-pages/129.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 165470
+    },
+    {
+      "path": "dist/book-pages/13.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 157953
+    },
+    {
+      "path": "dist/book-pages/130.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 124905
+    },
+    {
+      "path": "dist/book-pages/131.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 134772
+    },
+    {
+      "path": "dist/book-pages/132.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 153074
+    },
+    {
+      "path": "dist/book-pages/133.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 200637
+    },
+    {
+      "path": "dist/book-pages/134.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 162998
+    },
+    {
+      "path": "dist/book-pages/135.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 114445
+    },
+    {
+      "path": "dist/book-pages/136.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 144921
+    },
+    {
+      "path": "dist/book-pages/137.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 176066
+    },
+    {
+      "path": "dist/book-pages/138.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 141506
+    },
+    {
+      "path": "dist/book-pages/139.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 166747
+    },
+    {
+      "path": "dist/book-pages/14.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 122057
+    },
+    {
+      "path": "dist/book-pages/140.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 186225
+    },
+    {
+      "path": "dist/book-pages/141.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 164536
+    },
+    {
+      "path": "dist/book-pages/142.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 109502
+    },
+    {
+      "path": "dist/book-pages/143.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 149818
+    },
+    {
+      "path": "dist/book-pages/144.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 139267
+    },
+    {
+      "path": "dist/book-pages/145.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 148230
+    },
+    {
+      "path": "dist/book-pages/146.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 157867
+    },
+    {
+      "path": "dist/book-pages/147.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 161292
+    },
+    {
+      "path": "dist/book-pages/148.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 159197
+    },
+    {
+      "path": "dist/book-pages/149.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 169863
+    },
+    {
+      "path": "dist/book-pages/15.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 160416
+    },
+    {
+      "path": "dist/book-pages/150.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 120127
+    },
+    {
+      "path": "dist/book-pages/151.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 137786
+    },
+    {
+      "path": "dist/book-pages/152.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 155789
+    },
+    {
+      "path": "dist/book-pages/153.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 216868
+    },
+    {
+      "path": "dist/book-pages/154.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 131559
+    },
+    {
+      "path": "dist/book-pages/155.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 156467
+    },
+    {
+      "path": "dist/book-pages/156.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 152815
+    },
+    {
+      "path": "dist/book-pages/157.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 176882
+    },
+    {
+      "path": "dist/book-pages/158.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 179765
+    },
+    {
+      "path": "dist/book-pages/159.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 167027
+    },
+    {
+      "path": "dist/book-pages/16.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 145090
+    },
+    {
+      "path": "dist/book-pages/160.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 153263
+    },
+    {
+      "path": "dist/book-pages/161.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 156918
+    },
+    {
+      "path": "dist/book-pages/162.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 137547
+    },
+    {
+      "path": "dist/book-pages/163.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 157334
+    },
+    {
+      "path": "dist/book-pages/164.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 154602
+    },
+    {
+      "path": "dist/book-pages/165.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 155826
+    },
+    {
+      "path": "dist/book-pages/166.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 173301
+    },
+    {
+      "path": "dist/book-pages/167.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 132131
+    },
+    {
+      "path": "dist/book-pages/168.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 148691
+    },
+    {
+      "path": "dist/book-pages/169.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 142532
+    },
+    {
+      "path": "dist/book-pages/17.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 146571
+    },
+    {
+      "path": "dist/book-pages/170.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 161317
+    },
+    {
+      "path": "dist/book-pages/171.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 142096
+    },
+    {
+      "path": "dist/book-pages/172.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 143396
+    },
+    {
+      "path": "dist/book-pages/173.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 172655
+    },
+    {
+      "path": "dist/book-pages/174.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 136476
+    },
+    {
+      "path": "dist/book-pages/175.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 185017
+    },
+    {
+      "path": "dist/book-pages/176.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 164494
+    },
+    {
+      "path": "dist/book-pages/177.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 161789
+    },
+    {
+      "path": "dist/book-pages/178.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 140094
+    },
+    {
+      "path": "dist/book-pages/179.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 147881
+    },
+    {
+      "path": "dist/book-pages/18.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 145638
+    },
+    {
+      "path": "dist/book-pages/180.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 132907
+    },
+    {
+      "path": "dist/book-pages/181.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 128053
+    },
+    {
+      "path": "dist/book-pages/182.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 168409
+    },
+    {
+      "path": "dist/book-pages/183.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 116297
+    },
+    {
+      "path": "dist/book-pages/184.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 124739
+    },
+    {
+      "path": "dist/book-pages/185.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 137808
+    },
+    {
+      "path": "dist/book-pages/186.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 144187
+    },
+    {
+      "path": "dist/book-pages/187.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 159175
+    },
+    {
+      "path": "dist/book-pages/188.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 124291
+    },
+    {
+      "path": "dist/book-pages/189.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 161247
+    },
+    {
+      "path": "dist/book-pages/19.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 141901
+    },
+    {
+      "path": "dist/book-pages/190.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 161752
+    },
+    {
+      "path": "dist/book-pages/191.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 83809
+    },
+    {
+      "path": "dist/book-pages/192.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 145902
+    },
+    {
+      "path": "dist/book-pages/193.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 190729
+    },
+    {
+      "path": "dist/book-pages/194.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 126320
+    },
+    {
+      "path": "dist/book-pages/195.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 191495
+    },
+    {
+      "path": "dist/book-pages/196.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 190107
+    },
+    {
+      "path": "dist/book-pages/197.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 126699
+    },
+    {
+      "path": "dist/book-pages/198.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 158683
+    },
+    {
+      "path": "dist/book-pages/199.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 176829
+    },
+    {
+      "path": "dist/book-pages/20.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 128542
+    },
+    {
+      "path": "dist/book-pages/200.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 128814
+    },
+    {
+      "path": "dist/book-pages/201.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 142482
+    },
+    {
+      "path": "dist/book-pages/202.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 149171
+    },
+    {
+      "path": "dist/book-pages/203.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 142882
+    },
+    {
+      "path": "dist/book-pages/204.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 139667
+    },
+    {
+      "path": "dist/book-pages/205.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 140229
+    },
+    {
+      "path": "dist/book-pages/206.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 160699
+    },
+    {
+      "path": "dist/book-pages/207.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 128999
+    },
+    {
+      "path": "dist/book-pages/208.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 179589
+    },
+    {
+      "path": "dist/book-pages/209.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 139805
+    },
+    {
+      "path": "dist/book-pages/21.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 140419
+    },
+    {
+      "path": "dist/book-pages/210.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 145375
+    },
+    {
+      "path": "dist/book-pages/211.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 89450
+    },
+    {
+      "path": "dist/book-pages/212.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 116969
+    },
+    {
+      "path": "dist/book-pages/213.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 240639
+    },
+    {
+      "path": "dist/book-pages/214.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 144764
+    },
+    {
+      "path": "dist/book-pages/215.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 175426
+    },
+    {
+      "path": "dist/book-pages/216.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 167338
+    },
+    {
+      "path": "dist/book-pages/217.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 156280
+    },
+    {
+      "path": "dist/book-pages/218.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 158156
+    },
+    {
+      "path": "dist/book-pages/219.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 135278
+    },
+    {
+      "path": "dist/book-pages/22.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 135226
+    },
+    {
+      "path": "dist/book-pages/220.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 181790
+    },
+    {
+      "path": "dist/book-pages/221.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 136830
+    },
+    {
+      "path": "dist/book-pages/222.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 230427
+    },
+    {
+      "path": "dist/book-pages/223.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 185984
+    },
+    {
+      "path": "dist/book-pages/224.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 160721
+    },
+    {
+      "path": "dist/book-pages/225.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 133688
+    },
+    {
+      "path": "dist/book-pages/226.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 121086
+    },
+    {
+      "path": "dist/book-pages/227.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 172191
+    },
+    {
+      "path": "dist/book-pages/228.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 163234
+    },
+    {
+      "path": "dist/book-pages/229.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 161564
+    },
+    {
+      "path": "dist/book-pages/23.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 130840
+    },
+    {
+      "path": "dist/book-pages/230.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 166455
+    },
+    {
+      "path": "dist/book-pages/231.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 163142
+    },
+    {
+      "path": "dist/book-pages/232.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 133996
+    },
+    {
+      "path": "dist/book-pages/233.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 123317
+    },
+    {
+      "path": "dist/book-pages/234.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 133891
+    },
+    {
+      "path": "dist/book-pages/235.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 214497
+    },
+    {
+      "path": "dist/book-pages/236.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 158673
+    },
+    {
+      "path": "dist/book-pages/237.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 157500
+    },
+    {
+      "path": "dist/book-pages/238.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 166030
+    },
+    {
+      "path": "dist/book-pages/239.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 176519
+    },
+    {
+      "path": "dist/book-pages/24.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 106717
+    },
+    {
+      "path": "dist/book-pages/240.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 172781
+    },
+    {
+      "path": "dist/book-pages/241.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 173496
+    },
+    {
+      "path": "dist/book-pages/242.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 143610
+    },
+    {
+      "path": "dist/book-pages/243.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 187576
+    },
+    {
+      "path": "dist/book-pages/244.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 162558
+    },
+    {
+      "path": "dist/book-pages/245.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 177892
+    },
+    {
+      "path": "dist/book-pages/246.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 144711
+    },
+    {
+      "path": "dist/book-pages/247.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 138090
+    },
+    {
+      "path": "dist/book-pages/248.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 151641
+    },
+    {
+      "path": "dist/book-pages/249.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 131836
+    },
+    {
+      "path": "dist/book-pages/25.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 90554
+    },
+    {
+      "path": "dist/book-pages/250.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 128614
+    },
+    {
+      "path": "dist/book-pages/251.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 185137
+    },
+    {
+      "path": "dist/book-pages/252.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 136925
+    },
+    {
+      "path": "dist/book-pages/253.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 92670
+    },
+    {
+      "path": "dist/book-pages/254.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 144273
+    },
+    {
+      "path": "dist/book-pages/26.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 102696
+    },
+    {
+      "path": "dist/book-pages/27.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 155922
+    },
+    {
+      "path": "dist/book-pages/28.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 148008
+    },
+    {
+      "path": "dist/book-pages/29.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 155049
+    },
+    {
+      "path": "dist/book-pages/30.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 199621
+    },
+    {
+      "path": "dist/book-pages/31.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 143413
+    },
+    {
+      "path": "dist/book-pages/32.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 121635
+    },
+    {
+      "path": "dist/book-pages/33.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 164637
+    },
+    {
+      "path": "dist/book-pages/34.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 130490
+    },
+    {
+      "path": "dist/book-pages/35.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 154462
+    },
+    {
+      "path": "dist/book-pages/36.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 135676
+    },
+    {
+      "path": "dist/book-pages/37.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 161397
+    },
+    {
+      "path": "dist/book-pages/38.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 177768
+    },
+    {
+      "path": "dist/book-pages/39.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 138045
+    },
+    {
+      "path": "dist/book-pages/40.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 114619
+    },
+    {
+      "path": "dist/book-pages/41.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 144718
+    },
+    {
+      "path": "dist/book-pages/42.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 134003
+    },
+    {
+      "path": "dist/book-pages/43.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 154146
+    },
+    {
+      "path": "dist/book-pages/44.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 155368
+    },
+    {
+      "path": "dist/book-pages/45.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 131489
+    },
+    {
+      "path": "dist/book-pages/46.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 126781
+    },
+    {
+      "path": "dist/book-pages/47.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 110233
+    },
+    {
+      "path": "dist/book-pages/48.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 130641
+    },
+    {
+      "path": "dist/book-pages/49.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 181353
+    },
+    {
+      "path": "dist/book-pages/50.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 154596
+    },
+    {
+      "path": "dist/book-pages/51.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 161060
+    },
+    {
+      "path": "dist/book-pages/52.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 139497
+    },
+    {
+      "path": "dist/book-pages/53.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 148866
+    },
+    {
+      "path": "dist/book-pages/54.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 146336
+    },
+    {
+      "path": "dist/book-pages/55.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 163808
+    },
+    {
+      "path": "dist/book-pages/56.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 171681
+    },
+    {
+      "path": "dist/book-pages/57.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 167357
+    },
+    {
+      "path": "dist/book-pages/58.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 151340
+    },
+    {
+      "path": "dist/book-pages/59.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 168238
+    },
+    {
+      "path": "dist/book-pages/60.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 153018
+    },
+    {
+      "path": "dist/book-pages/61.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 194766
+    },
+    {
+      "path": "dist/book-pages/62.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 162367
+    },
+    {
+      "path": "dist/book-pages/63.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 170061
+    },
+    {
+      "path": "dist/book-pages/64.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 134045
+    },
+    {
+      "path": "dist/book-pages/65.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 166611
+    },
+    {
+      "path": "dist/book-pages/66.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 152396
+    },
+    {
+      "path": "dist/book-pages/67.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 163107
+    },
+    {
+      "path": "dist/book-pages/68.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 126035
+    },
+    {
+      "path": "dist/book-pages/69.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 130466
+    },
+    {
+      "path": "dist/book-pages/70.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 147280
+    },
+    {
+      "path": "dist/book-pages/71.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 180798
+    },
+    {
+      "path": "dist/book-pages/72.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 141491
+    },
+    {
+      "path": "dist/book-pages/73.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 162196
+    },
+    {
+      "path": "dist/book-pages/74.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 138123
+    },
+    {
+      "path": "dist/book-pages/75.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 131738
+    },
+    {
+      "path": "dist/book-pages/76.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 122213
+    },
+    {
+      "path": "dist/book-pages/77.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 164848
+    },
+    {
+      "path": "dist/book-pages/78.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 146975
+    },
+    {
+      "path": "dist/book-pages/79.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 172677
+    },
+    {
+      "path": "dist/book-pages/80.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 147276
+    },
+    {
+      "path": "dist/book-pages/81.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 126213
+    },
+    {
+      "path": "dist/book-pages/82.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 137404
+    },
+    {
+      "path": "dist/book-pages/83.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 157915
+    },
+    {
+      "path": "dist/book-pages/84.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 173042
+    },
+    {
+      "path": "dist/book-pages/85.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 155153
+    },
+    {
+      "path": "dist/book-pages/86.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 160412
+    },
+    {
+      "path": "dist/book-pages/87.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 117070
+    },
+    {
+      "path": "dist/book-pages/88.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 134907
+    },
+    {
+      "path": "dist/book-pages/89.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 159454
+    },
+    {
+      "path": "dist/book-pages/9.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 176738
+    },
+    {
+      "path": "dist/book-pages/90.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 131139
+    },
+    {
+      "path": "dist/book-pages/91.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 86762
+    },
+    {
+      "path": "dist/book-pages/92.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 121884
+    },
+    {
+      "path": "dist/book-pages/93.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 216483
+    },
+    {
+      "path": "dist/book-pages/94.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 144886
+    },
+    {
+      "path": "dist/book-pages/95.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 192556
+    },
+    {
+      "path": "dist/book-pages/96.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 118381
+    },
+    {
+      "path": "dist/book-pages/97.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 143250
+    },
+    {
+      "path": "dist/book-pages/98.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 164071
+    },
+    {
+      "path": "dist/book-pages/99.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 136958
+    },
+    {
+      "path": "dist/book-tests/1.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 244268
+    },
+    {
+      "path": "dist/book-tests/1.pdf",
+      "reason": "book-media-or-scans",
+      "bytes": 404667
+    },
+    {
+      "path": "dist/book-tests/10.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 279813
+    },
+    {
+      "path": "dist/book-tests/10.pdf",
+      "reason": "book-media-or-scans",
+      "bytes": 411731
+    },
+    {
+      "path": "dist/book-tests/11.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 336357
+    },
+    {
+      "path": "dist/book-tests/11.pdf",
+      "reason": "book-media-or-scans",
+      "bytes": 486435
+    },
+    {
+      "path": "dist/book-tests/12.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 342706
+    },
+    {
+      "path": "dist/book-tests/12.pdf",
+      "reason": "book-media-or-scans",
+      "bytes": 496898
+    },
+    {
+      "path": "dist/book-tests/2.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 313117
+    },
+    {
+      "path": "dist/book-tests/2.pdf",
+      "reason": "book-media-or-scans",
+      "bytes": 451843
+    },
+    {
+      "path": "dist/book-tests/3.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 366473
+    },
+    {
+      "path": "dist/book-tests/3.pdf",
+      "reason": "book-media-or-scans",
+      "bytes": 463381
+    },
+    {
+      "path": "dist/book-tests/4.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 295420
+    },
+    {
+      "path": "dist/book-tests/4.pdf",
+      "reason": "book-media-or-scans",
+      "bytes": 449250
+    },
+    {
+      "path": "dist/book-tests/5.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 377570
+    },
+    {
+      "path": "dist/book-tests/5.pdf",
+      "reason": "book-media-or-scans",
+      "bytes": 470048
+    },
+    {
+      "path": "dist/book-tests/6.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 385377
+    },
+    {
+      "path": "dist/book-tests/6.pdf",
+      "reason": "book-media-or-scans",
+      "bytes": 502973
+    },
+    {
+      "path": "dist/book-tests/7.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 381981
+    },
+    {
+      "path": "dist/book-tests/7.pdf",
+      "reason": "book-media-or-scans",
+      "bytes": 522061
+    },
+    {
+      "path": "dist/book-tests/8.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 357975
+    },
+    {
+      "path": "dist/book-tests/8.pdf",
+      "reason": "book-media-or-scans",
+      "bytes": 459460
+    },
+    {
+      "path": "dist/book-tests/9.jpg",
+      "reason": "book-media-or-scans",
+      "bytes": 347246
+    },
+    {
+      "path": "dist/book-tests/9.pdf",
+      "reason": "book-media-or-scans",
+      "bytes": 525473
+    },
+    {
+      "path": "dist/kufi.ttf",
+      "reason": "font",
+      "bytes": 180552
+    },
+    {
+      "path": "dist/reader-lessons.js",
+      "reason": "book-transcriptions",
+      "bytes": 29693
+    },
+    {
+      "path": "dist/reader-pages.js",
+      "reason": "book-transcriptions",
+      "bytes": 250179
+    }
+  ]
+}

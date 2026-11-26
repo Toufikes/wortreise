@@ -1,0 +1,5 @@
+(()=>{let timer,baseline=innerHeight;const vv=window.visualViewport;
+function adjust(){clearTimeout(timer);let el=document.activeElement,typing=el?.matches('input:not([readonly]),textarea');if(!typing){document.body.classList.remove('typing');baseline=innerHeight;document.documentElement.style.setProperty('--kb','0px');return}
+document.body.classList.add('typing');const overlap=Math.max(0,baseline-(vv?.height||innerHeight)-(vv?.offsetTop||0));document.documentElement.style.setProperty('--kb',overlap+'px');
+timer=setTimeout(()=>{if(document.activeElement!==el)return;let r=el.getBoundingClientRect(),top=vv?.offsetTop||0,bottom=top+(vv?.height||innerHeight);if(r.bottom>bottom-85||r.top<top+10)window.scrollBy(0,r.top-top-Math.max(12,(bottom-top-r.height-76)/2))},90)}
+onfocusin=adjust;document.addEventListener('focusout',()=>setTimeout(adjust,0));vv?.addEventListener('resize',adjust);window.addEventListener('resize',adjust);document.addEventListener('keydown',e=>{if(e.key==='Escape')document.activeElement.blur()})})();

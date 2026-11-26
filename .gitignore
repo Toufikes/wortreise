@@ -1,16 +1,17 @@
-# Local dependencies and builds
-node_modules/
-dist/
-build/
-coverage/
-
-# Environment secrets and local settings
+# credentials, local settings and dependencies
 .env
 .env.*
 !.env.example
 *.local
-
-# OS/editor
+node_modules/
+dist-cache/
+coverage/
+*.log
 .DS_Store
 Thumbs.db
-.vscode/
+# publisher's textbook scans/audio and original official test PDFs - do not publish to this public repo
+dist/audio/
+dist/book-pages/
+dist/book-tests/
+# text transcription and the commercial font from the original book bundle
+dist/kufi.ttf
