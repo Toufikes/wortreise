@@ -15,13 +15,39 @@ const profile=document.createElement('section');actions.prepend(profile);profile
 function identity(u){user=u;let m=u.user_metadata||{},name=m.player_name||u.email.split('@')[0];profile.querySelector('[data-email]').textContent=u.email;profile.querySelector('[data-name]').value=name;badge.textContent='● '+name;let img=profile.querySelector('img');let src=m.player_photo||'';img.hidden=!src.startsWith('data:image/jpeg;base64,');if(!img.hidden)img.src=src}
 profile.querySelector('[data-photo]').onchange=run(async()=>{let f=profile.querySelector('[data-photo]').files[0];if(!f)return;let im=new Image(),src=URL.createObjectURL(f);try{im.src=src;await im.decode();let cv=document.createElement('canvas');cv.width=cv.height=96;let n=Math.min(im.width,im.height);cv.getContext('2d').drawImage(im,(im.width-n)/2,(im.height-n)/2,n,n,0,0,96,96);photo=cv.toDataURL('image/jpeg',.65);let x=profile.querySelector('img');x.src=photo;x.hidden=false}finally{URL.revokeObjectURL(src)}});
 profile.querySelector('[data-edit]').onclick=run(async()=>{let name=profile.querySelector('[data-name]').value.trim();if(!name)throw Error('كتب اسم اللاعب');identity(await req('/auth/v1/user','PUT',{data:{player_name:name,...(photo?{player_photo:photo}:{})}}));photo=null;out.textContent='تحفظ البروفايل ✓'});
-function tokens(j){jwt=j.access_token;sessionStorage.wrRefresh=j.refresh_token;clearTimeout(refreshTimer);refreshTimer=setTimeout(async()=>{try{tokens(await req('/auth/v1/token?grant_type=refresh_token','POST',{refresh_token:sessionStorage.wrRefresh},''))}catch{out.textContent='عاود دخل لتجديد الجلسة.'}},Math.max(60,(j.expires_in||3600)-120)*1000)}
+// Supabase refresh token survives site redeployments, browser tab closes, and refreshes.
+// Kept same-origin only and wiped explicitly on logout.
+const persistentAuthKey='wortreise:auth:refresh';
+function readRefresh(){
+ try{return sessionStorage.getItem('wrRefresh')||localStorage.getItem(persistentAuthKey)||''}
+ catch{return ''}
+}
+function storeRefresh(token){
+ if(!token)return;
+ try{localStorage.setItem(persistentAuthKey,token)}catch{}
+ try{sessionStorage.setItem('wrRefresh',token)}catch{}
+}
+function clearRefresh(){
+ try{localStorage.removeItem(persistentAuthKey)}catch{}
+ try{sessionStorage.removeItem('wrRefresh')}catch{}
+}
+function tokens(j){
+ jwt=j.access_token;
+ storeRefresh(j.refresh_token);
+ clearTimeout(refreshTimer);
+ refreshTimer=setTimeout(async()=>{
+  const refresh=readRefresh();
+  if(!refresh)return;
+  try{tokens(await req('/auth/v1/token?grant_type=refresh_token','POST',{refresh_token:refresh},''))}
+  catch{out.textContent='الجلسة ما تجدداتش. عاود دخل إلا طلب منك.'}
+ },Math.max(60,(j.expires_in||3600)-120)*1000);
+}
 async function connect(j){let id=j.user.id,rows=await req(path+'?user_id=eq.'+encodeURIComponent(id),'GET',null,j.access_token);guest=JSON.stringify(st);uid=id;tokens(j);window.wrUser=id;rev=rows[0]?.revision??null;let k='wrProgress:'+id,dirty=localStorage.getItem(k+':dirty');st=dirty&&localStorage.getItem(k)?JSON.parse(localStorage.getItem(k)):rows[0]?.progress||{c:1,d:1,xp:0,miss:{},done:{},lab:{}};structure();baseline=dirty?'':JSON.stringify(st);if(dirty)rev=JSON.parse(dirty).rev;identity(j.user);form.hidden=true;actions.hidden=false;home();out.textContent='متصل · التقدم كيتحفظ تلقائياً';}
 async function flush(){clearTimeout(timer);if(flight)await flight;if(!uid||baseline===JSON.stringify(st))return;let data=JSON.stringify(st);flight=(async()=>{let r=rev===null?await req(path,'POST',{user_id:uid,progress:JSON.parse(data),revision:1}):await req(row()+'&revision=eq.'+rev,'PATCH',{progress:JSON.parse(data),revision:rev+1});if(!r?.length)throw Error('النسخة تبدلات فجهاز آخر. رجّع نسخة الحساب.');rev=r[0].revision;baseline=data;if(JSON.stringify(st)===data)localStorage.removeItem('wrProgress:'+uid+':dirty');else window.wrChanged();out.textContent='تحفظ تقدم الحساب ✓'})();try{await flight}finally{flight=null}}
 window.wrChanged=()=>{if(!uid||baseline===JSON.stringify(st))return;localStorage.setItem('wrProgress:'+uid+':dirty',JSON.stringify({rev}));clearTimeout(timer);timer=setTimeout(()=>flush().catch(e=>out.textContent='محفوظ فالجهاز فقط: '+e.message),550)};
 panel.querySelector('#backup').onclick=run(flush);panel.querySelector('#restore').onclick=run(async()=>{if(!confirm('ترجع النسخة ديال حسابك وتعوض النسخة المحلية؟'))return;clearTimeout(timer);if(flight)await flight;let rows=await req(row());if(!rows.length)return;st=rows[0].progress;rev=rows[0].revision;baseline=JSON.stringify(st);localStorage.removeItem('wrProgress:'+uid+':dirty');home();out.textContent='رجع التقدم ✓'});
-panel.querySelector('#logout').onclick=run(async()=>{try{await flush()}catch{}clearTimeout(timer);clearTimeout(refreshTimer);delete sessionStorage.wrRefresh;window.wrUser=null;jwt=uid='';user=photo=null;rev=null;st=JSON.parse(guest);home();badge.textContent='ضيف';form.hidden=false;actions.hidden=true;profile.querySelector('[data-photo]').value='';out.textContent='خرجتي من الحساب.'});
-if(sessionStorage.wrRefresh&&!location.hash){form.inert=true;req('/auth/v1/token?grant_type=refresh_token','POST',{refresh_token:sessionStorage.wrRefresh},'').then(connect).catch(()=>out.textContent='عاود دخل للحساب.').finally(()=>form.inert=false)}
+panel.querySelector('#logout').onclick=run(async()=>{try{await flush()}catch{}clearTimeout(timer);clearTimeout(refreshTimer);clearRefresh();window.wrUser=null;jwt=uid='';user=photo=null;rev=null;st=JSON.parse(guest);home();badge.textContent='ضيف';form.hidden=false;actions.hidden=true;profile.querySelector('[data-photo]').value='';out.textContent='خرجتي من الحساب.'});
+if(readRefresh()&&!location.hash){form.inert=true;req('/auth/v1/token?grant_type=refresh_token','POST',{refresh_token:readRefresh()},'').then(connect).catch(()=>{clearRefresh();out.textContent='عاود دخل للحساب مرة وحدة باش يتفعّل التذكر.'}).finally(()=>form.inert=false)}
 const $p=s=>panel.querySelector(s),forgot=document.createElement('button'),change=document.createElement('button'),extra=document.createElement('section');
 forgot.type=change.type='button';forgot.textContent='نسيت كلمة السر؟';change.textContent='بدّل كلمة السر';form.append(forgot);actions.prepend(change);panel.insertBefore(extra,out);
 let recovery='',view='';
