@@ -1,0 +1,8 @@
+# Wortreise — static site export from the original application.
+# The HTML, JavaScript and CSS are already in /dist; no build command is needed.
+[build]
+  publish = "dist"
+
+# The original chatgpt.site deployment is independent of Netlify.
+# Before production rollout verify Supabase redirect URLs and the excluded
+# publisher-owned lesson/test/audio files, which are not part of this public repo.
