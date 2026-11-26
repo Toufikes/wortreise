@@ -14,9 +14,20 @@ const vocabExtras=[
 ];
 function vocabMenu(ch){
  const l=revL,cards=chapterCards(ch);
- const modes=[['vocab','اختار المعنى','Bedeutung wählen'],['reverse','اختار الجملة الألمانية','Deutschen Satz wählen'],['order','رتّب الكلمات','Wörter ordnen'],['write','كتب من الذاكرة','Aus dem Gedächtnis schreiben']];
- app.innerHTML='<section class=hero><span class=cap>Kapitel '+ch+'</span><h2>'+cards.length+' · '+l('بطاقة · اختار طريقة التدريب','Karten · Übungsart wählen')+'</h2><p>'+l('نفس لائحة الفصل كاملة فكل طريقة.','Alle Karten des Kapitels in jeder Übungsart.')+'</p></section>'+modes.map(([m,a,d])=>'<button data-vset="'+m+'">'+l(a,d)+'</button>').join('')+'<details class=card><summary>'+l('شوف لائحة الفصل كاملة','Alle Karten ansehen')+'</summary>'+cards.map(([de,ar])=>'<p lang=de dir=ltr>'+esc(de)+'</p><p lang=ar-MA dir=rtl>'+esc(ar)+'</p>').join('<hr>')+'</details><button id=vback>'+l('رجع للفصل','Zurück zum Kapitel')+'</button>';
- $('#vback').onclick=()=>chapter(ch);app.querySelectorAll('[data-vset]').forEach(b=>b.onclick=()=>{let m=b.dataset.vset;session={ch,mode:'vocabSet',i:0,score:0,missed:[],locked:false,qs:bookQuestions(ch,m)};draw()});window.scrollTo(0,0)
+ const modes=[['vocab','اختار المعنى','Bedeutung wählen'],['reverse','اختار الجملة الألمانية','Deutschen Satz wählen'],['order','رتّب الكلمات','Wörter ordnen'],['write','كتب من الذاكرة','Aus dem Gedächtnis schreiben'],['flash','Flashcards · قلب البطاقة','Flashcards lernen']];
+ app.innerHTML='<section class=hero><span class=cap>Kapitel '+ch+'</span><h2>'+cards.length+' · '+l('بطاقة · اختار طريقة التدريب','Karten · Übungsart wählen')+'</h2><p>'+l('نفس لائحة الفصل كاملة فكل طريقة.','Alle Karten des Kapitels in jeder Übungsart.')+'</p></section>'+modes.map(([m,a,d])=>'<button data-vset="'+m+'">'+l(a,d)+'</button>').join('')+'<details class=card><summary>'+l('شوف لائحة الفصل كاملة','Alle Karten ansehen')+'</summary>'+cards.map(([de,ar],i)=>'<div class="vocab-list-card"><div class="vocab-list-top"><p lang=de dir=ltr>'+esc(de)+'</p><button type="button" data-vocab-basket="'+i+'" class="basket-add-button" aria-label="زيد للسلة">'+(hasBasketCard(ch,de)?'✓ فالسلة':'🛒 زيد للسلة')+'</button></div><p lang=ar-MA dir=rtl>'+esc(ar)+'</p></div>').join('')+'</details><button id=vback>'+l('رجع للفصل','Zurück zum Kapitel')+'</button>';
+ $('#vback').onclick=()=>chapter(ch);
+ app.querySelectorAll('[data-vset]').forEach(b=>b.onclick=()=>{
+  let m=b.dataset.vset;
+  if(m==='flash'){studyFlashcards(ch);return}
+  session={ch,mode:'vocabSet',i:0,score:0,missed:[],locked:false,qs:bookQuestions(ch,m)};draw()
+ });
+ app.querySelectorAll('[data-vocab-basket]').forEach(b=>b.onclick=()=>{
+  const [de,ar]=cards[Number(b.dataset.vocabBasket)];
+  if(!hasBasketCard(ch,de))basketAddCard(ch,de,ar);
+  b.textContent='✓ فالسلة';b.classList.add('is-saved');
+ });
+ window.scrollTo(0,0)
 }
 
 function chapterCards(ch){return [...new Map([...BOOKSETS[ch],...(INNERSETS[ch]||[]),...VERBSETS[ch]].map(p=>[p[0],p])).values()]}
