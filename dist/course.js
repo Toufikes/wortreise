@@ -72,7 +72,11 @@ function check(v){
  }
  setPracticeCoach(ok?'correct':'encourage',ok?'مزيان! كمّل بنفس التركيز.':'الغلط فرصة للتعلّم. ركّز على التصحيح.');
  const feedback=$('#feedback');
- feedback.className='feedback practice-feedback '+(ok?'is-correct':'is-incorrect');
+ // Overlay feedback inside the same answer area; never move the coach or question.
+ work.append(feedback);
+ work.classList.add('is-answered');
+ feedback.setAttribute('role','status');
+ feedback.className='feedback practice-feedback feedback-overlay '+(ok?'is-correct':'is-incorrect');
  feedback.innerHTML='<b>'+(ok?'✓ صحيح':caseOnly?'قريب! راجع الحروف الكبيرة والصغيرة.':'راجع الجواب وجرّب تفهم السبب')+'</b>'+
    '<p dir=auto>'+esc(q.a)+'</p>'+
    '<p class=tip dir=auto>'+esc(q.why||q.de||'ركّز فترتيب الكلمات والأسماء بحروف كبيرة. كاينة صيغ أخرى صحيحة؛ هاد التمرين كيتطلب صيغة البطاقة.')+'</p>'+
