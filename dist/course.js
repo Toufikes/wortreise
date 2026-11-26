@@ -26,13 +26,62 @@ app.innerHTML='<div class=navline><button id=map>الفصول</button><span>Kapi
 function launch(ch,mode){if(mode==="vocab"||mode==="vocabSet")return vocabMenu(ch);structure();let pool;if(mode==='review')pool=Object.keys(BOOKSETS).flatMap(k=>['vocab','reverse','order','write'].flatMap(m=>bookQuestions(+k,m,true))).filter(q=>st.lab.cards[q.id]?.wrong>0&&st.lab.cards[q.id]?.streak<2);else if(mode==='exam'){let groups=['vocab','article','grammar','order','write'];pool=groups.flatMap(m=>shuffle(bank.filter(q=>q.ch===ch&&q.mode===m)).slice(0,4))}else pool=bank.filter(q=>q.ch===ch&&q.mode===mode);
 if(!pool.length){alert('ما كايناش أخطاء خاصها المراجعة دابا. جرّب شي فصل.');return}session={ch,mode,qs:shuffle(pool).slice(0,mode==='exam'?20:mode==='review'?15:8),i:0,score:0,missed:[],locked:false};draw()}
 function navback(){if(confirm('تخرج من الجولة؟ الأجوبة اللي درتي محفوظة.'))chapter(current)}
-function draw(){let s=session,q=s.qs[s.i];s.locked=false;document.activeElement?.blur?.();app.innerHTML='<div class=navline><button id=exit>خرج من الجولة</button><span class=questioncount>'+(s.i+1)+' / '+s.qs.length+'</span></div><progress max='+s.qs.length+' value='+s.i+'></progress>'+(q.text?'<section class="card german">'+esc(q.text)+'</section>':'')+'<section class=card><span class=cap>'+esc({vocab:'المعنى',grammar:'القواعد',article:'الأداة',order:'رتّب الجملة',write:'كتب بالألمانية',listen:'سمع واكتب',read:'الفهم'}[q.mode])+'</span>'+mascot('thinking','خد وقتك، قرا السؤال وجرّب من راسك.')+'<div class=prompt dir=auto>'+((s.mode!=='vocabSet'&&q.mode==='vocab'||q.mode==='read'||q.mode==='grammar')?hulpCard(q.p):esc(q.p))+'</div><div id=work></div><div id=feedback aria-live=polite></div></section>';$('#exit').onclick=navback;let w=$('#work');
+function draw(){let s=session,q=s.qs[s.i];s.locked=false;document.activeElement?.blur?.();app.innerHTML='<div class=navline><button id=exit>خرج من الجولة</button><span class=questioncount>'+(s.i+1)+' / '+s.qs.length+'</span></div><progress max='+s.qs.length+' value='+s.i+'></progress>'+(q.text?'<section class="card german">'+esc(q.text)+'</section>':'')+'<section class="card practice-card"><span class=cap>+esc({vocab:'المعنى',grammar:'القواعد',article:'الأداة',order:'رتّب الجملة',write:'كتب بالألمانية',listen:'سمع واكتب',read:'الفهم'}[q.mode])+'</span>'+mascot('thinking','خد وقتك، قرا السؤال وجرّب من راسك.')+'<div class=prompt dir=auto>'+((s.mode!=='vocabSet'&&q.mode==='vocab'||q.mode==='read'||q.mode==='grammar')?hulpCard(q.p):esc(q.p))+'</div><div id=work></div><div id=feedback aria-live=polite></div></section>';$('#exit').onclick=navback;let w=$('#work');
 if(q.opts){shuffle(q.opts).forEach(v=>{let b=document.createElement('button');b.textContent=v;if(q.mode==='article')b.className='article-'+v;b.onclick=()=>check(v);w.append(b)})}
 else if(q.mode==='order'){let words=q.a.split(/\s+/),selected=[];w.innerHTML='<div class=answerline></div><div class=tiles dir=ltr></div><button id=undo>رجّع آخر كلمة</button><button id=submit class=gold>صحّح</button>';shuffle(words.map((v,i)=>({v,i}))).forEach(o=>{let b=document.createElement('button');b.className='tile';b.textContent=o.v;b.onclick=()=>{selected.push({b,v:o.v});b.disabled=true;w.querySelector('.answerline').textContent=selected.map(x=>x.v).join(' ')};w.querySelector('.tiles').append(b)});$('#undo').onclick=()=>{let o=selected.pop();if(o)o.b.disabled=false;w.querySelector('.answerline').textContent=selected.map(x=>x.v).join(' ')};$('#submit').onclick=()=>check(selected.map(x=>x.v).join(' '))}
 else{w.innerHTML=(q.mode==='listen'?'<button id=audio>سمع الجملة 🔊</button>':'')+'<form id=qform><label>الجواب بالألمانية<input name=answer dir=ltr autocomplete=off autocapitalize=sentences enterkeyhint=done required></label><button class=gold>صحّح</button></form>';if($('#audio'))$('#audio').onclick=()=>speak(q.de);$('#qform').onsubmit=e=>{e.preventDefault();check(e.target.answer.value)}}
-if(s.mode!=='exam'){let hint=document.createElement('button');hint.id='askHint';hint.textContent='💡 بغيت تلميحة';hint.onclick=()=>{hint.disabled=true;let host=document.createElement('div');host.innerHTML=mascot('hint',hintText(q));hint.after(host)};w.append(hint)}
+if(s.mode!=='exam'){let hint=document.createElement('button');hint.id='askHint';hint.textContent='💡 بغيت تلميحة';hint.onclick=()=>{hint.disabled=true;setPracticeCoach('hint',hintText(q))};w.append(hint)}
 let skip=document.createElement('button');skip.textContent='ما تذكرتش • ورّيني';skip.onclick=()=>check('');w.append(skip);window.scrollTo(0,0)}
-function check(v){let s=session;if(s.locked)return;s.locked=true;document.activeElement?.blur?.();let q=s.qs[s.i],ok=norm(v)===norm(q.a),caseOnly=!ok&&norm(v).toLowerCase()===norm(q.a).toLowerCase(),r=st.lab.cards[q.id]||{streak:0,wrong:0,seen:0};r.seen++;if(ok){s.score++;r.streak++;if(r.streak<=2)st.xp+=10}else{r.wrong++;r.streak=0;s.missed.push(q)}st.lab.cards[q.id]=r;save();$('#work').querySelectorAll('input,button').forEach(b=>b.disabled=true);$('#feedback').className='feedback';$('#feedback').innerHTML=mascot(ok?'correct':'encourage',ok?'مزيان! كمّل بنفس التركيز.':'الغلط فرصة للتعلّم. قرا التصحيح وعاود جرّب من بعد.')+'<b>'+(ok?'✓ صحيح':caseOnly?'قريب! راجع الحروف الكبيرة والصغيرة.':'راجع الجواب وجرّب تفهم السبب')+'</b><p dir=auto>'+esc(q.a)+'</p><p class=tip dir=auto>'+esc(q.why||q.de||'ركّز فترتيب الكلمات والأسماء بحروف كبيرة. كاينة صيغ أخرى صحيحة؛ هاد التمرين كيتطلب صيغة البطاقة.')+'</p>'+(q.de?'<button id=speak>سمع النطق 🔊</button>':'')+'<button class=gold id=next>'+(s.i+1===s.qs.length?'النتيجة':'السؤال الموالي')+'</button>';document.querySelector('.coach-thinking')?.setAttribute('hidden','');$('#work').querySelectorAll('.coach-hint').forEach(x=>x.hidden=true);$('#feedback').scrollIntoView({block:'nearest'});if($('#speak'))$('#speak').onclick=()=>speak(q.de);$('#next').onclick=()=>++s.i<s.qs.length?draw():finish()}
+// One companion stays at the same position from question to answer.
+// Only its pose/image and message change; the feedback doesn't add another coach.
+function setPracticeCoach(state,message){
+ const host=app.querySelector('.practice-card > .coach');
+ if(!host)return;
+ for(const name of ['thinking','hint','correct','encourage'])host.classList.remove('coach-'+name);
+ host.classList.add('coach-'+state);
+ const portrait=host.querySelector('.coach-portrait img');
+ if(portrait)portrait.src='mascot/'+state+'.webp';
+ const text=host.querySelector('p');
+ if(text){
+   text.textContent=message;
+   text.setAttribute('aria-live','polite');
+ }
+}
+function check(v){
+ const s=session;
+ if(s.locked)return;
+ s.locked=true;
+ document.activeElement?.blur?.();
+ const q=s.qs[s.i],ok=norm(v)===norm(q.a),caseOnly=!ok&&norm(v).toLowerCase()===norm(q.a).toLowerCase();
+ const r=st.lab.cards[q.id]||{streak:0,wrong:0,seen:0};
+ r.seen++;
+ if(ok){s.score++;r.streak++;if(r.streak<=2)st.xp+=10}
+ else{r.wrong++;r.streak=0;s.missed.push(q)}
+ st.lab.cards[q.id]=r;
+ save();
+ const work=$('#work');
+ work.querySelectorAll('input,button').forEach(b=>b.disabled=true);
+ // Keep all the question's choices and the companion in their original slots.
+ if(q.opts){
+   work.querySelectorAll('button').forEach(b=>{
+     if(b.textContent===v){
+       b.classList.add('practice-picked',ok?'is-correct':'is-incorrect');
+       b.setAttribute('aria-pressed','true');
+     }
+   });
+ }
+ setPracticeCoach(ok?'correct':'encourage',ok?'مزيان! كمّل بنفس التركيز.':'الغلط فرصة للتعلّم. ركّز على التصحيح.');
+ const feedback=$('#feedback');
+ feedback.className='feedback practice-feedback '+(ok?'is-correct':'is-incorrect');
+ feedback.innerHTML='<b>'+(ok?'✓ صحيح':caseOnly?'قريب! راجع الحروف الكبيرة والصغيرة.':'راجع الجواب وجرّب تفهم السبب')+'</b>'+
+   '<p dir=auto>'+esc(q.a)+'</p>'+
+   '<p class=tip dir=auto>'+esc(q.why||q.de||'ركّز فترتيب الكلمات والأسماء بحروف كبيرة. كاينة صيغ أخرى صحيحة؛ هاد التمرين كيتطلب صيغة البطاقة.')+'</p>'+
+   (q.de?'<button id=speak>سمع النطق 🔊</button>':'')+
+   '<button class=gold id=next>'+(s.i+1===s.qs.length?'النتيجة':'السؤال الموالي')+'</button>';
+ if($('#speak'))$('#speak').onclick=()=>speak(q.de);
+ $('#next').onclick=()=>++s.i<s.qs.length?draw():finish();
+ // No forced scroll: selecting an answer shouldn't jump the viewport or move the companion.
+}
 function finish(){let s=session;if(s.mode==='exam')st.lab.exams[s.ch]={score:s.score,total:s.qs.length,date:new Date().toISOString()};save();app.innerHTML=mascot(s.score/s.qs.length>=.8?'celebrate':'encourage',s.score/s.qs.length>=.8?'برافو! كمّلتي الجولة. نجرّبو تحدّي آخر؟':'كمّلتي الجولة. دابا عرفنا شنو نراجعو.',true)+'<section class=hero><span class=cap>نتيجة الجولة</span><h1>'+s.score+' / '+s.qs.length+'</h1><p>'+ (s.score/s.qs.length>=.8?'جرّب دابا طريقة أخرى بنفس العبارات.':'الأخطاء كتعطيك خريطة المراجعة. عاود جرّبهم من بعد.')+'</p></section>'+s.missed.map(q=>'<div class=card><p dir=auto>'+esc(q.p)+'</p><p dir=auto>'+esc(q.a)+'</p></div>').join('')+'<button id=retry>'+ (s.mode==='vocabSet'?'بدّل طريقة التدريب':'جولة أخرى')+'</button><button id=chapter>رجع للفصل</button>';$('#retry').onclick=()=>launch(s.ch,s.mode);$('#chapter').onclick=()=>chapter(s.ch||current);window.scrollTo(0,0)}
 function free(ch){let c=COURSE[ch-1];app.innerHTML='<section class=card><h2>مهمة التواصل</h2><p>'+esc(c[5])+'</p><p class=tip>هاد النشاط للتقييم الذاتي، ماشي تصحيح آلي. تقدر تصيفط ليا النص فـChatGPT باش نصححو بالتفصيل.</p><textarea dir=ltr aria-label="النص بالألمانية" placeholder="Schreib hier …"></textarea><p id=words></p><details><summary>شوف المساعد من بعد المحاولة</summary><p dir=ltr>'+esc(c[6])+'</p><p>راجع: واش جاوبت على المطلوب؟ واش الفعل فبلاصتو؟ الأسماء بحروف كبيرة؟ قرا النص بصوتك مرة بلا ما تشوف.</p></details><button id=copy>نسخ النص للتصحيح</button><button id=back>رجع للفصل</button></section>';let t=app.querySelector('textarea');t.value=st.lab.drafts[ch]||'';const upd=()=>{$('#words').textContent=t.value.trim()?t.value.trim().split(/\s+/).length+' كلمة':'0 كلمة';st.lab.drafts[ch]=t.value;save()};t.oninput=upd;upd();$('#copy').onclick=async()=>{try{await navigator.clipboard.writeText(t.value);$('#copy').textContent='تنسخ النص ✓'}catch{$('#copy').textContent='حدّد النص ونسخو يدوياً'}};$('#back').onclick=()=>chapter(ch)}
 home();
