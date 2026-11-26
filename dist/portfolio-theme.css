@@ -373,3 +373,89 @@ footer {border-top:1px solid var(--line);margin-top:34px;padding:24px 0;color:#9
 @media(max-width:500px){
   .practice-card > #feedback.feedback {padding-top:13px}
 }
+
+
+/* Feedback overlays the existing answers: the companion and question never move. */
+.practice-card #work {
+  position:relative;
+  isolation:isolate;
+}
+.practice-card #work.is-answered > :not(#feedback) {
+  filter:blur(4px);
+  -webkit-filter:blur(4px);
+  opacity:.42;
+  pointer-events:none;
+  user-select:none;
+  transition:filter .22s ease,opacity .22s ease;
+}
+.practice-card #work.is-answered > #feedback.feedback-overlay {
+  position:absolute;
+  z-index:20;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  box-sizing:border-box;
+  width:min(650px,calc(100% - 24px));
+  max-height:calc(100% - 16px);
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  display:block;
+  margin:0;
+  padding:clamp(16px,2.6vw,28px);
+  background:rgba(15,23,27,.88);
+  -webkit-backdrop-filter:blur(16px) saturate(130%);
+  backdrop-filter:blur(16px) saturate(130%);
+  border:1px solid rgba(218,255,101,.66);
+  border-radius:17px;
+  box-shadow:0 20px 56px #000b,0 0 0 1px #daff6515;
+  color:#f6f6f3;
+  text-align:start;
+  animation:feedbackOverlayIn .22s ease-out both;
+}
+.practice-card #work.is-answered > #feedback.feedback-overlay.is-incorrect {
+  border-color:rgba(255,148,163,.72);
+  box-shadow:0 20px 56px #000b,0 0 0 1px #ff94a320;
+}
+.practice-card #work #feedback.feedback-overlay > b {
+  display:block;
+  font-size:clamp(18px,2.2vw,24px);
+  line-height:1.5;
+  color:var(--accent,#daff65);
+}
+.practice-card #work #feedback.feedback-overlay.is-incorrect > b {
+  color:#ffb6bb;
+}
+.practice-card #work #feedback.feedback-overlay p {
+  line-height:1.65;
+  overflow-wrap:anywhere;
+  margin:9px 0;
+}
+.practice-card #work #feedback.feedback-overlay > button {
+  width:100%;
+  min-height:46px;
+  margin:8px 0 0;
+  position:relative;
+  z-index:1;
+}
+.practice-card #work #feedback.feedback-overlay > .gold {
+  background:var(--accent,#daff65);
+  color:#10150c;
+  border-color:var(--accent,#daff65);
+}
+@keyframes feedbackOverlayIn {
+  from {opacity:0;transform:translate(-50%,-47%) scale(.985)}
+  to   {opacity:1;transform:translate(-50%,-50%) scale(1)}
+}
+@media(max-width:480px) {
+  .practice-card #work.is-answered > #feedback.feedback-overlay {
+    width:calc(100% - 12px);
+    padding:15px 13px;
+    border-radius:13px;
+  }
+  .practice-card #work #feedback.feedback-overlay > b {font-size:18px}
+  .practice-card #work #feedback.feedback-overlay p {font-size:14px}
+}
+@media(prefers-reduced-motion:reduce){
+  .practice-card #work.is-answered > #feedback.feedback-overlay {animation:none}
+  .practice-card #work.is-answered > :not(#feedback) {transition:none}
+}
