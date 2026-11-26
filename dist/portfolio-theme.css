@@ -328,3 +328,48 @@ footer {border-top:1px solid var(--line);margin-top:34px;padding:24px 0;color:#9
   body::before {display:none!important}
   .paperItem, #paperPrintSheet {color:#111!important}
 }
+/* Practice: one anchored mascot. Answering only changes its pose and a compact feedback area. */
+.practice-card > .coach {
+  position:relative;
+  width:100%;
+  margin-block:10px;
+}
+.practice-card > .coach .coach-portrait {
+  flex-shrink:0;
+}
+.practice-card > #feedback.feedback {
+  background:transparent;
+  border:0;
+  border-top:1px solid #3e4942;
+  border-radius:0;
+  box-shadow:none;
+  padding:16px 0 0;
+  margin-top:17px;
+  color:var(--text);
+}
+.practice-card > #feedback.feedback > b {
+  color:var(--accent);
+  display:block;
+  font-size:17px;
+  line-height:1.65;
+}
+.practice-card > #feedback.feedback.is-incorrect > b {
+  color:#ffb6bb;
+}
+.practice-card > #feedback.feedback > p {
+  margin:8px 0;
+  line-height:1.7;
+}
+.practice-card #work .practice-picked.is-correct {
+  border-color:#74bd8a;
+  background:#1a3228;
+  color:#e2ffe8;
+}
+.practice-card #work .practice-picked.is-incorrect {
+  border-color:#bb7b86;
+  background:#32252b;
+  color:#ffe6e9;
+}
+@media(max-width:500px){
+  .practice-card > #feedback.feedback {padding-top:13px}
+}
