@@ -1,0 +1,3 @@
+const training=document.querySelector('#app'),settings=document.querySelector('#settings'),prefs=document.querySelector('#prefs');let trainingScroll=0;
+function showSettings(open){if(open&&!training.hidden)trainingScroll=window.scrollY;settings.hidden=!open;training.hidden=open;prefs.hidden=open;document.querySelector('#points').hidden=open;prefs.setAttribute('aria-expanded',String(open));if(open){window.scrollTo(0,0);settings.querySelector('h1').focus({preventScroll:true})}else{prefs.focus({preventScroll:true});window.scrollTo(0,trainingScroll)}}
+prefs.onclick=()=>showSettings(true);document.querySelector('#backTraining').onclick=()=>showSettings(false);
