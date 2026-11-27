@@ -10,8 +10,9 @@
  let frame=0,active=false;
  const body=document.body;
  const mobile=()=>window.innerWidth<=850;
- const isTraining=()=>mobile() && !!app.querySelector('.practice-card') &&
-  !!app.querySelector('#exit') && (!settings || settings.hidden);
+ const isRound=()=>!!app.querySelector('.practice-card') && !!app.querySelector('#exit');
+ const isFlash=()=>!!app.querySelector('.flash-card') && !!app.querySelector('#flashBack');
+ const isTraining=()=>mobile() && (isRound()||isFlash()) && (!settings || settings.hidden);
  const viewportHeight=()=>Math.max(250,Math.round(window.visualViewport?.height||window.innerHeight));
  const setViewport=()=>{
   const height=viewportHeight();
@@ -20,11 +21,12 @@
   const typing=field && field.matches?.('#qform input,#qform textarea');
   body.classList.toggle('wr-keyboard',!!typing && !!window.visualViewport &&
    window.visualViewport.height<window.innerHeight-120);
+  body.classList.toggle('wr-flash-training',isFlash());
  };
  function leave(){
   if(!active)return;
   active=false;
-  body.classList.remove('wr-training','wr-keyboard');
+  body.classList.remove('wr-training','wr-keyboard','wr-flash-training');
   body.removeAttribute('data-wr-density');
   body.style.removeProperty('--wr-viewport-height');
  }
@@ -46,7 +48,9 @@
   active=true;
   body.classList.add('wr-training');
   setViewport();
-  if(!body.classList.contains('wr-keyboard')){
+  if(isFlash()){
+    body.dataset.wrDensity='0';
+  }else if(!body.classList.contains('wr-keyboard')){
    for(let density=0;density<=3;density++){
     body.dataset.wrDensity=String(density);
     // Reading sizes after the class change forces updated layout synchronously.
@@ -74,6 +78,9 @@
  observer.observe(app,{childList:true,subtree:true,characterData:true});
  if(settings)observer.observe(settings,{attributes:true,attributeFilter:['hidden']});
  window.addEventListener('resize',sync,{passive:true});
+ window.addEventListener('pageshow',sync,{passive:true});
+ document.fonts?.ready?.then(schedule).catch(()=>{});
+
  window.visualViewport?.addEventListener('resize',sync,{passive:true});
  window.visualViewport?.addEventListener('scroll',schedule,{passive:true});
  document.addEventListener('focusin',e=>{
