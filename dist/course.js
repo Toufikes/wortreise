@@ -29,7 +29,7 @@ function practiceLayoutNodes(){
  return {main,header:main?.querySelector(':scope > header'),footer:main?.querySelector(':scope > footer')};
 }
 function leavePracticeViewport(){
- document.body.classList.remove('practice-screen','practice-keyboard');
+ document.body.classList.remove('practice-screen','practice-keyboard','flashcard-screen');
  const {main,header,footer}=practiceLayoutNodes();
  for(const node of [header,footer])if(node){node.hidden=false;node.style.removeProperty('display')}
  document.documentElement.style.removeProperty('overflow');
