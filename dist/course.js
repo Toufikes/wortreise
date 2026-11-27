@@ -22,8 +22,40 @@ function speak(t){if(!window.speechSynthesis){alert('النطق غير متوف�
 function norm(s){return s.normalize('NFC').replace(/[.,!?;:„“"…]/g,'').replace(/\s+/g,' ').trim()}
 // Compact, viewport-locked exercise UI. Only the exercise screen receives
 // this class; chapter lists, settings, reading pages and flashcards stay normal.
+// Explicitly isolate practice from the rest of the app. Setting DOM styles
+// here makes the fullscreen layout reliable even if Safari cached older CSS.
+function practiceLayoutNodes(){
+ const main=app.closest('main');
+ return {main,header:main?.querySelector(':scope > header'),footer:main?.querySelector(':scope > footer')};
+}
 function leavePracticeViewport(){
  document.body.classList.remove('practice-screen','practice-keyboard');
+ const {main,header,footer}=practiceLayoutNodes();
+ for(const node of [header,footer])if(node){node.hidden=false;node.style.removeProperty('display')}
+ document.documentElement.style.removeProperty('overflow');
+ document.body.style.removeProperty('overflow');
+ for(const property of ['height','min-height','overflow','padding','display','flex-direction','max-height'])main?.style.removeProperty(property);
+ for(const property of ['height','min-height','overflow','display','flex-direction','flex'])app.style.removeProperty(property);
+}
+function ensurePracticeShell(){
+ if(window.innerWidth>850)return;
+ const {main,header,footer}=practiceLayoutNodes();
+ for(const node of [header,footer])if(node){node.hidden=true;node.style.setProperty('display','none','important')}
+ document.documentElement.style.setProperty('overflow','hidden','important');
+ document.body.style.setProperty('overflow','hidden','important');
+ if(main){
+  main.style.setProperty('height','100dvh','important');
+  main.style.setProperty('min-height','0','important');
+  main.style.setProperty('overflow','hidden','important');
+  main.style.setProperty('display','flex','important');
+  main.style.setProperty('flex-direction','column','important');
+ }
+ app.style.setProperty('display','flex','important');
+ app.style.setProperty('flex-direction','column','important');
+ app.style.setProperty('flex','1 1 auto','important');
+ app.style.setProperty('height','100%','important');
+ app.style.setProperty('min-height','0','important');
+ app.style.setProperty('overflow','hidden','important');
 }
 function fitPracticeViewport(){
  if(!document.body.classList.contains('practice-screen'))return;
@@ -40,11 +72,14 @@ function fitPracticeViewport(){
 }
 function enterPracticeViewport(){
  document.body.classList.add('practice-screen');
+ ensurePracticeShell();
  requestAnimationFrame(fitPracticeViewport);
 }
 function schedulePracticeViewportFit(){
- if(document.body.classList.contains('practice-screen'))
+ if(document.body.classList.contains('practice-screen')){
+  ensurePracticeShell();
   requestAnimationFrame(fitPracticeViewport);
+ }
 }
 window.addEventListener('resize',schedulePracticeViewportFit,{passive:true});
 if(window.visualViewport)window.visualViewport.addEventListener('resize',schedulePracticeViewportFit,{passive:true});
