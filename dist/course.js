@@ -20,96 +20,18 @@ c[4].forEach(([p,a,o],i)=>add({id:ch+'r'+i,ch,mode:'read',p,a,opts:[a,...o.split
 let current=1,session=null,voiceOK=false;
 function speak(t){if(!window.speechSynthesis){alert('النطق غير متوفر فهاد المتصفح. استعمل تمارين الكتابة أو جهاز كيدعم الصوت.');return}speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(t);u.lang='de-DE';u.rate=.82;let v=speechSynthesis.getVoices().find(v=>v.lang.startsWith('de'));if(v)u.voice=v;speechSynthesis.speak(u)}
 function norm(s){return s.normalize('NFC').replace(/[.,!?;:„“"…]/g,'').replace(/\s+/g,' ').trim()}
-// Compact, viewport-locked exercise UI. Only the exercise screen receives
-// this class; chapter lists, settings, reading pages and flashcards stay normal.
-// Explicitly isolate practice from the rest of the app. Setting DOM styles
-// here makes the fullscreen layout reliable even if Safari cached older CSS.
-function practiceLayoutNodes(){
- const main=app.closest('main');
- return {main,header:main?.querySelector(':scope > header'),footer:main?.querySelector(':scope > footer')};
-}
-function leavePracticeViewport(){
- document.body.classList.remove('practice-screen','practice-keyboard','flashcard-screen');
- const {main,header,footer}=practiceLayoutNodes();
- for(const node of [header,footer])if(node){node.hidden=false;node.style.removeProperty('display')}
- document.documentElement.style.removeProperty('overflow');
- document.body.style.removeProperty('overflow');
- for(const property of ['height','min-height','overflow','padding','display','flex-direction','max-height'])main?.style.removeProperty(property);
- for(const property of ['height','min-height','overflow','display','flex-direction','flex'])app.style.removeProperty(property);
-}
-function ensurePracticeShell(){
- if(window.innerWidth>850)return;
- const {main,header,footer}=practiceLayoutNodes();
- for(const node of [header,footer])if(node){node.hidden=true;node.style.setProperty('display','none','important')}
- document.documentElement.style.setProperty('overflow','hidden','important');
- document.body.style.setProperty('overflow','hidden','important');
- if(main){
-  const vv=window.visualViewport;
-  const keyboardHeight=window.innerHeight-(vv?.height||window.innerHeight);
-  const useVisualHeight=document.body.classList.contains('practice-keyboard')&&keyboardHeight>90;
-  main.style.setProperty('height',useVisualHeight?Math.floor(vv.height)+'px':'100dvh','important');
-  main.style.setProperty('min-height','0','important');
-  main.style.setProperty('overflow','hidden','important');
-  main.style.setProperty('display','flex','important');
-  main.style.setProperty('flex-direction','column','important');
- }
- app.style.setProperty('display','flex','important');
- app.style.setProperty('flex-direction','column','important');
- app.style.setProperty('flex','1 1 auto','important');
- app.style.setProperty('height','100%','important');
- app.style.setProperty('min-height','0','important');
- app.style.setProperty('overflow','hidden','important');
-}
-function fitPracticeViewport(){
- if(!document.body.classList.contains('practice-screen'))return;
- const card=document.querySelector('.practice-card'),work=document.querySelector('.practice-card #work');
- if(!card||!work)return;
- for(let d=0;d<=3;d++){
-  card.dataset.fit=String(d);
-  const tiles=work.querySelector('.tiles');
-  const spilling=card.scrollHeight>card.clientHeight+2||
-   work.scrollHeight>work.clientHeight+2||
-   (tiles&&tiles.scrollHeight>tiles.clientHeight+2);
-  if(!spilling)break;
- }
-}
-function enterPracticeViewport(){
- document.body.classList.add('practice-screen');
- ensurePracticeShell();
- requestAnimationFrame(fitPracticeViewport);
-}
-function schedulePracticeViewportFit(){
- if(document.body.classList.contains('practice-screen')){
-  ensurePracticeShell();
-  requestAnimationFrame(fitPracticeViewport);
- }
-}
-window.addEventListener('resize',schedulePracticeViewportFit,{passive:true});
-if(window.visualViewport)window.visualViewport.addEventListener('resize',schedulePracticeViewportFit,{passive:true});
-document.addEventListener('focusin',e=>{
- if(!document.body.classList.contains('practice-screen'))return;
- if(e.target?.matches?.('input,textarea,[contenteditable="true"]')){
-  document.body.classList.add('practice-keyboard');
-  schedulePracticeViewportFit();
- }
-});
-document.addEventListener('focusout',e=>{
- if(!document.body.classList.contains('practice-screen'))return;
- if(e.target?.matches?.('input,textarea,[contenteditable="true"]'))
-  requestAnimationFrame(()=>{document.body.classList.remove('practice-keyboard');fitPracticeViewport()});
-});
-function home(){leavePracticeViewport();save();session=null;let tested=Object.keys(st.lab.exams).length,learned=Object.values(st.lab.cards).filter(x=>x.streak>=2).length;app.innerHTML='<section class="hero cover"><span class=cap>A1 • SPEKTRUM DEUTSCH</span><h1>رحلة الألمانية</h1><p>12 فصل. مهمّات قصيرة. تقدّم كيبان بالممارسة.</p>'+basketHeroMarkup()+'</section>'+mascot('welcome','مرحبا! كل محاولة كتزيدك خطوة. نبدأو؟',true)+'<div class=stats><span>'+learned+' بطاقة نجحتي فيها مرتين متتابعتين</span><span>'+tested+' اختبار مجرّب</span></div><div class=navline><button id=weak>راجع الأخطاء</button><span class=questioncount>'+Object.keys(BOOKSETS).reduce((n,k)=>n+chapterCards(+k).length,0)+' بطاقة</span></div><div class=chaptergrid>'+COURSE.map((c,i)=>{let e=st.lab.exams[i+1];return '<button class=chapter data-ch="'+(i+1)+'"><em>Kapitel '+(i+1)+'</em><h3>'+esc(c[0])+'</h3><small dir=ltr>'+esc(DAYS.find(d=>d.c===i+1).title)+'</small><small>'+ (chapterCards(i+1).length+' · Wörter und Wendungen'+(e?' · اختبار سابق: '+e.score+' / '+e.total:''))+'</small></button>'}).join('')+'</div>';app.querySelectorAll('[data-ch]').forEach(b=>b.onclick=()=>chapter(+b.dataset.ch));$('#weak').onclick=()=>launch(0,'review');bindBasketHero()}
-function chapter(ch){leavePracticeViewport();current=ch;save();let c=COURSE[ch-1],modes=[['vocab','المفردات والمعنى','Wörter und Wendungen']];
+function home(){save();session=null;let tested=Object.keys(st.lab.exams).length,learned=Object.values(st.lab.cards).filter(x=>x.streak>=2).length;app.innerHTML='<section class="hero cover"><span class=cap>A1 • SPEKTRUM DEUTSCH</span><h1>رحلة الألمانية</h1><p>12 فصل. مهمّات قصيرة. تقدّم كيبان بالممارسة.</p>'+basketHeroMarkup()+'</section>'+mascot('welcome','مرحبا! كل محاولة كتزيدك خطوة. نبدأو؟',true)+'<div class=stats><span>'+learned+' بطاقة نجحتي فيها مرتين متتابعتين</span><span>'+tested+' اختبار مجرّب</span></div><div class=navline><button id=weak>راجع الأخطاء</button><span class=questioncount>'+Object.keys(BOOKSETS).reduce((n,k)=>n+chapterCards(+k).length,0)+' بطاقة</span></div><div class=chaptergrid>'+COURSE.map((c,i)=>{let e=st.lab.exams[i+1];return '<button class=chapter data-ch="'+(i+1)+'"><em>Kapitel '+(i+1)+'</em><h3>'+esc(c[0])+'</h3><small dir=ltr>'+esc(DAYS.find(d=>d.c===i+1).title)+'</small><small>'+ (chapterCards(i+1).length+' · Wörter und Wendungen'+(e?' · اختبار سابق: '+e.score+' / '+e.total:''))+'</small></button>'}).join('')+'</div>';app.querySelectorAll('[data-ch]').forEach(b=>b.onclick=()=>chapter(+b.dataset.ch));$('#weak').onclick=()=>launch(0,'review');bindBasketHero()}
+function chapter(ch){current=ch;save();let c=COURSE[ch-1],modes=[['vocab','المفردات والمعنى','Wörter und Wendungen']];
 app.innerHTML='<div class=navline><button id=map>الفصول</button><span>Kapitel '+ch+'</span></div><section class=hero><span class=cap>'+esc(c[0])+'</span><h2>'+esc(DAYS.find(d=>d.c===ch).title)+'</h2><p>'+chapterCards(ch).length+' · Wörter und Wendungen</p></section><div class=missiongrid>'+modes.map(([k,t,d])=>'<button class=lesson data-mode='+k+'>'+t+'<small>'+d+'</small></button>').join('')+'</div><button class=gold id=exam>Kleiner Abschlusstest · اختبار الفصل</button><p class=tip>Spektrum Deutsch A1+ · 20 Punkte</p>';$('#map').onclick=home;$('#exam').onclick=()=>originalExam(ch);app.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>b.dataset.mode==='free'?free(ch):launch(ch,b.dataset.mode))}
 function launch(ch,mode){if(mode==="vocab"||mode==="vocabSet")return vocabMenu(ch);structure();let pool;if(mode==='review')pool=Object.keys(BOOKSETS).flatMap(k=>['vocab','reverse','order','write'].flatMap(m=>bookQuestions(+k,m,true))).filter(q=>st.lab.cards[q.id]?.wrong>0&&st.lab.cards[q.id]?.streak<2);else if(mode==='exam'){let groups=['vocab','article','grammar','order','write'];pool=groups.flatMap(m=>shuffle(bank.filter(q=>q.ch===ch&&q.mode===m)).slice(0,4))}else pool=bank.filter(q=>q.ch===ch&&q.mode===mode);
 if(!pool.length){alert('ما كايناش أخطاء خاصها المراجعة دابا. جرّب شي فصل.');return}session={ch,mode,qs:shuffle(pool).slice(0,mode==='exam'?20:mode==='review'?15:8),i:0,score:0,missed:[],locked:false};draw()}
 function navback(){if(confirm('تخرج من الجولة؟ الأجوبة اللي درتي محفوظة.'))(session?.fromBasket?basketPage():chapter(current))}
-function draw(){enterPracticeViewport();let s=session,q=s.qs[s.i];s.locked=false;document.activeElement?.blur?.();app.innerHTML='<div class=navline><button id=exit>خرج من الجولة</button><span class=questioncount>'+(s.i+1)+' / '+s.qs.length+'</span></div><progress max='+s.qs.length+' value='+s.i+'></progress>'+(q.text?'<section class="card german">'+esc(q.text)+'</section>':'')+'<section class="card practice-card"><span class=cap>'+esc({vocab:'المعنى',grammar:'القواعد',article:'الأداة',order:'رتّب الجملة',write:'كتب بالألمانية',listen:'سمع واكتب',read:'الفهم'}[q.mode])+'</span>'+mascot('thinking','خد وقتك، قرا السؤال وجرّب من راسك.')+'<div class=prompt dir=auto>'+((s.mode!=='vocabSet'&&q.mode==='vocab'||q.mode==='read'||q.mode==='grammar')?hulpCard(q.p):esc(q.p))+'</div><div id=practiceBasketSlot class=practice-basket-slot></div><div id=work></div><div id=feedback aria-live=polite></div></section>';$('#exit').onclick=navback;let w=$('#work');renderBasketAddButton($('#practiceBasketSlot'),q);
+function draw(){let s=session,q=s.qs[s.i];s.locked=false;document.activeElement?.blur?.();app.innerHTML='<div class=navline><button id=exit>خرج من الجولة</button><span class=questioncount>'+(s.i+1)+' / '+s.qs.length+'</span></div><progress max='+s.qs.length+' value='+s.i+'></progress>'+(q.text?'<section class="card german">'+esc(q.text)+'</section>':'')+'<section class="card practice-card"><span class=cap>'+esc({vocab:'المعنى',grammar:'القواعد',article:'الأداة',order:'رتّب الجملة',write:'كتب بالألمانية',listen:'سمع واكتب',read:'الفهم'}[q.mode])+'</span>'+mascot('thinking','خد وقتك، قرا السؤال وجرّب من راسك.')+'<div class=prompt dir=auto>'+((s.mode!=='vocabSet'&&q.mode==='vocab'||q.mode==='read'||q.mode==='grammar')?hulpCard(q.p):esc(q.p))+'</div><div id=practiceBasketSlot class=practice-basket-slot></div><div id=work></div><div id=feedback aria-live=polite></div></section>';$('#exit').onclick=navback;let w=$('#work');renderBasketAddButton($('#practiceBasketSlot'),q);
 if(q.opts){shuffle(q.opts).forEach(v=>{let b=document.createElement('button');b.textContent=v;if(q.mode==='article')b.className='article-'+v;b.onclick=()=>check(v);w.append(b)})}
 else if(q.mode==='order'){let words=q.a.split(/\s+/),selected=[];w.innerHTML='<div class=answerline></div><div class=tiles dir=ltr></div><button id=undo>رجّع آخر كلمة</button><button id=submit class=gold>صحّح</button>';shuffle(words.map((v,i)=>({v,i}))).forEach(o=>{let b=document.createElement('button');b.className='tile';b.textContent=o.v;b.onclick=()=>{selected.push({b,v:o.v});b.disabled=true;w.querySelector('.answerline').textContent=selected.map(x=>x.v).join(' ')};w.querySelector('.tiles').append(b)});$('#undo').onclick=()=>{let o=selected.pop();if(o)o.b.disabled=false;w.querySelector('.answerline').textContent=selected.map(x=>x.v).join(' ')};$('#submit').onclick=()=>check(selected.map(x=>x.v).join(' '))}
 else{w.innerHTML=(q.mode==='listen'?'<button id=audio>سمع الجملة 🔊</button>':'')+'<form id=qform><label>الجواب بالألمانية<input name=answer dir=ltr autocomplete=off autocapitalize=sentences enterkeyhint=done required></label><button class=gold>صحّح</button></form>';if($('#audio'))$('#audio').onclick=()=>speak(q.de);$('#qform').onsubmit=e=>{e.preventDefault();check(e.target.answer.value)}}
 if(s.mode!=='exam'){let hint=document.createElement('button');hint.id='askHint';hint.textContent='💡 بغيت تلميحة';hint.onclick=()=>{hint.disabled=true;setPracticeCoach('hint',hintText(q))};w.append(hint)}
-let skip=document.createElement('button');skip.textContent='ما تذكرتش • ورّيني';skip.onclick=()=>check('');w.append(skip);window.scrollTo(0,0);schedulePracticeViewportFit()}
+let skip=document.createElement('button');skip.textContent='ما تذكرتش • ورّيني';skip.onclick=()=>check('');w.append(skip);window.scrollTo(0,0)}
 // One companion stays at the same position from question to answer.
 // Only its pose/image and message change; the feedback doesn't add another coach.
 function setPracticeCoach(state,message){
@@ -171,6 +93,6 @@ function check(v){
  $('#next').onclick=()=>++s.i<s.qs.length?draw():finish();
  // No forced scroll: selecting an answer shouldn't jump the viewport or move the companion.
 }
-function finish(){leavePracticeViewport();let s=session;if(s.mode==='exam')st.lab.exams[s.ch]={score:s.score,total:s.qs.length,date:new Date().toISOString()};save();app.innerHTML=mascot(s.score/s.qs.length>=.8?'celebrate':'encourage',s.score/s.qs.length>=.8?'برافو! كمّلتي الجولة. نجرّبو تحدّي آخر؟':'كمّلتي الجولة. دابا عرفنا شنو نراجعو.',true)+'<section class=hero><span class=cap>نتيجة الجولة</span><h1>'+s.score+' / '+s.qs.length+'</h1><p>'+ (s.score/s.qs.length>=.8?'جرّب دابا طريقة أخرى بنفس العبارات.':'الأخطاء كتعطيك خريطة المراجعة. عاود جرّبهم من بعد.')+'</p></section>'+s.missed.map(q=>'<div class=card><p dir=auto>'+esc(q.p)+'</p><p dir=auto>'+esc(q.a)+'</p></div>').join('')+'<button id=retry>'+ (s.mode==='vocabSet'?'بدّل طريقة التدريب':'جولة أخرى')+'</button><button id=chapter>'+(s.fromBasket?'رجع للسلة':'رجع للفصل')+'</button>';$('#retry').onclick=()=>s.fromBasket?basketDrill(s.basketMode):launch(s.ch,s.mode);$('#chapter').onclick=()=>s.fromBasket?basketPage():chapter(s.ch||current);window.scrollTo(0,0)}
+function finish(){let s=session;if(s.mode==='exam')st.lab.exams[s.ch]={score:s.score,total:s.qs.length,date:new Date().toISOString()};save();app.innerHTML=mascot(s.score/s.qs.length>=.8?'celebrate':'encourage',s.score/s.qs.length>=.8?'برافو! كمّلتي الجولة. نجرّبو تحدّي آخر؟':'كمّلتي الجولة. دابا عرفنا شنو نراجعو.',true)+'<section class=hero><span class=cap>نتيجة الجولة</span><h1>'+s.score+' / '+s.qs.length+'</h1><p>'+ (s.score/s.qs.length>=.8?'جرّب دابا طريقة أخرى بنفس العبارات.':'الأخطاء كتعطيك خريطة المراجعة. عاود جرّبهم من بعد.')+'</p></section>'+s.missed.map(q=>'<div class=card><p dir=auto>'+esc(q.p)+'</p><p dir=auto>'+esc(q.a)+'</p></div>').join('')+'<button id=retry>'+ (s.mode==='vocabSet'?'بدّل طريقة التدريب':'جولة أخرى')+'</button><button id=chapter>'+(s.fromBasket?'رجع للسلة':'رجع للفصل')+'</button>';$('#retry').onclick=()=>s.fromBasket?basketDrill(s.basketMode):launch(s.ch,s.mode);$('#chapter').onclick=()=>s.fromBasket?basketPage():chapter(s.ch||current);window.scrollTo(0,0)}
 function free(ch){let c=COURSE[ch-1];app.innerHTML='<section class=card><h2>مهمة التواصل</h2><p>'+esc(c[5])+'</p><p class=tip>هاد النشاط للتقييم الذاتي، ماشي تصحيح آلي. تقدر تصيفط ليا النص فـChatGPT باش نصححو بالتفصيل.</p><textarea dir=ltr aria-label="النص بالألمانية" placeholder="Schreib hier …"></textarea><p id=words></p><details><summary>شوف المساعد من بعد المحاولة</summary><p dir=ltr>'+esc(c[6])+'</p><p>راجع: واش جاوبت على المطلوب؟ واش الفعل فبلاصتو؟ الأسماء بحروف كبيرة؟ قرا النص بصوتك مرة بلا ما تشوف.</p></details><button id=copy>نسخ النص للتصحيح</button><button id=back>رجع للفصل</button></section>';let t=app.querySelector('textarea');t.value=st.lab.drafts[ch]||'';const upd=()=>{$('#words').textContent=t.value.trim()?t.value.trim().split(/\s+/).length+' كلمة':'0 كلمة';st.lab.drafts[ch]=t.value;save()};t.oninput=upd;upd();$('#copy').onclick=async()=>{try{await navigator.clipboard.writeText(t.value);$('#copy').textContent='تنسخ النص ✓'}catch{$('#copy').textContent='حدّد النص ونسخو يدوياً'}};$('#back').onclick=()=>chapter(ch)}
 home();
