@@ -1,8 +1,10 @@
 {
   "app": "Wortreise V2",
-  "release": "2026-11-27-wortreise-v2-branch",
+  "release": "2026-11-27-cloudflare-v2-ready",
   "branch": "wortreise-v2",
   "feature": "fullscreen-learning-no-scroll",
   "expected": "Training should occupy the phone viewport; old header should be hidden during rounds",
-  "verification": "This file is served only if hosting deployed the wortreise-v2 branch after this commit"
+  "verification": "This file is served only if hosting deployed the wortreise-v2 branch after this commit",
+  "test": "Production branch wortreise-v2; Cloudflare Wrangler serves dist as assets",
+  "deploy_trigger": "GitHub commit to prompt connected Cloudflare Builds"
 }
