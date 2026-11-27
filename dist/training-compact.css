@@ -702,3 +702,8 @@ body > #feedback.wr-feedback-floating .wr-feedback-controls > #feedbackBasket {
 @media(prefers-reduced-motion:reduce){
   body > #feedback.feedback-overlay.wr-feedback-floating{animation:none!important}
 }
+
+
+/* The empty feedback placeholder is never part of flex spacing; moving the
+   actual panel to <body> therefore cannot shift the coach or the question. */
+.practice-card > #feedback:empty {display:none!important}
