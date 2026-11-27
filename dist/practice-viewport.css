@@ -308,7 +308,7 @@
      a tiny choices container. No internal scrolling and no clipped CTA. */
   body.practice-screen .practice-card #work.is-answered > #feedback.feedback-overlay {
     position:fixed!important;
-    inset:auto 12px max(10px,env(safe-area-inset-bottom))!important;
+    inset:auto 12px max(68px,calc(env(safe-area-inset-bottom) + 48px))!important;
     z-index:100;
     transform:none!important;
     display:grid;
@@ -413,4 +413,15 @@
   body.practice-screen .practice-card > .prompt{font-size:clamp(14px,4vw,18px)}
   body.practice-screen .practice-card > .practice-basket-slot{min-height:25px}
   body.practice-screen .practice-basket-slot > .basket-add-button{height:25px;min-height:25px}
+}
+
+/* On exceptionally short screens use all available vertical space. */
+@media (max-width:850px) and (max-height:620px) {
+  body.practice-screen .practice-card #work.is-answered > #feedback.feedback-overlay {
+    bottom:max(12px,env(safe-area-inset-bottom))!important;
+    padding:9px;
+    gap:4px 6px;
+  }
+  body.practice-screen .practice-card #work #feedback.feedback-overlay > p {font-size:12px;line-height:1.25}
+  body.practice-screen .practice-card #work #feedback.feedback-overlay > button {min-height:32px;font-size:12px}
 }
