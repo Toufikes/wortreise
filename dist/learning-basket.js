@@ -62,7 +62,6 @@ function renderBasketAddButton(host,q){
  host.append(btn);
 }
 function basketPage(){
- leavePracticeViewport();
  session=null;const cards=basketItems();
  const l=(ar,de)=>document.documentElement.lang==='de'?de:ar;
  app.innerHTML='<div class="navline"><button id="basketBack">↩ '+l('رجع للفصول','Zurück zu den Kapiteln')+'</button></div>'+
@@ -83,13 +82,10 @@ function basketPage(){
  window.scrollTo(0,0);
 }
 function studyFlashcards(ch=0,fromBasket=false){
- leavePracticeViewport();
- document.body.classList.add('flashcard-screen');
- ensurePracticeShell();
  const l=(ar,de)=>document.documentElement.lang==='de'?de:ar;
  const source=fromBasket?basketItems().map(p=>({...p})):chapterCards(ch).map(([de,ar])=>({ch,de,ar}));
  const cards=shuffle(source);let i=0,flipped=false;
- const back=()=>{leavePracticeViewport();return fromBasket?basketPage():vocabMenu(ch)};
+ const back=()=>fromBasket?basketPage():vocabMenu(ch);
  if(!cards.length){basketPage();return}
  function drawFlash(){
   const p=cards[i],saved=hasBasketCard(p.ch,p.de);
