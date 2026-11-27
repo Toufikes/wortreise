@@ -44,7 +44,10 @@ function ensurePracticeShell(){
  document.documentElement.style.setProperty('overflow','hidden','important');
  document.body.style.setProperty('overflow','hidden','important');
  if(main){
-  main.style.setProperty('height','100dvh','important');
+  const vv=window.visualViewport;
+  const keyboardHeight=window.innerHeight-(vv?.height||window.innerHeight);
+  const useVisualHeight=document.body.classList.contains('practice-keyboard')&&keyboardHeight>90;
+  main.style.setProperty('height',useVisualHeight?Math.floor(vv.height)+'px':'100dvh','important');
   main.style.setProperty('min-height','0','important');
   main.style.setProperty('overflow','hidden','important');
   main.style.setProperty('display','flex','important');
