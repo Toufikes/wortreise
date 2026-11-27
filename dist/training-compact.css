@@ -463,3 +463,68 @@
 @media(prefers-reduced-motion:reduce){
   body.wr-training .practice-card #work.is-answered > #feedback.feedback-overlay{transition:none;animation:none}
 }
+
+
+/* Flashcards are the fifth learning mode. Keep their elegant card design but
+   fit the flip surface, controls and companion-free header within one screen. */
+@media(max-width:850px){
+  body.wr-training.wr-flash-training #app > .flash-heading {
+    flex:0 0 auto;
+    min-height:0;
+    margin:1px 0;
+    padding:10px 15px;
+    border-radius:13px;
+  }
+  body.wr-training.wr-flash-training .flash-heading h2{
+    margin:0;font-size:19px;line-height:1.25;
+  }
+  body.wr-training.wr-flash-training .flash-heading p{
+    margin:3px 0 0;
+    font-size:12px;line-height:1.4;
+  }
+  body.wr-training.wr-flash-training #app > .flash-card {
+    flex:1 1 auto;
+    min-height:0;
+    height:auto;
+    max-height:none;
+    width:100%;
+    margin:0;
+    padding:16px;
+    gap:12px;
+    overflow:hidden;
+    border-radius:16px;
+  }
+  body.wr-training.wr-flash-training .flash-content{
+    font-size:clamp(19px,5vw,30px);
+    line-height:1.45;
+    overflow-wrap:anywhere;
+  }
+  body.wr-training.wr-flash-training .flash-help{font-size:12px}
+  body.wr-training.wr-flash-training #app > .flash-actions {
+    flex:0 0 auto;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    margin:0;
+  }
+  body.wr-training.wr-flash-training .flash-actions button {
+    min-height:40px;
+    margin:0;
+    padding:5px 8px;
+    font-size:13px;
+  }
+  body.wr-training.wr-flash-training #app > .flash-tools{
+    flex:0 0 auto;
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+    margin:0;
+  }
+  body.wr-training.wr-flash-training .flash-tools button {
+    width:100%;
+    min-height:40px;
+    margin:0;
+    padding:5px 8px;
+    font-size:12px;
+  }
+}
