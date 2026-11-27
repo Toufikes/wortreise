@@ -528,3 +528,177 @@
     font-size:12px;
   }
 }
+
+
+
+/* V3 · Balanced card height, original aesthetics retained.
+ * Only add breathing room BETWEEN sections; never make the word tray a 1fr row.
+ * The full-height layout is intentionally limited to the exercise screen. */
+@media(max-width:850px){
+  body.wr-training:not(.wr-flash-training) #app {
+    justify-content:flex-start;
+  }
+  body.wr-training:not(.wr-flash-training) #app > .practice-card {
+    flex:1 1 auto;
+    max-height:min(690px,100%);
+    min-height:0;
+    justify-content:space-evenly;
+    gap:clamp(5px,.7dvh,10px);
+    overflow:hidden;
+  }
+  body.wr-training:not(.wr-flash-training) .practice-card > #work {
+    flex:0 1 auto;
+    min-height:0;
+    justify-content:flex-start;
+  }
+  body.wr-training .practice-card #work:has(.tiles) {
+    grid-template-rows:repeat(4,auto);
+    align-content:start;
+    min-height:0;
+  }
+  body.wr-training .practice-card #work .tiles {
+    flex:0 1 auto;
+    min-height:0;
+    gap:5px;
+    align-content:center;
+    justify-content:center;
+  }
+  body.wr-training .practice-card #work .answerline {
+    flex:0 0 auto;
+  }
+  body.wr-training .practice-card #work:has(.tiles) > #submit {
+    order:initial;
+  }
+  /* A visible feedback overlay is independent of #work overflow. */
+  body.wr-feedback-open .practice-card #work.is-answered > * {
+    filter:blur(4px);
+    -webkit-filter:blur(4px);
+    opacity:.34;
+    pointer-events:none;
+    user-select:none;
+  }
+  /* When there's room, keep the mascot expressive rather than tiny. */
+  body.wr-training[data-wr-density="0"] .practice-card > .coach {
+    height:clamp(105px,13dvh,132px);
+    max-height:132px;
+  }
+  body.wr-training[data-wr-density="0"] .practice-card > .coach .coach-portrait {
+    height:100%;
+  }
+  body.wr-training[data-wr-density="0"] .practice-card > .prompt {
+    font-size:clamp(19px,5.25vw,24px);
+  }
+}
+/* Top-level feedback: never clipped by the exercise card or its overflow rules.
+   Always display Next in a separate bottom row, including on smaller iPhones. */
+body > #feedback.feedback-overlay.wr-feedback-floating {
+  position:fixed!important;
+  z-index:2147483000!important;
+  inset:auto!important;
+  top:50%!important;
+  left:50%!important;
+  right:auto!important;
+  bottom:auto!important;
+  transform:translate(-50%,-50%)!important;
+  width:min(455px,calc(100vw - 24px))!important;
+  max-width:none!important;
+  max-height:calc(var(--wr-viewport-height,100dvh) - 36px)!important;
+  min-height:0!important;
+  display:flex!important;
+  flex-direction:column;
+  gap:13px;
+  padding:clamp(15px,3vw,22px)!important;
+  margin:0!important;
+  overflow:hidden!important;
+  box-sizing:border-box;
+  border:1px solid rgba(218,255,101,.72)!important;
+  border-radius:18px!important;
+  background:rgba(13,21,24,.97)!important;
+  color:#f5f8f1;
+  box-shadow:0 22px 65px #000c,0 0 0 1px #daff6520;
+  -webkit-backdrop-filter:blur(16px);
+  backdrop-filter:blur(16px);
+  animation:wrFeedbackEnter .2s ease-out both;
+  text-align:start;
+}
+body > #feedback.feedback-overlay.wr-feedback-floating.is-incorrect {
+  border-color:rgba(255,151,160,.75)!important;
+}
+@keyframes wrFeedbackEnter {
+  from {opacity:0;transform:translate(-50%,-48%) scale(.985)}
+  to {opacity:1;transform:translate(-50%,-50%) scale(1)}
+}
+body > #feedback.wr-feedback-floating > .wr-feedback-summary {
+  flex:0 1 auto;
+  min-height:0;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+}
+body > #feedback.wr-feedback-floating .wr-feedback-summary > b {
+  display:block;
+  color:var(--accent,#daff65);
+  font-size:clamp(19px,4.5vw,25px);
+  line-height:1.4;
+}
+body > #feedback.wr-feedback-floating.is-incorrect .wr-feedback-summary > b {
+  color:#ffb6bb;
+}
+body > #feedback.wr-feedback-floating .wr-feedback-summary > p {
+  margin:8px 0 0;
+  font-size:clamp(13px,3.7vw,17px);
+  font-weight:650;
+  line-height:1.55;
+  overflow-wrap:anywhere;
+}
+body > #feedback.wr-feedback-floating .wr-feedback-summary > .tip {
+  font-size:clamp(12px,3.3vw,15px);
+  color:#b9c3bc;
+  font-weight:500;
+}
+body > #feedback.wr-feedback-floating > .wr-feedback-controls {
+  flex:0 0 auto;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px;
+}
+body > #feedback.wr-feedback-floating .wr-feedback-controls > button {
+  width:100%;
+  min-width:0;
+  min-height:43px;
+  margin:0;
+  padding:8px 8px;
+  font-size:clamp(12px,3.45vw,16px);
+  line-height:1.25;
+  border-radius:10px;
+}
+body > #feedback.wr-feedback-floating .wr-feedback-controls > #next {
+  grid-column:1/-1;
+  min-height:50px;
+  background:var(--accent,#daff65)!important;
+  border-color:var(--accent,#daff65)!important;
+  color:#141a0c!important;
+  font-weight:900;
+}
+body > #feedback.wr-feedback-floating .wr-feedback-controls > #feedbackBasket {
+  background:#223729;
+  border-color:#5a835a;
+  color:#d8f7bc;
+}
+@media(max-width:480px){
+  body > #feedback.feedback-overlay.wr-feedback-floating {
+    gap:10px;
+    padding:14px!important;
+    border-radius:15px!important;
+  }
+  body > #feedback.wr-feedback-floating .wr-feedback-controls > button {
+    min-height:41px;
+    padding:7px 6px;
+  }
+  body > #feedback.wr-feedback-floating .wr-feedback-controls > #next{
+    min-height:49px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  body > #feedback.feedback-overlay.wr-feedback-floating{animation:none!important}
+}
