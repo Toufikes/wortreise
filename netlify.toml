@@ -6,3 +6,25 @@
 # The original chatgpt.site deployment is independent of Netlify.
 # Before production rollout verify Supabase redirect URLs and the excluded
 # publisher-owned lesson/test/audio files, which are not part of this public repo.
+
+# Always revalidate the app shell: installed iPhone web apps otherwise keep
+# stale HTML and old JavaScript/CSS after automatic GitHub deployments.
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
