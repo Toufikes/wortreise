@@ -13,4 +13,4 @@ These commercial fonts need **valid website/webfont embedding licenses for the N
 
 Once licensed webfont assets are available, place them in a domain-authorized hosting location and replace `src:local(...)` in the font faces with the licensed hosted URLs according to each foundry's terms.
 
-The current deploy branch is `design/portfolio-v2-lime`. The main branch and original chatgpt.site deployment are untouched.
+The Wortreise V2 source branch is `wortreise-v2`. The previous `design/portfolio-v2-lime` branch remains temporarily for the existing Netlify connection. The `main` branch and original chatgpt.site deployment are untouched. Cloudflare must be configured separately to deploy `wortreise-v2`; creating this branch does not deploy it.
