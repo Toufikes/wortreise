@@ -1,0 +1,8 @@
+{
+  "app": "Wortreise V2",
+  "release": "2026-11-27-practice-v4-verify",
+  "branch": "design/portfolio-v2-lime",
+  "feature": "fullscreen-learning-no-scroll",
+  "expected": "The practice header disappears when entering a training round",
+  "verification": "This JSON should only be present if the latest GitHub changes have reached Netlify"
+}
