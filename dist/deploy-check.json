@@ -1,8 +1,8 @@
 {
   "app": "Wortreise V2",
-  "release": "2026-11-27-compact-classic3",
+  "release": "2026-11-27-compact-classic4",
   "branch": "wortreise-v2",
-  "feature": "feedback-next-unclipped-and-balanced-card",
-  "expected": "Visible Next button always centered over blurred choices; classic training fills phone height evenly",
+  "feature": "always-visible-feedback-next-balanced-practice",
+  "expected": "Classic dark lime design, no scroll, centered exercise card, fixed overlay with Next and no clipping",
   "verification": "This marker appears when Cloudflare publishes the latest Wortreise V2 changes."
 }
