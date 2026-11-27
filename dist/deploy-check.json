@@ -1,8 +1,8 @@
 {
   "app": "Wortreise V2",
-  "release": "2026-11-27-classic-design-restored",
+  "release": "2026-11-27-compact-classic2",
   "branch": "wortreise-v2",
-  "feature": "original-training-card-layout",
-  "expected": "Original coach size and answer button layout; answer overlay and basket stay available",
-  "verification": "If this marker is served, Cloudflare deployed the classic mobile design release on wortreise-v2."
+  "feature": "no-scroll-mobile-practice-and-flashcards",
+  "expected": "Classic coach and colors, compact controls, same feedback overlay, no phone page scroll",
+  "verification": "This marker appears when Cloudflare publishes the latest Wortreise V2 changes."
 }
