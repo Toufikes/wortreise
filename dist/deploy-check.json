@@ -1,10 +1,8 @@
 {
   "app": "Wortreise V2",
-  "release": "2026-11-27-cloudflare-v2-ready",
+  "release": "2026-11-27-classic-design-restored",
   "branch": "wortreise-v2",
-  "feature": "fullscreen-learning-no-scroll",
-  "expected": "Training should occupy the phone viewport; old header should be hidden during rounds",
-  "verification": "This file is served only if hosting deployed the wortreise-v2 branch after this commit",
-  "test": "Production branch wortreise-v2; Cloudflare Wrangler serves dist as assets",
-  "deploy_trigger": "GitHub commit to prompt connected Cloudflare Builds"
+  "feature": "original-training-card-layout",
+  "expected": "Original coach size and answer button layout; answer overlay and basket stay available",
+  "verification": "If this marker is served, Cloudflare deployed the classic mobile design release on wortreise-v2."
 }
