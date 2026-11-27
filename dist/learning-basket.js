@@ -84,10 +84,12 @@ function basketPage(){
 }
 function studyFlashcards(ch=0,fromBasket=false){
  leavePracticeViewport();
+ document.body.classList.add('flashcard-screen');
+ ensurePracticeShell();
  const l=(ar,de)=>document.documentElement.lang==='de'?de:ar;
  const source=fromBasket?basketItems().map(p=>({...p})):chapterCards(ch).map(([de,ar])=>({ch,de,ar}));
  const cards=shuffle(source);let i=0,flipped=false;
- const back=()=>fromBasket?basketPage():vocabMenu(ch);
+ const back=()=>{leavePracticeViewport();return fromBasket?basketPage():vocabMenu(ch)};
  if(!cards.length){basketPage();return}
  function drawFlash(){
   const p=cards[i],saved=hasBasketCard(p.ch,p.de);
