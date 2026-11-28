@@ -2,6 +2,8 @@
 function setupWordOrder(work,q){
  const words=shuffle(q.a.split(/\s+/).map((v,i)=>({v,i,source:null})));
  const picked=[];
+ work.classList.toggle('order-long',words.length>=9);
+ work.classList.toggle('order-very-long',words.length>=14);
  work.innerHTML='<div class="answerline order-dropzone" dir=ltr role=group aria-label="الجملة المرتبة"><span class="drop-hint" aria-hidden="true"><span class="drop-hand">☟</span><span>اسحب الكلمات وضعها هنا لترتيب الجملة</span></span></div><div class="tiles order-wordbank" dir=ltr></div><button id=undo type=button>رجّع آخر كلمة ↶</button><button id=submit class=gold type=button>صحّح ✓</button>';
  const zone=work.querySelector('.answerline'),pool=work.querySelector('.tiles');
  const inside=(el,x,y)=>{const r=el.getBoundingClientRect();return x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom};
