@@ -10,6 +10,8 @@ const pronounVerbs={
  ihr:{bin:"seid",bist:"seid",ist:"seid",sind:"seid",habe:"habt",haben:"habt",hast:"habt",hat:"habt",nehme:"nehmt",nimmt:"nehmt",nehmen:"nehmt",machen:"macht",mache:"macht",lerne:"lernt",lernen:"lernt",gehe:"geht",gehen:"geht",wohne:"wohnt",wohnen:"wohnt",komme:"kommt",kommen:"kommt",arbeite:"arbeitet",arbeiten:"arbeitet",spreche:"sprecht",sprechen:"sprecht",fahre:"fahrt",fahren:"fahrt",trinke:"trinkt",trinken:"trinkt",esse:"esst",essen:"esst",brauche:"braucht",brauchen:"braucht",kaufe:"kauft",kaufen:"kauft",möchte:"möchtet",möchten:"möchtet"}
 };
 const masc=new Set("Koffer Rucksack Reisepass Computer Anzug Kaffee Apfelsaft Bus Zug Film Termin Tisch Drucker".toLocaleLowerCase("de").split(/\s+/));
+// "morgen" can mean tomorrow (lowercase); never force it to a noun.
+nounsMap.delete("morgen");
 const norm=x=>String(x||"").normalize("NFC").replace(/[.,!?;:„“"']/g,"").trim().replace(/\s+/g," ").toLocaleLowerCase("de");
 function distance(a,b,limit=2){
  if(Math.abs(a.length-b.length)>limit)return limit+1;
@@ -32,7 +34,7 @@ function check(answer,step){
  // A complete suggested answer is valid; casing gets checked below.
  let corrected=original.replace(/^([a-zäöü])/u,c=>c.toLocaleUpperCase("de"));
  let reasons=[];
- corrected=corrected.replace(/\b[A-Za-zÄÖÜäöüß]+\b/g,word=>{
+ corrected=corrected.replace(/[A-Za-zÄÖÜäöüß]+/gu,word=>{
    const lower=word.toLocaleLowerCase("de");
    const target=nounsMap.get(lower);
    if(!target||word===target||word===word.toLocaleUpperCase("de"))return word;
