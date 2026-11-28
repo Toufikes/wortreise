@@ -94,7 +94,6 @@ function visibleSuggestions(){
  el.hidden=hidden();
  el.innerHTML=options.map((t,i)=>'<button type=button class=conv-choice data-choice="'+i+'" dir=ltr lang=de>'+safe(t)+'</button>').join('');
  el.querySelectorAll("[data-choice]").forEach(button=>button.onclick=()=>{
-  if(record.pending)return;
   sendText(options[Number(button.dataset.choice)],true);
  });
 }
