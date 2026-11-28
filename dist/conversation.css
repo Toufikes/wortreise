@@ -1,0 +1,104 @@
+/* Spektrum Lab: Gesprächsstudio — original dark/Lime design language.
+   Applies only to the new conversation screens. */
+.conv-entry{margin:28px 0 48px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px 22px;position:relative;overflow:hidden;padding:24px 26px;border:1px solid #81994978;border-radius:20px;background:radial-gradient(circle at 90% -30%,#c8ff6030,transparent 48%),linear-gradient(130deg,#1a2e27,#0e1920 75%);box-shadow:0 12px 37px #0005,inset 0 1px #e8ffb51a}
+.conv-entry:before{content:"";position:absolute;right:-35px;top:-60px;width:230px;height:230px;border:1px solid #daff651f;border-radius:50%;box-shadow:0 0 0 30px #d1ff6108,0 0 0 70px #d1ff6104;pointer-events:none}
+.conv-entry-kicker,.conv-kicker{color:#d9ff70;font-weight:900;font-size:12px;letter-spacing:.07em}
+.conv-entry h2{margin:5px 0 6px;font-size:clamp(23px,4vw,34px);line-height:1.35}
+.conv-entry p{color:#ced7ce;margin:3px 0 0;max-width:540px;font-size:14px;line-height:1.8}
+.conv-entry button{position:relative;z-index:1;margin:0;min-height:54px;width:auto;min-width:175px;padding:10px 19px;border:1px solid #e0ff77;border-radius:13px;background:linear-gradient(120deg,#e2ff75,#bded4a);color:#17210b;font-size:16px;font-weight:950;box-shadow:0 10px 30px #bdff4523}
+.conv-hub{width:100%;min-width:0}
+.conv-hub-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:4px 0 15px}
+.conv-back{width:auto;min-height:42px;padding:7px 14px}
+.conv-hero{position:relative;display:grid;grid-template-columns:1fr 132px;align-items:center;gap:12px;overflow:hidden;border-radius:22px;border:1px solid #718b557a;background:linear-gradient(135deg,#1c3128,#101a23);padding:22px 24px;margin-bottom:19px;box-shadow:inset 0 1px #d7ff7924,0 15px 35px #0004}
+.conv-hero:before{position:absolute;content:"";width:260px;height:260px;right:-80px;top:-110px;border:1px solid #dfff7444;border-radius:50%;box-shadow:0 0 0 39px #d6ff6011,0 0 0 95px #d6ff6006;pointer-events:none}
+.conv-hero h1{font-size:clamp(27px,5vw,43px);margin:6px 0;font-weight:950;line-height:1.35}
+.conv-hero p{margin:0;color:#c6d2cd;line-height:1.7;font-size:14px}
+.conv-hero img{width:100%;max-height:175px;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 0 16px #bbff5229)}
+.conv-feature-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:13px}
+.conv-feature-pills span{border:1px solid #62785477;border-radius:999px;padding:5px 10px;font-size:11px;background:#29382d7d;color:#d9e9d0}
+.conv-search{display:flex;align-items:center;gap:9px;padding:8px 12px;border:1px solid #475b50;border-radius:13px;background:#111b22;margin:0 0 12px}
+.conv-search input{flex:1;min-width:0;padding:7px 4px;border:0;outline:0;background:transparent;min-height:30px;font-size:15px}
+.conv-search small{color:#a9baa6;font-size:12px;white-space:nowrap}
+.conv-tabs{display:flex;gap:7px;overflow-x:auto;padding:2px 1px 10px;margin:0 0 12px;scrollbar-width:thin;scroll-snap-type:x proximity;direction:ltr}
+.conv-tabs button{flex:0 0 auto;margin:0;min-height:38px;width:auto;border-radius:99px;font-size:12px;white-space:nowrap;padding:7px 13px;scroll-snap-align:start;background:#1c282b;border:1px solid #3d5147}
+.conv-tabs button.active{background:#d9ff6c;color:#17210c;border-color:#d9ff6c;font-weight:900;box-shadow:0 0 16px #d2ff4530}
+.conv-chapter-banner{margin:8px 0 12px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.conv-chapter-banner strong{font-size:18px;line-height:1.5}
+.conv-chapter-banner small{font-size:11px;color:#b3bdba}
+.conv-topic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-bottom:26px}
+.conv-topic{display:flex;flex-direction:column;align-items:stretch;text-align:start;min-width:0;gap:7px;padding:17px 16px;min-height:151px;margin:0;background:linear-gradient(150deg,#1b282b,#141d24);border:1px solid #3f5446;border-radius:16px;box-shadow:inset 0 1px #efffd10e;transition:border-color .2s,transform .2s,box-shadow .2s}
+.conv-topic:hover,.conv-topic:focus-visible{border-color:#b7e969;transform:translateY(-2px);box-shadow:0 12px 28px #0005,0 0 16px #abf64118}
+.conv-topic small{font-size:11px;color:#d5ff78;font-weight:800}
+.conv-topic b{font-size:17px;color:#fff;line-height:1.4}
+.conv-topic span{font-size:13px;color:#b5c2b9;line-height:1.5}
+.conv-topic em{margin-top:auto;color:#d4e3d0;font-style:normal;font-size:11px}
+.conv-empty{padding:25px;border-radius:15px;border:1px solid #394a40;color:#b5bdb8}
+.conv-dialog{--conv-size:calc(100dvh - 164px);height:min(790px,var(--conv-size));min-height:min(530px,var(--conv-size));display:flex;flex-direction:column;overflow:hidden;background:linear-gradient(140deg,#111c23,#10171f);border:1px solid #50684b;border-radius:21px;box-shadow:0 12px 35px #0005;position:relative}
+.conv-dialog-header{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;border-bottom:1px solid #374c40;background:#1a2a27}
+.conv-dialog-title{display:flex;gap:9px;align-items:center;min-width:0}
+.conv-dialog-avatar{width:43px;height:43px;flex:0 0 43px;display:grid;place-items:center;border-radius:13px;background:#283f31;border:1px solid #719b5a;overflow:hidden}
+.conv-dialog-avatar img{height:61px;width:61px;object-fit:contain;object-position:center top;margin-top:10px}
+.conv-dialog-title b{font-size:14px;display:block;max-width:230px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.conv-dialog-title span{font-size:11px;color:#b4c0b7}
+.conv-dialog-header button{flex:0 0 auto;width:auto;min-height:36px;margin:0;padding:5px 9px;font-size:12px}
+.conv-dialog-status{font-size:11px;padding:6px 15px;color:#c4d0c1;border-bottom:1px solid #23392b;flex:0 0 auto}
+.conv-dialog-status[data-mode=ai]{color:#daff76}
+.conv-dialog-messages{display:flex;flex-direction:column;align-items:stretch;gap:14px;flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;padding:18px 15px 22px;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.conv-bubble-row{display:flex;gap:9px;max-width:94%;align-items:flex-start}
+.conv-bubble-row.bot{align-self:flex-start}
+.conv-bubble-row.student{align-self:flex-end;flex-direction:row-reverse}
+.conv-bubble-face{flex:0 0 27px;height:27px;width:27px;display:grid;place-items:center;border-radius:50%;font-size:13px;background:#273f2d;color:#daff7c;border:1px solid #6fa04d}
+.conv-bubble-row.student .conv-bubble-face{background:#273442;border-color:#516376;color:#d5edfe}
+.conv-bubble{max-width:100%;min-width:0;padding:12px 14px;border-radius:15px;box-shadow:0 7px 18px #0002}
+.conv-bubble-row.bot .conv-bubble{border:1px solid #547d4e;background:linear-gradient(145deg,#223729,#182a28);border-top-right-radius:4px}
+.conv-bubble-row.student .conv-bubble{border:1px solid #536575;background:#1f2d3c;border-top-left-radius:4px}
+.conv-bubble b,.conv-bubble .conv-de{display:block;font-weight:720;font-size:16px;line-height:1.6;color:#f7f9f5;white-space:pre-wrap;overflow-wrap:anywhere;direction:ltr;text-align:left}
+.conv-translate,.conv-coaching{font-size:12px;line-height:1.7;margin:8px 0 0;color:#c7d4c8}
+.conv-coaching{border-top:1px solid #60765466;padding-top:8px}
+.conv-coaching strong{color:#d9ff69}
+.conv-message-actions{display:flex;gap:7px;margin-top:9px;flex-wrap:wrap}
+.conv-message-actions button{width:auto;min-height:31px;padding:5px 9px;border-radius:8px;font-size:11px;background:#1b2d26;border-color:#526a4e;margin:0}
+.conv-waiting{display:flex;gap:6px;align-items:center;color:#d9ff78;opacity:.85;font-size:13px;padding:4px 10px}
+.conv-waiting span{width:6px;height:6px;border-radius:50%;background:#dfff77;animation:convDot 1s ease-in-out infinite alternate}
+.conv-waiting span:nth-child(2){animation-delay:.2s}
+.conv-waiting span:nth-child(3){animation-delay:.4s}
+@keyframes convDot{to{opacity:.24;transform:translateY(-5px)}}
+.conv-dialog-bottom{flex:0 0 auto;background:#111c21;border-top:1px solid #425b42;padding:12px 13px max(11px,env(safe-area-inset-bottom))}
+.conv-suggestion{display:flex;align-items:center;gap:6px;margin-bottom:8px;min-width:0}
+.conv-suggestion button{width:auto;max-width:100%;min-height:29px;margin:0;padding:5px 9px;color:#dfff82;border-color:#577942;background:#1c2e26;border-radius:9px;font-size:12px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.conv-input-row{display:flex;align-items:flex-end;gap:8px}
+.conv-input-row textarea{flex:1;min-width:0;min-height:43px;max-height:103px;resize:none;padding:11px 12px;margin:0;font-size:16px;border-radius:13px;line-height:1.5;background:#0e171c;color:#fff;border:1px solid #4d6452;direction:ltr;text-align:left}
+.conv-input-row button{width:auto;flex:0 0 auto;min-height:43px;min-width:43px;margin:0;padding:8px;border-radius:12px;font-size:18px}
+.conv-input-row button.conv-send{background:#dcff70;color:#101d0c;border-color:#dcff70;font-size:17px;font-weight:900;min-width:61px}
+.conv-input-row button.conv-mic.listening{background:#43272e;border-color:#ff8ea2;color:#ffc4cf;animation:convPulse 1s ease-in-out infinite alternate}
+@keyframes convPulse{to{box-shadow:0 0 0 7px #ff75921a}}
+.conv-bottom-tools{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:8px;font-size:11px;color:#a5b3a5}
+.conv-bottom-tools button{width:auto;min-height:25px;margin:0;padding:3px 7px;font-size:11px;border:0;background:transparent}
+.conv-bottom-tools button.active{color:#dfff78}
+.conv-focus:focus-visible{outline:2px solid #dfff78;outline-offset:2px}
+@media(max-width:700px){
+ .conv-entry{grid-template-columns:1fr;padding:21px 19px}
+ .conv-entry button{width:100%;min-width:0}
+ .conv-hero{grid-template-columns:1fr 82px;padding:17px}
+ .conv-hero img{max-height:134px}
+ .conv-topic-grid{grid-template-columns:1fr;gap:9px}
+ .conv-topic{min-height:112px;padding:14px}
+ .conv-dialog{--conv-size:calc(100dvh - 130px);border-radius:17px}
+ .conv-dialog-header{padding:9px 10px}
+ .conv-dialog-title b{max-width:160px}
+ .conv-dialog-messages{padding:13px 10px 17px;gap:10px}
+ .conv-bubble-row{max-width:96%;gap:6px}
+ .conv-bubble{padding:10px 11px}
+ .conv-bubble .conv-de{font-size:15px}
+ .conv-dialog-bottom{padding:9px 9px max(9px,env(safe-area-inset-bottom))}
+ .conv-input-row{gap:6px}
+ .conv-input-row button{min-width:40px;padding:7px}
+}
+@media(max-width:360px){
+ .conv-dialog-title b{max-width:120px}
+ .conv-hero{grid-template-columns:1fr}
+ .conv-hero img{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+ .conv-waiting span,.conv-input-row button.conv-mic.listening{animation:none}
+}
