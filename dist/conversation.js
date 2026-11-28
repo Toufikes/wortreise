@@ -1,227 +1,258 @@
-/* Spektrum Lab — Gesprächsstudio.
-   95 topics from the book's course overview; practice lines are independently written.
-   Stores text sessions with existing app progress (including Supabase sync if signed in).
-   Voice recognition is available only when the device/browser provides the API.
+/* SPEKTRUM LAB — deterministic scripted conversation studio.
+ * 95 coherent A1+/book-aligned scenes; no external AI, no repeating questions.
+ * Free responses are only checked where rules are reliable.
  */
 (()=>{
- 'use strict';
- const TOPICS=WR_CONVERSATION_TOPICS,CHAPTERS=WR_CONVERSATION_CHAPTERS;
- let selectedChapter=1,activeTopic=null,busy=false,recognition=null,autoVoice=false,voiceListening=false;
- let stage=null,lastHint='',mode='ready';
- const findTopic=id=>TOPICS.find(t=>t.id===id);
- const safe=s=>esc(s==null?'':s);
- const records=()=>{
-  structure();
-  if(!st.lab.conversations||typeof st.lab.conversations!=='object')st.lab.conversations={};
-  return st.lab.conversations;
- };
- const getRecord=id=>records()[id];
- const persist=()=>save();
- const fallbackQuestions={
-  1:["Freut mich! Und was machst du gern?","Welche Sprache lernst du?","Warum lernst du Deutsch?","Was möchtest du noch wissen?"],
-  2:["Was machst du bei der Arbeit?","Arbeitest du allein oder im Team?","Hast du Geschwister?","Erzähl mir bitte mehr über deine Familie."],
-  3:["Möchten Sie noch etwas?","Wie lange möchten Sie bleiben?","Wo möchten Sie hingehen?","Brauchen Sie noch eine Information?"],
-  4:["Um wie viel Uhr machst du das?","Was machst du danach?","Was machst du am Abend?","Hast du morgen Zeit?"],
-  5:["Was möchten Sie trinken?","Magst du das Essen?","Was isst du normalerweise?","Möchten Sie noch etwas bestellen?"],
-  6:["Was hast du gestern noch gemacht?","Wie war das für dich?","Hast du am Wochenende gearbeitet?","Was möchtest du als Nächstes lernen?"],
-  7:["Wann möchtest du fahren?","Wie ist das Wetter dort?","Fährst du mit dem Bus oder mit dem Zug?","Was machst du im Urlaub?"],
-  8:["Welche Größe brauchst du?","Welche Farbe gefällt dir?","Möchtest du das anprobieren?","Wie findest du den Preis?"],
-  9:["Wann hast du Zeit?","Was ist genau das Problem?","Kannst du den Termin verschieben?","Wann ist das Treffen?"],
- 10:["Wie oft machst du das?","Seit wann tut es dir weh?","Hast du heute Zeit für einen Termin?","Was machst du für deine Gesundheit?"],
- 11:["Wie viele Zimmer brauchst du?","Wie hoch ist die Miete?","Welche Möbel brauchst du?","Ist die Wohnung groß?"],
- 12:["Welche Sehenswürdigkeit möchtest du sehen?","Wann findet die Veranstaltung statt?","Kommst du am Samstag?","Was möchtest du in Berlin machen?"]
- };
- const e=(id)=>document.getElementById(id);
- function count(t){return Math.max(0,(getRecord(t.id)?.messages||[]).filter(m=>m.role==='user').length)}
- function chapterMarkup(c){
-  const sel=c.no===selectedChapter;
-  return '<button type=button class="'+(sel?'active':'')+'" data-cchapter="'+c.no+'" aria-pressed="'+sel+'">Kapitel '+c.no+'</button>';
+'use strict';
+const chapters=WR_CONVERSATION_CHAPTERS;
+const all=WR_CONVERSATION_TOPICS.map(t=>({...t,chapter:Number(t.id.match(/^k(\d+)-/)?.[1]||1)}));
+const find=id=>all.find(t=>t.id===id);
+const safe=s=>esc(String(s??""));
+const get=id=>document.getElementById(id);
+let selectedChapter=1,active=null,record=null,autoVoice=false,recognition=null,voiceListening=false;
+const records=()=>{structure();st.lab.conversations??={};return st.lab.conversations};
+const hidden=()=>!!st.lab.conversationSuggestionsHidden;
+function saveSessions(){save()}
+function stepFor(){return active&&record&&WR_SCRIPTED_SCENES[active.id]?.[record.stage]||null}
+function total(t){return WR_SCRIPTED_SCENES[t.id]?.length||0}
+function hadSession(t){return (records()[t.id]?.stage||0)>0}
+function count(t){return Math.min(records()[t.id]?.stage||0,total(t))}
+function bubble(value){return String(value||"").replace(/[\u0000-\u001f]/g," ").slice(0,500)}
+function speakGerman(s){if(!window.speechSynthesis)return;speak(s)}
+function stopVoice(){
+ if(recognition){try{recognition.onresult=null;recognition.onend=null;recognition.abort()}catch{}}
+ recognition=null;voiceListening=false;
+}
+function prepare(t){
+ const r=records(),stages=WR_SCRIPTED_SCENES[t.id];
+ let entry=r[t.id];
+ if(!entry||entry.version!==3||!Array.isArray(entry.messages)){
+  if(entry&&Array.isArray(entry.messages)){st.lab.conversationLegacy??={};st.lab.conversationLegacy[t.id]??=entry}
+  entry={version:3,chapter:t.chapter,topicId:t.id,stage:0,pending:null,errors:[],messages:[{role:"assistant",de:stages[0].question,ary:stages[0].translation||t.opening_ary,stage:0}]};
+  r[t.id]=entry;saveSessions();
  }
- function hub(){
-  activeTopic=null;busy=false;mode='ready';stopRecognition();
-  app.classList.add('conv-active');
-  app.innerHTML='<div class=conv-hub>'+
-   '<div class=conv-hub-top><button type=button class="conv-back" id=convHome>← رجع للفصول</button><span class=conv-kicker>95 THEMEN · A1+</span></div>'+
-   '<section class=conv-hero><div><span class=conv-kicker>GESPRÄCHSSTUDIO</span><h1>تكلّم بالألمانية مع Worti</h1><p>اختار الموضوع، جرّب تجاوب بصوتك أو بالكتابة، وخذ تصحيح قصير بالدارجة. هنا ما كاينش امتحان، كاينة ممارسة حقيقية.</p><div class=conv-feature-pills><span>🎙️ كلام أو كتابة</span><span>🇩🇪 مستوى A1+</span><span>✨ تصحيح فالحين</span><span>12 Kapitel</span></div></div><img src="mascot/thinking.webp" alt="شخصية المدربة Worti"></section>'+
-   '<label class=conv-search><span>⌕</span><input id=convSearch placeholder="قلب على موضوع… / Thema suchen" aria-label="بحث على موضوع"><small id=convCount></small></label>'+
-   '<nav class=conv-tabs id=convChapterTabs aria-label="اختيار الفصل">'+CHAPTERS.map(chapterMarkup).join('')+'</nav>'+
-   '<div id=convTopicList></div></div>';
-  e('convHome').onclick=()=>{app.classList.remove('conv-active');home()};
-  e('convChapterTabs').querySelectorAll('[data-cchapter]').forEach(button=>button.onclick=()=>{
-   selectedChapter=Number(button.dataset.cchapter);
-   e('convChapterTabs').querySelectorAll('button').forEach(b=>{const selected=Number(b.dataset.cchapter)===selectedChapter;b.classList.toggle('active',selected);b.setAttribute('aria-pressed',String(selected))});
-   updateTopics();
-  });
-  e('convSearch').addEventListener('input',updateTopics);
-  updateTopics();
-  window.scrollTo(0,0);
+ if(entry.stage>stages.length||entry.stage<0)entry.stage=0;
+ return entry;
+}
+function currentOptions(){
+ const s=stepFor();if(!s)return [];
+ const unique=[...new Set((s.choices||[]).filter(Boolean))];
+ // An opening suggestion is the book-aligned sample; later steps give alternatives.
+ return unique;
+}
+function listChapters(){
+ return chapters.map(c=>'<button type=button data-chapter="'+c.no+'" class="'+(selectedChapter===c.no?'active':'')+'" aria-pressed="'+(selectedChapter===c.no)+'">Kapitel '+c.no+'</button>').join('');
+}
+function hub(){
+ stopVoice();active=null;record=null;
+ app.classList.add("conv-active");
+ app.innerHTML='<div class=conv-hub>'+
+ '<div class=conv-hub-top><button type=button class=conv-back id=convHome>← رجع للفصول</button><span class=conv-kicker>95 THEMEN · 12 KAPITEL</span></div>'+
+ '<section class=conv-hero><div><span class=conv-kicker>GESPRÄCHSSTUDIO · OHNE KI</span><h1>تكلّم بالألمانية مع Worti</h1>'+
+ '<p>حوار مبرمج ومنظم على كل موضوع: اختار الجواب، ولا جرب من راسك. تصحيح واضح بلا أحكام عشوائية.</p>'+
+ '<div class=conv-feature-pills><span>🎙️ كلام أو كتابة</span><span>✅ 380 مرحلة حوار</span><span>👁️ تقدر تخبي الأجوبة</span><span>🇩🇪 A1+</span></div></div>'+
+ '<img src=mascot/thinking.webp alt="Worti"></section>'+
+ '<label class=conv-search><span>⌕</span><input id=convSearch placeholder="قلب على موضوع… / Thema suchen" aria-label="بحث فالمواضيع"><small id=convCount></small></label>'+
+ '<nav class=conv-tabs id=convChapterTabs aria-label="اختار الفصل">'+listChapters()+'</nav>'+
+ '<div id=convTopicList></div></div>';
+ get("convHome").onclick=()=>{app.classList.remove("conv-active");home()};
+ get("convSearch").addEventListener("input",topicsList);
+ get("convChapterTabs").querySelectorAll("[data-chapter]").forEach(b=>b.onclick=()=>{
+  selectedChapter=Number(b.dataset.chapter);
+  get("convChapterTabs").querySelectorAll("[data-chapter]").forEach(button=>{
+   const active=Number(button.dataset.chapter)===selectedChapter;
+   button.classList.toggle("active",active);button.setAttribute("aria-pressed",String(active));
+  });topicsList();
+ });
+ topicsList();
+ window.scrollTo(0,0);
+}
+function topicsList(){
+ const ch=chapters.find(c=>c.no===selectedChapter);
+ const q=(get("convSearch")?.value||"").trim().toLocaleLowerCase("de");
+ const choices=ch.topics.filter(t=>!q||[t.de,t.ary,t.role].some(s=>s.toLocaleLowerCase("de").includes(q)));
+ get("convCount").textContent=choices.length+" موضوع";
+ get("convTopicList").innerHTML=
+ '<div class=conv-chapter-banner><strong>Kapitel '+ch.no+' · '+safe(ch.ary)+'</strong><small dir=ltr>'+safe(ch.title)+'</small></div>'+
+ (choices.length?'<div class=conv-topic-grid>'+choices.map(t=>{
+  const done=count(t),totalSteps=total(t);
+  return '<button type=button class=conv-topic data-topic="'+t.id+'"><small>'+(done===totalSteps?'✓ مكتمل':done?'↻ كمّل الحوار':'● حوار جديد')+'</small>'+
+   '<b dir=ltr>'+safe(t.de)+'</b><span>'+safe(t.ary)+'</span>'+
+   '<em>🎭 '+safe(t.role)+' · '+done+' / '+totalSteps+' مراحل</em></button>';
+ }).join('')+'</div>':'<div class=conv-empty>ما كاينش موضوع بهاد الاسم فهاد الفصل.</div>');
+ get("convTopicList").querySelectorAll("[data-topic]").forEach(b=>b.onclick=()=>openTopic(b.dataset.topic));
+}
+function visibleSuggestions(){
+ const el=get("convSuggestionChoices");if(!el)return;
+ const current=stepFor(),options=currentOptions();
+ const toggle=get("convToggleSuggestions");
+ toggle.textContent=hidden()?"👁️ بيّن الاقتراحات":"🙈 خبّي الاقتراحات";
+ toggle.setAttribute("aria-pressed",String(!hidden()));
+ if(!current){
+  el.hidden=true;el.innerHTML="";return;
  }
- function updateTopics(){
-  const query=(e('convSearch')?.value||'').toLocaleLowerCase().trim();
-  const chosen=CHAPTERS.find(c=>c.no===selectedChapter);
-  const topics=chosen.topics.filter(t=>!query||[t.de,t.ary,t.role,t.id].some(s=>s.toLocaleLowerCase().includes(query)));
-  e('convCount').textContent=topics.length+' موضوع';
-  e('convTopicList').innerHTML=
-   '<div class=conv-chapter-banner><strong>Kapitel '+chosen.no+' · '+safe(chosen.ary)+'</strong><small dir=ltr>'+safe(chosen.title)+'</small></div>'+
-   (topics.length?'<div class=conv-topic-grid>'+topics.map(t=>'<button type=button class=conv-topic data-topic="'+t.id+'"><small>● '+(count(t)?'تابع المحادثة':'موضوع جديد')+'</small><b dir=ltr>'+safe(t.de)+'</b><span>'+safe(t.ary)+'</span><em>🎭 '+safe(t.role)+' · '+count(t)+' رسائل منك</em></button>').join('')+'</div>':'<div class=conv-empty>ما لقيناش موضوع بهاد الاسم فهاد الفصل.</div>');
-  e('convTopicList').querySelectorAll('[data-topic]').forEach(b=>b.onclick=()=>openTopic(b.dataset.topic));
- }
- function sessionFor(topic){
-  const all=records();
-  if(!all[topic.id]||!Array.isArray(all[topic.id].messages)){
-   all[topic.id]={topicId:topic.id,chapter:topic.chapter,started:new Date().toISOString(),messages:[{role:'assistant',de:topic.opening,ary:topic.opening_ary,suggestion_de:topic.example,mode:'opening'}]};
-   persist();
-  }
-  return all[topic.id];
- }
- function stopRecognition(){
-  if(!recognition)return;
-  try{recognition.onend=null;recognition.abort()}catch{}
-  recognition=null;voiceListening=false;
- }
- function speechOutput(text){
-  if(!('speechSynthesis' in window))return;
-  speak(text);
- }
- function renderBubble(message,index){
-  const bot=message.role==='assistant';
-  const key=String(index);
-  if(!bot)return '<div class="conv-bubble-row student"><span class=conv-bubble-face>◉</span><div class=conv-bubble><span class=conv-de dir=ltr>'+safe(message.content)+'</span></div></div>';
-  return '<div class="conv-bubble-row bot"><span class=conv-bubble-face>✦</span><div class=conv-bubble>'+
-   '<span class=conv-de lang=de>'+safe(message.de)+'</span>'+
-   (message.correction_de?'<p class=conv-coaching><strong>✎ اقتراح تصحيح:</strong><br><span dir=ltr>'+safe(message.correction_de)+'</span>'+(message.feedback_ary?'<br>'+safe(message.feedback_ary):'')+'</p>':message.feedback_ary&&message.mode==='ai'?'<p class=conv-coaching>'+safe(message.feedback_ary)+'</p>':'')+
-   (message.ary?'<p class=conv-translate data-translation="'+key+'" hidden>'+safe(message.ary)+'</p>':'')+
-   '<div class=conv-message-actions><button type=button data-say="'+key+'">🔊 سمع</button>'+
-   (message.ary?'<button type=button data-translate="'+key+'">ترجمة</button>':'')+
-   '</div></div></div>';
- }
- function drawMessages(){
-  if(!activeTopic||!e('convMessages'))return;
-  const messages=sessionFor(activeTopic).messages;
-  e('convMessages').innerHTML=messages.map(renderBubble).join('')+(busy?'<div class=conv-waiting aria-live=polite><span></span><span></span><span></span> Worti كيفكّر...</div>':'');
-  e('convMessages').querySelectorAll('[data-say]').forEach(btn=>btn.onclick=()=>{
-   const m=messages[Number(btn.dataset.say)];if(m?.de)speechOutput(m.de);
-  });
-  e('convMessages').querySelectorAll('[data-translate]').forEach(btn=>btn.onclick=()=>{
-   const p=e('convMessages').querySelector('[data-translation="'+btn.dataset.translate+'"]');
-   if(p){p.hidden=!p.hidden;btn.textContent=p.hidden?'ترجمة':'خبّي الترجمة'}
-  });
-  const last=messages.filter(m=>m.role==='assistant').at(-1);
-  lastHint=last?.suggestion_de||activeTopic.example;
-  const hint=e('convHint');
-  if(hint)hint.textContent='💡 '+lastHint;
-  const scroll=e('convMessages');
-  requestAnimationFrame(()=>{if(scroll)scroll.scrollTop=scroll.scrollHeight});
- }
- function statusText(){
-  const status=e('convStatus');if(!status)return;
-  const label=mode==='ai'?'● Worti AI · محادثة حقيقية بالألمانية':mode==='guided'?'● تدريب موجه · خدمة AI ما متاحةش دابا':'● محادثة A1+ · اختار كيفاش تجاوب';
-  status.textContent=label;
-  status.dataset.mode=mode;
- }
- function adaptViewport(){
-  const box=e('convDialog');if(!box)return;
-  const vv=window.visualViewport;
-  const h=Math.round(vv?.height||window.innerHeight);
-  const header=document.querySelector('main > header');
-  const b=header?.getBoundingClientRect().bottom||95;
-  const top=box.getBoundingClientRect().top;
-  box.style.setProperty('height',Math.max(320,h-Math.max(b,top)-10)+'px','important');
- }
- function openTopic(id){
-  const topic=findTopic(id);if(!topic)return;
-  stopRecognition();activeTopic=topic;mode='ready';busy=false;
-  const record=sessionFor(topic);
-  app.classList.add('conv-active');
-  app.innerHTML='<div class=conv-hub-top><button type=button class=conv-back id=convBack>← المواضيع</button><span class=conv-kicker>Kapitel '+topic.chapter+' · '+safe(topic.ary)+'</span></div>'+
-   '<section class=conv-dialog id=convDialog>'+
-   '<div class=conv-dialog-header><div class=conv-dialog-title><div class=conv-dialog-avatar><img src="mascot/thinking.webp" alt=""></div><div><b dir=ltr>'+safe(topic.de)+'</b><span>🎭 '+safe(topic.role)+'</span></div></div><button type=button id=convReset title="مسح المحادثة">↻ جديد</button></div>'+
-   '<div id=convStatus class=conv-dialog-status>● محادثة A1+</div>'+
-   '<div id=convMessages class=conv-dialog-messages role=log aria-label="محادثة بالألمانية"></div>'+
-   '<div class=conv-dialog-bottom><div class=conv-suggestion><button id=convHint type=button title="حط التلميحة فالجواب">💡 '+safe(topic.example)+'</button></div>'+
-   '<div class=conv-input-row><button type=button class=conv-mic id=convMic title="تكلم بالألمانية" aria-label="تكلم بالألمانية">🎙️</button>'+
-   '<textarea id=convInput rows=1 maxlength=480 placeholder="Schreib oder sprich auf Deutsch…" aria-label="جوابك بالألمانية" dir=ltr></textarea>'+
-   '<button id=convSend type=button class=conv-send title="صيفط">➤</button></div>'+
-   '<div class=conv-bottom-tools><span id=convVoiceNote>الألمانية A1 · جاوب من راسك</span><button type=button id=convVoiceAuto>🔈 النطق التلقائي: مطفي</button></div></div></section>';
-  e('convBack').onclick=hub;
-  e('convReset').onclick=()=>{
-   if(!confirm('تبدا محادثة جديدة فهاد الموضوع؟ المحادثة القديمة غادي تتمسح.'))return;
-   delete records()[topic.id];persist();openTopic(topic.id);
+ el.hidden=hidden();
+ el.innerHTML=options.map((t,i)=>'<button type=button class=conv-choice data-choice="'+i+'" dir=ltr lang=de>'+safe(t)+'</button>').join('');
+ el.querySelectorAll("[data-choice]").forEach(button=>button.onclick=()=>{
+  if(record.pending)return;
+  sendText(options[Number(button.dataset.choice)],true);
+ });
+}
+function speechButtons(){
+ const content=get("convMessages");if(!content)return;
+ content.querySelectorAll("[data-say]").forEach(button=>button.onclick=()=>{
+  const msg=record.messages[+button.dataset.say];
+  if(msg?.de)speakGerman(msg.de);
+ });
+ content.querySelectorAll("[data-translate]").forEach(button=>button.onclick=()=>{
+  const p=content.querySelector('[data-translation="'+button.dataset.translate+'"]');
+  if(!p)return;p.hidden=!p.hidden;button.textContent=p.hidden?"ترجمة":"خبّي الترجمة";
+ });
+}
+function bubbleMarkup(m,i){
+ if(m.role==="assistant")return '<div class="conv-bubble-row bot"><span class=conv-bubble-face>✦</span><div class=conv-bubble>'+
+ '<span class=conv-de lang=de>'+safe(m.de)+'</span>'+
+ (m.ary?'<p class=conv-translate data-translation="'+i+'" hidden>'+safe(m.ary)+'</p>':'')+
+ '<div class=conv-message-actions><button data-say="'+i+'" type=button>🔊 سمع</button>'+
+ (m.ary?'<button data-translate="'+i+'" type=button>ترجمة</button>':'')+
+ '</div></div></div>';
+ return '<div class="conv-bubble-row student"><span class=conv-bubble-face>◉</span><div class=conv-bubble>'+
+ '<span class=conv-de dir=ltr>'+safe(m.content)+'</span>'+
+ (m.validation==="good"?'<p class="conv-judgment conv-ok">✓ جواب من الاقتراحات أو مطابق للقاعدة</p>':'')+
+ (m.validation==="fix"?'<div class="conv-judgment conv-error"><strong>✎ خاص تصحيح</strong><p dir=ltr>'+safe(m.corrected)+'</p><small>'+safe(m.reason)+'</small></div>':'')+
+ (m.validation==="unverified"?'<div class="conv-judgment conv-neutral">ما قدرناش نتحقق من هاد الجملة آلياً، ماشي بالضرورة غلط.</div>':'')+
+ '</div></div>';
+}
+function scrollMessages(){
+ const pane=get("convMessages");if(!pane)return;
+ pane.scrollTop=pane.scrollHeight;
+}
+function render(){
+ if(!active||!record||!get("convMessages"))return;
+ get("convMessages").innerHTML=record.messages.map(bubbleMarkup).join("")+
+ (record.stage>=total(active)?'<div class=conv-end><strong>🎉 Sehr gut! الحوار سالى.</strong><p>كملتي سيناريو '+safe(active.de)+' بلا تكرار الأسئلة. اختار موضوع آخر أو عاود السيناريو.</p><button type=button id=convNewTopic>موضوع آخر ←</button><button type=button id=convReplay>عاود هاد الحوار ↻</button></div>':'');
+ speechButtons();
+ if(get("convNewTopic"))get("convNewTopic").onclick=hub;
+ if(get("convReplay"))get("convReplay").onclick=resetTopic;
+ const done=record.stage>=total(active);
+ get("convReplyPanel").hidden=done;
+ get("convStageCount").textContent=(done?"✓ "+total(active):Math.min(record.stage+1,total(active)))+" / "+total(active);
+ get("convStatus").textContent=done?"✓ تمّ الحوار · اختار موضوع جديد":record.pending?"✎ صحّح جوابك أو طبّق التصحيح":"● محادثة مبرمجة · بلا AI";
+ const pending=get("convPending");
+ pending.hidden=!record.pending;
+ pending.innerHTML=record.pending?
+  '<strong>كاين خطأ واضح، صححو قبل السؤال الموالي.</strong><p dir=ltr>'+safe(record.pending.corrected)+'</p><small>'+safe(record.pending.info)+'</small>'+
+  '<div class=conv-pending-actions><button type=button id=convEditCorrection>عاود نكتب الجواب</button><button type=button id=convApplyCorrection>✓ طبّق التصحيح وكمل</button></div>':"";
+ if(record.pending){
+  get("convEditCorrection").onclick=()=>{
+   const box=get("convInput");box.value=record.pending.original;box.focus();get("convPending").hidden=true;
   };
-  e('convSend').onclick=send;
-  e('convInput').addEventListener('keydown',ev=>{
-   if(ev.key==='Enter'&&!ev.shiftKey){ev.preventDefault();send()}
-  });
-  e('convHint').onclick=()=>{const field=e('convInput');field.value=lastHint;field.focus()};
-  e('convMic').onclick=toggleMic;
-  e('convVoiceAuto').onclick=()=>{autoVoice=!autoVoice;e('convVoiceAuto').textContent=(autoVoice?'🔊':'🔈')+' النطق التلقائي: '+(autoVoice?'خدام':'مطفي');e('convVoiceAuto').classList.toggle('active',autoVoice)};
-  statusText();drawMessages();adaptViewport();window.scrollTo(0,0);
+  get("convApplyCorrection").onclick=()=>acceptCorrection();
  }
- function guidedReply(topic,record){
-  const count=record.messages.filter(m=>m.role==='user').length;
-  const lines=fallbackQuestions[topic.chapter]||fallbackQuestions[1];
-  return {role:'assistant',de:lines[(count-1)%lines.length],ary:'',suggestion_de:topic.example,feedback_ary:'',correction_de:'',mode:'guided'};
+ visibleSuggestions();
+ requestAnimationFrame(scrollMessages);
+}
+function goNext(text,validation){
+ record.pending=null;
+ record.stage++;
+ if(record.stage<total(active)){
+  const step=stepFor();
+  record.messages.push({role:"assistant",de:step.question,ary:step.translation||"",stage:record.stage});
+ }else{
+  record.messages.push({role:"assistant",de:"Vielen Dank! Das war ein gutes Gespräch.",ary:"شكراً بزاف! كان حوار زوين.",stage:record.stage});
  }
- function dailyUsage(){
-  try{const key='wr:ai-turns:'+new Date().toISOString().slice(0,10);const used=Number(localStorage.getItem(key)||'0');return {key,used}}catch{return {key:null,used:0}}
+ record.updated=new Date().toISOString();saveSessions();
+ render();
+ if(autoVoice){
+  const last=record.messages.at(-1);if(last?.de)speakGerman(last.de);
  }
- async function send(){
-  if(!activeTopic||busy)return;
-  const box=e('convInput'),text=box.value.trim();
-  if(!text)return;
-  const topic=activeTopic,record=sessionFor(topic);
-  box.value='';
-  record.messages.push({role:'user',content:text});
-  if(record.messages.length>80)record.messages=record.messages.slice(-80);
-  record.updated=new Date().toISOString();persist();
-  busy=true;const button=e('convSend');button.disabled=true;drawMessages();
-  let newReply=null;
-  try{
-   const turns=dailyUsage();
-   // Gentle per-device guard to avoid accidental depletion of the free AI quota.
-   if(turns.used>=30)throw new Error('DAILY_GUIDED');
-   const history=record.messages.slice(-14).map(m=>({role:m.role,content:m.role==='assistant'?m.de:m.content}));
-   const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),18000);
-   let response;
-   try{response=await fetch('/api/conversation',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({chapter:topic.chapter,topicId:topic.id,topicName:topic.de,role:topic.role,messages:history}),signal:controller.signal})}
-   finally{clearTimeout(timeout)}
-   if(!response.ok)throw new Error('AI_UNAVAILABLE');
-   const data=await response.json();
-   if(!data.reply_de)throw new Error('EMPTY_AI');
-   newReply={role:'assistant',de:String(data.reply_de).slice(0,350),ary:String(data.translation_ary||'').slice(0,350),correction_de:String(data.correction_de||'').slice(0,240),feedback_ary:String(data.feedback_ary||'').slice(0,350),suggestion_de:String(data.suggestion_de||topic.example).slice(0,160),mode:'ai'};
-   mode='ai';
-   if(turns.key)try{localStorage.setItem(turns.key,String(turns.used+1))}catch{}
-  }catch(err){
-   newReply=guidedReply(topic,record);
-   mode='guided';
-   const note=e('convVoiceNote');
-   if(note)note.textContent=err.message==='DAILY_GUIDED'?'وصلتي 30 رد AI اليوم، تقدر تكمل بالتدريب الموجه.':'Worti رجعات للوضع الموجّه حيت AI ما متاحش مؤقتاً.';
-  }
-  if(activeTopic?.id!==topic.id)return;
-  record.messages.push(newReply);
-  if(record.messages.length>80)record.messages=record.messages.slice(-80);
-  record.updated=new Date().toISOString();persist();busy=false;
-  if(e('convSend'))e('convSend').disabled=false;
-  statusText();drawMessages();if(autoVoice)speechOutput(newReply.de);
+}
+function acceptCorrection(){
+ if(!record?.pending)return;
+ const corrected=record.pending.corrected;
+ record.messages.push({role:"student",content:corrected,validation:"good"});
+ goNext(corrected,"corrected");
+}
+function sendText(value,choice=false){
+ if(!active||!record||record.stage>=total(active))return;
+ const text=bubble(value).trim();if(!text)return;
+ const input=get("convInput");input.value="";
+ const step=stepFor();
+ const check=choice?{type:"good",info:"جواب مقترح"}:WR_CHECKER.check(text,step);
+ record.messages.push({role:"student",content:text,validation:check.type,corrected:check.corrected||"",reason:check.info||""});
+ if(check.type==="fix"){
+  record.pending={original:text,corrected:check.corrected,info:check.info};
+  record.errors.push({step:record.stage,original:text,corrected:check.corrected});
+  record.updated=new Date().toISOString();saveSessions();render();return;
  }
- function toggleMic(){
-  if(voiceListening){stopRecognition();const b=e('convMic');if(b)b.classList.remove('listening');return}
-  const API=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!API){e('convVoiceNote').textContent='هاد المتصفح ما كيدعمش الإملاء الصوتي. تقدر تكتب أو تستعمل كيبورد الصوت.';return}
-  const rec=new API();recognition=rec;voiceListening=true;
-  rec.lang='de-DE';rec.interimResults=true;rec.continuous=false;rec.maxAlternatives=1;
-  const b=e('convMic');b.classList.add('listening');
-  e('convVoiceNote').textContent='🎙️ هضر دابا بالألمانية...';
-  rec.onresult=event=>{
-   let line='';
-   for(let i=event.resultIndex;i<event.results.length;i++)line+=event.results[i][0]?.transcript||'';
-   const box=e('convInput');if(box)box.value=line.trim();
-  };
-  rec.onerror=event=>{const note=e('convVoiceNote');if(note)note.textContent='الميكروفون ما خدمش: '+(event.error==='not-allowed'?'خاص تسمح بالميكروفون.':'جرّب مرة أخرى أو كتب الجواب.')};
-  rec.onend=()=>{voiceListening=false;recognition=null;const btn=e('convMic');if(btn)btn.classList.remove('listening');const note=e('convVoiceNote');if(note&&note.textContent.includes('هضر دابا'))note.textContent='قرا النص اللي تسمع، ومن بعد ضغط إرسال.'};
-  try{rec.start()}catch{voiceListening=false;e('convVoiceNote').textContent='تعذر تشغيل الميكروفون. جرب الكتابة.'}
+ if(check.type==="unverified"){
+  // Advance the scripted scene without pretending to have validated open-ended grammar.
+  // The response is visibly labeled unverified in the transcript.
  }
- window.conversationHub=hub;
- window.addEventListener('resize',()=>{if(activeTopic)adaptViewport()},{passive:true});
- window.visualViewport?.addEventListener('resize',()=>{if(activeTopic)adaptViewport()},{passive:true});
+ goNext(text,check.type);
+}
+function resetTopic(){
+ if(!active||!confirm("تبغي تعاود هاد الموضوع من الأول؟ المحادثة الحالية غادي تتبدل."))return;
+ delete records()[active.id];saveSessions();openTopic(active.id);
+}
+function adjustViewport(){
+ const dialog=get("convDialog");if(!dialog)return;
+ const vh=Math.round(window.visualViewport?.height||window.innerHeight);
+ const rect=dialog.getBoundingClientRect();
+ const room=Math.max(335,vh-Math.max(rect.top,0)-9);
+ dialog.style.setProperty("height",room+"px","important");
+}
+function openTopic(id){
+ const t=find(id);if(!t||!WR_SCRIPTED_SCENES[id])return;
+ stopVoice();active=t;selectedChapter=t.chapter;record=prepare(t);
+ app.classList.add("conv-active");
+ app.innerHTML='<div class=conv-hub-top><button type=button class=conv-back id=convBack>← المواضيع</button>'+
+ '<span class=conv-kicker>Kapitel '+t.chapter+' · '+safe(t.ary)+'</span></div>'+
+ '<section class=conv-dialog id=convDialog><div class=conv-dialog-header>'+
+ '<div class=conv-dialog-title><div class=conv-dialog-avatar><img src=mascot/thinking.webp alt=""></div><div><b lang=de dir=ltr>'+safe(t.de)+'</b><span>🎭 '+safe(t.role)+'</span></div></div>'+
+ '<button type=button id=convReset aria-label="إعادة المحادثة">↻ جديد</button></div>'+
+ '<div class=conv-dialog-status><span id=convStatus>● محادثة مبرمجة · بلا AI</span><span id=convStageCount></span></div>'+
+ '<div id=convMessages class=conv-dialog-messages role=log aria-label="محادثة ألمانية"></div>'+
+ '<div id=convReplyPanel class=conv-dialog-bottom>'+
+ '<div id=convPending class=conv-pending aria-live=polite hidden></div>'+
+ '<div class=conv-options-header><b>ردّك بالألمانية</b><button id=convToggleSuggestions type=button>🙈 خبّي الاقتراحات</button></div>'+
+ '<div id=convSuggestionChoices class=conv-suggestion-choices></div>'+
+ '<div class=conv-input-row><button type=button class=conv-mic id=convMic title="تكلم بالألمانية" aria-label="الميكروفون">🎙️</button>'+
+ '<textarea id=convInput rows=1 maxlength=500 placeholder="Antworte auf Deutsch …" aria-label="جوابك بالألمانية" dir=ltr></textarea>'+
+ '<button id=convSend type=button class=conv-send title="إرسال">➤</button></div>'+
+ '<div class=conv-bottom-tools><span id=convVoiceNote>قرا السؤال وجاوب من راسك</span><button id=convVoiceAuto type=button>🔈 النطق التلقائي: مطفي</button></div>'+
+ '</div></section>';
+ get("convBack").onclick=hub;get("convReset").onclick=resetTopic;
+ get("convSend").onclick=()=>sendText(get("convInput").value);
+ get("convInput").addEventListener("keydown",ev=>{
+  if(ev.key==="Enter"&&!ev.shiftKey){ev.preventDefault();sendText(get("convInput").value)}
+ });
+ get("convMic").onclick=toggleMic;
+ get("convToggleSuggestions").onclick=()=>{
+  st.lab.conversationSuggestionsHidden=!hidden();saveSessions();visibleSuggestions();
+ };
+ get("convVoiceAuto").onclick=()=>{
+  autoVoice=!autoVoice;get("convVoiceAuto").textContent=(autoVoice?"🔊":"🔈")+" النطق التلقائي: "+(autoVoice?"خدام":"مطفي");
+ };
+ render();adjustViewport();window.scrollTo(0,0);
+}
+function toggleMic(){
+ if(voiceListening){stopVoice();get("convMic")?.classList.remove("listening");return}
+ const API=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!API){get("convVoiceNote").textContent="المتصفح ما كيدعمش التعرف الصوتي. تقدر تستعمل كيبورد الصوت أو الكتابة.";return}
+ recognition=new API();const rec=recognition;voiceListening=true;
+ rec.lang="de-DE";rec.continuous=false;rec.interimResults=true;rec.maxAlternatives=1;
+ get("convMic").classList.add("listening");
+ get("convVoiceNote").textContent="🎙️ هضر دابا بالألمانية…";
+ rec.onresult=event=>{
+  const results=[];for(let i=0;i<event.results.length;i++)results.push(event.results[i][0]?.transcript||"");
+  const box=get("convInput");if(box)box.value=results.join(" ").trim();
+ };
+ rec.onerror=()=>{const el=get("convVoiceNote");if(el)el.textContent="المايك ما خدمش. جرّب سمح ليه فالاعدادات، أو كتب جوابك."};
+ rec.onend=()=>{recognition=null;voiceListening=false;get("convMic")?.classList.remove("listening")};
+ try{rec.start()}catch{recognition=null;voiceListening=false;get("convVoiceNote").textContent="تعذر تشغيل الميكروفون."}
+}
+window.conversationHub=hub;
+window.addEventListener("resize",()=>{if(active)adjustViewport()},{passive:true});
+window.visualViewport?.addEventListener("resize",()=>{if(active)adjustViewport()},{passive:true});
 })();
