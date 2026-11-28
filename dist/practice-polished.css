@@ -409,3 +409,41 @@
   background:#263d2e;color:#e2ffc7;border:1px solid #92bd63;
  }
 }
+
+
+/* Dense sentences: keep every token reachable without letting word chips
+   push the submit or hint controls outside the mobile viewport. */
+@media(max-width:850px){
+ body.wr-training .practice-card #work.order-long .order-wordbank{
+  gap:4px;
+  padding-block:2px;
+ }
+ body.wr-training .practice-card #work.order-long .order-wordbank .tile{
+  min-height:32px;
+  padding:4px 7px;
+  font-size:clamp(11px,3vw,13px);
+  gap:4px;
+ }
+ body.wr-training .practice-card #work.order-very-long .order-wordbank .tile{
+  min-height:29px;
+  padding:3px 5px;
+  font-size:11px;
+ }
+ body.wr-training .practice-card #work.order-long .order-dropzone{
+  min-height:64px;
+  max-height:146px;
+ }
+ body.wr-training .practice-card #work.order-very-long .order-answer-token{
+  min-height:28px;
+  padding:3px 5px;
+  font-size:11px;
+ }
+ body.wr-training .practice-card:has(#work.order-very-long) > .coach{
+  height:85px!important;
+  max-height:85px!important;
+ }
+ body.wr-training .practice-card:has(#work.order-very-long) > .prompt{
+  font-size:clamp(16px,4.5vw,20px);
+  margin-block:1px;
+ }
+}
