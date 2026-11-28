@@ -1,8 +1,9 @@
 {
   "app": "Wortreise V2",
-  "release": "2026-11-28-neon-drag2",
+  "release": "2026-11-28-conversation-studio2",
   "branch": "wortreise-v2",
-  "feature": "premium-practice-ui-touch-drag-drop",
-  "expected": "Neon Lime premium practice, compact no-scroll card, draggable word chips, clear drop zone, visible correction Next",
-  "verification": "This marker appears when Cloudflare publishes the latest Wortreise V2 changes."
+  "feature": "ai-roleplay-95-topics-speech-darija",
+  "expected": "Conversation studio after all 12 chapters, topic selection, German roleplay, optional voice, Darija translation and corrections",
+  "verification": "This marker appears when Cloudflare publishes the latest Wortreise V2 changes.",
+  "backend": "/api/conversation/health"
 }
