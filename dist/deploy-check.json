@@ -1,9 +1,9 @@
 {
   "app": "Wortreise V2",
-  "release": "2026-11-28-conversation-studio2",
+  "release": "2026-11-28-scripted-dialogue-v3",
   "branch": "wortreise-v2",
-  "feature": "ai-roleplay-95-topics-speech-darija",
-  "expected": "Conversation studio after all 12 chapters, topic selection, German roleplay, optional voice, Darija translation and corrections",
+  "feature": "95-programmed-roles-380-steps-no-AI",
+  "expected": "95 topic-authored roleplays, book chapter labels, no repetitive generic fallback, hideable response suggestions, immediate targeted grammar checking and finite end screen",
   "verification": "This marker appears when Cloudflare publishes the latest Wortreise V2 changes.",
-  "backend": "/api/conversation/health"
+  "mode": "scripted-offline"
 }
