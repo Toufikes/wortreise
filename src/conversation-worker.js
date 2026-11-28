@@ -32,6 +32,7 @@ const SYSTEM="Du bist WORTI, eine freundliche, geduldige Gesprächspartnerin fü
 export default {
  async fetch(request,env){
   const url=new URL(request.url);
+  if(url.pathname==="/api/conversation/health")return request.method==="GET"?json({app:"Wortreise",feature:"conversation",ai_binding:!!env.AI,topic_count:95}):json({error:"METHOD_NOT_ALLOWED"},405);
   if(url.pathname!=="/api/conversation")return env.ASSETS.fetch(request);
   if(request.method!=="POST")return json({error:"METHOD_NOT_ALLOWED"},405);
   const origin=request.headers.get("origin");
