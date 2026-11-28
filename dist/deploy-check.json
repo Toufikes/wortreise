@@ -1,8 +1,8 @@
 {
   "app": "Wortreise V2",
-  "release": "2026-11-27-compact-classic4",
+  "release": "2026-11-28-neon-drag2",
   "branch": "wortreise-v2",
-  "feature": "always-visible-feedback-next-balanced-practice",
-  "expected": "Classic dark lime design, no scroll, centered exercise card, fixed overlay with Next and no clipping",
+  "feature": "premium-practice-ui-touch-drag-drop",
+  "expected": "Neon Lime premium practice, compact no-scroll card, draggable word chips, clear drop zone, visible correction Next",
   "verification": "This marker appears when Cloudflare publishes the latest Wortreise V2 changes."
 }
