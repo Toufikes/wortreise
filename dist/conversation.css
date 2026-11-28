@@ -102,3 +102,14 @@
 @media(prefers-reduced-motion:reduce){
  .conv-waiting span,.conv-input-row button.conv-mic.listening{animation:none}
 }
+
+/* Conversation history scrolls inside the chat; the document and footer don't. */
+#app.conv-active ~ footer{display:none}
+@media(max-width:700px){
+ html:has(#app.conv-active .conv-dialog){overflow:hidden;overscroll-behavior:none}
+ body:has(#app.conv-active .conv-dialog){overflow:hidden;overscroll-behavior:none}
+ main:has(#app.conv-active .conv-dialog){height:100dvh;max-height:100dvh;overflow:hidden}
+ #app.conv-active:has(.conv-dialog){height:auto;overflow:hidden;min-height:0}
+ .conv-dialog{min-height:0}
+ .conv-dialog-messages{overscroll-behavior:contain}
+}
