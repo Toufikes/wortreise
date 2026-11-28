@@ -42,7 +42,7 @@
   app.classList.add('conv-active');
   app.innerHTML='<div class=conv-hub>'+
    '<div class=conv-hub-top><button type=button class="conv-back" id=convHome>← رجع للفصول</button><span class=conv-kicker>95 THEMEN · A1+</span></div>'+
-   '<section class=conv-hero><div><span class=conv-kicker>GESPRÄCHSSTUDIO</span><h1>تكلّم بالألمانية مع Lina</h1><p>اختار الموضوع، جرّب تجاوب بصوتك أو بالكتابة، وخذ تصحيح قصير بالدارجة. هنا ما كاينش امتحان، كاينة ممارسة حقيقية.</p><div class=conv-feature-pills><span>🎙️ كلام أو كتابة</span><span>🇩🇪 مستوى A1+</span><span>✨ تصحيح فالحين</span><span>12 Kapitel</span></div></div><img src="mascot/thinking.webp" alt="شخصية المدربة Lina"></section>'+
+   '<section class=conv-hero><div><span class=conv-kicker>GESPRÄCHSSTUDIO</span><h1>تكلّم بالألمانية مع Worti</h1><p>اختار الموضوع، جرّب تجاوب بصوتك أو بالكتابة، وخذ تصحيح قصير بالدارجة. هنا ما كاينش امتحان، كاينة ممارسة حقيقية.</p><div class=conv-feature-pills><span>🎙️ كلام أو كتابة</span><span>🇩🇪 مستوى A1+</span><span>✨ تصحيح فالحين</span><span>12 Kapitel</span></div></div><img src="mascot/thinking.webp" alt="شخصية المدربة Worti"></section>'+
    '<label class=conv-search><span>⌕</span><input id=convSearch placeholder="قلب على موضوع… / Thema suchen" aria-label="بحث على موضوع"><small id=convCount></small></label>'+
    '<nav class=conv-tabs id=convChapterTabs aria-label="اختيار الفصل">'+CHAPTERS.map(chapterMarkup).join('')+'</nav>'+
    '<div id=convTopicList></div></div>';
@@ -98,7 +98,7 @@
  function drawMessages(){
   if(!activeTopic||!e('convMessages'))return;
   const messages=sessionFor(activeTopic).messages;
-  e('convMessages').innerHTML=messages.map(renderBubble).join('')+(busy?'<div class=conv-waiting aria-live=polite><span></span><span></span><span></span> Lina كتفكّر...</div>':'');
+  e('convMessages').innerHTML=messages.map(renderBubble).join('')+(busy?'<div class=conv-waiting aria-live=polite><span></span><span></span><span></span> Worti كيفكّر...</div>':'');
   e('convMessages').querySelectorAll('[data-say]').forEach(btn=>btn.onclick=()=>{
    const m=messages[Number(btn.dataset.say)];if(m?.de)speechOutput(m.de);
   });
@@ -115,7 +115,7 @@
  }
  function statusText(){
   const status=e('convStatus');if(!status)return;
-  const label=mode==='ai'?'● Lina AI · محادثة حقيقية بالألمانية':mode==='guided'?'● تدريب موجه · خدمة AI ما متاحةش دابا':'● محادثة A1+ · اختار كيفاش تجاوب';
+  const label=mode==='ai'?'● Worti AI · محادثة حقيقية بالألمانية':mode==='guided'?'● تدريب موجه · خدمة AI ما متاحةش دابا':'● محادثة A1+ · اختار كيفاش تجاوب';
   status.textContent=label;
   status.dataset.mode=mode;
  }
@@ -195,7 +195,7 @@
    newReply=guidedReply(topic,record);
    mode='guided';
    const note=e('convVoiceNote');
-   if(note)note.textContent=err.message==='DAILY_GUIDED'?'وصلتي 30 رد AI اليوم، تقدر تكمل بالتدريب الموجه.':'Lina رجعات للوضع الموجّه حيت AI ما متاحش مؤقتاً.';
+   if(note)note.textContent=err.message==='DAILY_GUIDED'?'وصلتي 30 رد AI اليوم، تقدر تكمل بالتدريب الموجه.':'Worti رجعات للوضع الموجّه حيت AI ما متاحش مؤقتاً.';
   }
   if(activeTopic?.id!==topic.id)return;
   record.messages.push(newReply);
