@@ -3,14 +3,6 @@
   "compatibility_date": "2026-11-27",
   "assets": {
     "directory": "./dist",
-    "not_found_handling": "single-page-application",
-    "binding": "ASSETS",
-    "run_worker_first": [
-      "/api/*"
-    ]
-  },
-  "main": "./src/conversation-worker.js",
-  "ai": {
-    "binding": "AI"
+    "not_found_handling": "single-page-application"
   }
 }
