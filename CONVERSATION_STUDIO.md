@@ -1,64 +1,59 @@
-# Wortreise — Gesprächsstudio (A1+)
+# Wortreise — Worti scripted conversations V3
 
-The conversation studio appears **below the 12 chapter cards** on the homepage.
-The two existing options within each chapter remain unchanged:
-**المفردات والمعنى** and **اختبار الفصل**.
+Worti appears below the 12 chapter cards, while **المفردات والمعنى**
+and **اختبار الفصل** remain unchanged within each chapter.
 
-## Learning content
+## Source and content
+95 topic-based scenes mapped to the original `Spektrum Deutsch A1+` course
+overview (printed pages 4–7). There are 4 progressive prompts per scene
+for a total of 380 authored prompts. Scripted prompts and examples are
+new practice material — not copied from the book's protected dialogues.
+Each scene finishes after four turns instead of repeating questions.
 
-- 12 chapters, 95 selectable conversation scenes.
-- Topics derive from the publisher's **Spektrum Deutsch A1+** `Kursübersicht`,
-  printed pages 4–7, organized into the original chapters.
-- Scene introductions, answer examples, roles, and guided prompts are original
-  teaching material, not reproductions of copyrighted book dialogues.
-- It covers the subjects listed in the book's course overview. It is not a
-  page-by-page audit of every question, dialogue, or exercise in the book.
+## Features
+- No AI, no remote inference calls, no Workers AI binding, and no AI quota.
+- Coherent sequence of questions within the selected topic.
+- Chapter labels derive from topic IDs (fixes "Kapitel undefined").
+- German reply suggestions can be shown or hidden globally; preference saved
+  in `st.lab.conversationSuggestionsHidden`.
+- Learners can select an answer, type, or use browser-based speech recognition.
+- German speech synthesis, optional automatic playback and translation.
+- Immediate deterministic feedback for known noun capitalization,
+  selected A1 present-tense conjugations and constrained Akkusativ/article errors.
+- A learner can retry after a verified error or apply the correction to
+  advance. Correctly authored options advance directly.
+- **Critical limitation:** without an AI model, arbitrary open-ended German
+  cannot be fully grammar-checked. Unknown responses are flagged as
+  **unverified**, not **incorrect**, while the scene can still progress.
+- Text transcripts & conversation stage are stored in the existing progress
+  object and can sync through the existing Supabase snapshot when logged in.
+  Old AI conversation transcripts are preserved in
+  `st.lab.conversationLegacy` on first opening a migrated topic.
+  Audio itself is not stored by the app.
 
-## UX
+## Files
+- `dist/conversation-topics.js` — 95 topics, mapped to 12 chapters.
+- `dist/conversation-scenes.js` — 380 authored roleplay steps.
+- `dist/conversation-checker.js` — explicit, conservative A1 rule checker.
+- `dist/conversation.js` — deterministic conversation state machine and UI.
+- `dist/conversation.css` — visually consistent responsive chat and corrections.
+- `wrangler.jsonc` — static asset deployment without a Worker AI binding.
 
-- Chapter tabs and search, contextual role-play, German chat.
-- Optional Darija translation, short corrective feedback, suggested German reply.
-- Browser speech recognition when supported, otherwise typing/keyboard dictation.
-- German speech synthesis and an optional auto-play toggle.
-- Topic transcripts saved with existing `st.lab.conversations` progress.
-  That means signed-in users' text progress can sync via the app's existing
-  Supabase progress snapshot. Audio recordings are not saved by this feature.
-- A guided, non-AI mode replaces live AI when inference is unavailable.
-  Guided mode does **not** claim to provide adaptive grammar correction.
+## Deployment
+Cloudflare assets from branch `wortreise-v2`, command:
+`npx wrangler deploy`
 
-## Cloudflare Worker
+No AI key, AI API, Worker entrypoint, or inference usage is required.
+Verify the live version with:
+`/deploy-check.json`, expected release `2026-11-28-scripted-dialogue-v3`.
 
-The pre-existing `wrangler.jsonc` is updated with:
+## QA
+Tested using isolated JavaScript checks:
+- 95 scenes, all 12 chapters, 380 steps, no duplicate scene questions
+- Chapter 8 selection and correct chapter label
+- Suggestions visible and toggled hidden
+- Wrong conjugation -> immediate correction -> apply corrected response
+- Script progresses to final state, never repeats questions
+- JavaScript syntax and script loading order
 
-```json
-{
-  "main": "./src/conversation-worker.js",
-  "ai": { "binding": "AI" },
-  "assets": {
-    "directory": "./dist",
-    "binding": "ASSETS",
-    "not_found_handling": "single-page-application",
-    "run_worker_first": ["/api/*"]
-  }
-}
-```
-
-Deploy the `wortreise-v2` branch with the existing command `npx wrangler deploy`.
-The Worker handles POST `/api/conversation` using Workers AI; static assets use
-Cloudflare's static-assets binding. A public GET `/api/conversation/health`
-reports if the AI binding exists (not whether inference quota remains).
-
-**Costs:** Cloudflare Workers AI has a free daily allocation but not unlimited
-free inference. The UI limits AI calls to 30 responses per local device per UTC
-day (a convenience guard, not account-wide abuse prevention). On paid accounts,
-monitor Workers AI usage and billing. On quota/errors, guided dialogue remains
-usable. No API key is stored in frontend JavaScript.
-
-## Tests
-
-- JS syntax and 95-topic uniqueness / chapter coverage.
-- Conversation topic selector and opening-state persistence in an isolated DOM mock.
-- Worker AI response parsing, invalid requests, static asset fallback,
-  and missing binding, with mocked Worker environments.
-- Browser visual/voice and live provider inference require verification
-  in the deployed Cloudflare site and on the target iPhone.
+Browser UI, dictation, and deployment still need live device checks.
