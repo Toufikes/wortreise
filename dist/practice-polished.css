@@ -1,0 +1,411 @@
+/*
+ * Wortreise — premium mobile training presentation.
+ * Scoped to live rounds; all chapter, settings, account and exam UIs stay intact.
+ * The illustrated reference is a visual direction, not an image pasted over UI.
+ */
+@media (max-width:850px) {
+ body.wr-training {
+  background: radial-gradient(ellipse 65% 37% at 101% 11%,rgba(172,240,67,.075),transparent 70%),
+              radial-gradient(ellipse 70% 25% at -7% 95%,rgba(85,155,66,.08),transparent 70%),
+              #080e13;
+ }
+ body.wr-training #app {gap:8px;justify-content:flex-start}
+ body.wr-training #app > .navline {margin:2px 0 3px;min-height:39px}
+ body.wr-training #app > .navline > button {
+  background:linear-gradient(155deg,#263038,#131c23);
+  border-color:#56645a;
+  border-radius:12px;
+  min-height:38px;
+  font-size:13px;
+ }
+ body.wr-training #app .questioncount {
+  font-family:system-ui,sans-serif;
+  direction:ltr;
+  font-weight:850;
+  font-size:14px;
+  color:#e6f5e0;
+  letter-spacing:.02em;
+ }
+ body.wr-training #app > progress {
+  flex-basis:7px;height:7px;min-height:7px;
+  border-radius:10px;
+  overflow:hidden;
+  background:#28343b;
+  accent-color:#daff65;
+ }
+ body.wr-training #app > progress::-webkit-progress-bar {
+  border-radius:10px;background:#303b42;
+ }
+ body.wr-training #app > progress::-webkit-progress-value {
+  border-radius:10px;
+  background:linear-gradient(90deg,#e4ff70,#b8ef3f);
+  box-shadow:0 0 11px #cbff62aa;
+ }
+ body.wr-training #app > .practice-card {
+  position:relative;
+  isolation:isolate;
+  flex:0 1 auto!important;
+  width:100%;
+  height:auto!important;
+  min-height:0;
+  max-height:100%;
+  margin:2px 0 0;
+  padding:13px 15px 16px!important;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start!important;
+  gap:clamp(6px,.95dvh,10px)!important;
+  overflow:hidden;
+  border:1px solid #516359;
+  border-top-color:#7fa867;
+  border-radius:24px;
+  background:radial-gradient(ellipse at 0 0,#c1ff5418,transparent 18%),
+             radial-gradient(ellipse at 95% 100%,#7cc04b12,transparent 23%),
+             linear-gradient(138deg,#17222a 0%,#111a23 57%,#131c23 100%);
+  box-shadow:0 20px 55px #0009,inset 0 1px #e1ff6d19,0 0 0 1px #7fb74d12;
+ }
+ body.wr-training #app > .practice-card::before {
+  content:"";
+  position:absolute;z-index:-1;inset:0;
+  pointer-events:none;border-radius:inherit;
+  background:radial-gradient(circle at 3% 1%,#dcff7021,transparent 17%),
+             radial-gradient(circle at 100% 98%,#c3ff4719,transparent 20%);
+ }
+ body.wr-training .practice-card > .practice-title {
+  flex:0 0 auto;
+  margin:0 auto 3px;
+  padding:0 0 2px;
+  min-height:0;
+  width:min(94%,440px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+ }
+ body.wr-training .practice-title-icon {
+  display:grid;
+  place-items:center;
+  width:38px;height:38px;
+  font-family:system-ui,sans-serif;
+  font-size:26px;line-height:1;
+  border:1px solid #c8ff58;
+  border-radius:11px;
+  background:linear-gradient(150deg,#243d24,#0c191b);
+  color:#d9ff67;
+  text-shadow:0 0 13px #d9ff67;
+  box-shadow:0 0 0 2px #c7ff4a18,0 0 17px #c7ff4a25,inset 0 1px #e7ffaf25;
+ }
+ body.wr-training .practice-title > .cap {
+  position:relative;
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  color:#f7f8f3;
+  font-size:clamp(20px,5.2vw,27px);
+  font-weight:900;
+  line-height:1.2;
+  letter-spacing:0;
+  text-align:center;
+ }
+ body.wr-training .practice-title > .cap::before,
+ body.wr-training .practice-title > .cap::after {
+  content:"";height:1px;flex:1 1 30px;
+  max-width:85px;
+  background:linear-gradient(90deg,transparent,#d8ff5b);
+  box-shadow:0 0 7px #cbff6680;
+ }
+ body.wr-training .practice-title > .cap::after {transform:scaleX(-1)}
+ body.wr-training .practice-card > .coach {
+  flex:0 0 auto;
+  position:relative;
+  height:clamp(107px,14dvh,124px)!important;
+  max-height:124px!important;
+  margin:2px 0 6px;
+  padding:0 10px;
+  gap:9px;
+  background:linear-gradient(115deg,#20372a 0%,#1b2a2a 65%,#142128 100%);
+  border:1px solid #8dad50;
+  border-radius:19px;
+  box-shadow:inset 0 1px #a3ec5d1c,0 0 14px #a5ff3224;
+  overflow:visible;
+  align-items:center;
+ }
+ body.wr-training .practice-card > .coach .coach-portrait {
+  flex:0 0 112px;
+  width:112px;height:clamp(126px,17dvh,149px)!important;
+  max-height:none!important;
+  align-self:flex-end;
+  overflow:hidden;
+  margin-top:-19px;
+  mask-image:linear-gradient(#000 0 84%,transparent 100%);
+  -webkit-mask-image:linear-gradient(#000 0 84%,transparent 100%);
+ }
+ body.wr-training .practice-card > .coach .coach-portrait img{
+  width:120px;height:184px;
+  margin-inline:-4px;
+  object-fit:contain;object-position:top;
+ }
+ body.wr-training .practice-card > .coach p{
+  flex:1 1 auto;
+  font-size:clamp(12px,3.4vw,15px);
+  line-height:1.5;
+  font-weight:500;
+  color:#e6eae5;
+  padding:2px 0;
+ }
+ body.wr-training .practice-card > .prompt {
+  flex:0 0 auto;
+  margin:clamp(5px,1dvh,10px) 0 6px;
+  padding:0 2px;
+  font-size:clamp(22px,5.8vw,28px);
+  font-weight:850;
+  line-height:1.35;
+  letter-spacing:-.02em;
+  text-align:center;
+ }
+ body.wr-training .practice-card > .practice-basket-slot{
+  flex:0 0 auto;
+  margin:0 0 4px;
+  min-height:33px;
+ }
+ body.wr-training .practice-basket-slot .basket-add-button{
+  background:linear-gradient(135deg,#23412b,#17261d);
+  border-color:#8cae4c;
+  color:#daff6d;
+  min-height:34px;height:34px;
+  padding:5px 12px;
+  border-radius:12px;
+  box-shadow:0 0 12px #cbff4611;
+  font-size:13px;
+ }
+ body.wr-training .practice-card > #work {
+  flex:0 1 auto;
+  gap:8px;
+  min-height:0;
+  padding:0 0 1px;
+  overflow:hidden;
+ }
+ body.wr-training .practice-card #work:has(.order-wordbank) {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  grid-template-rows:auto auto auto auto;
+  gap:8px;
+  align-content:start;
+  justify-content:stretch;
+  min-height:0;
+ }
+ body.wr-training .practice-card #work .order-dropzone{
+  grid-column:1/-1;
+  grid-row:1;
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  justify-content:center;
+  align-items:center;
+  box-sizing:border-box;
+  min-height:75px;
+  height:auto;
+  max-height:117px;
+  width:100%;
+  padding:8px 10px;
+  margin:0;
+  direction:ltr;
+  background:linear-gradient(145deg,#0f1b20e6,#111d25e5);
+  border:1.5px dashed #a2d454;
+  border-radius:16px;
+  box-shadow:inset 0 1px 12px #050d1180,0 0 0 1px #82ba2e0a;
+  overflow:hidden;
+  transition:border-color .16s,background-color .16s,box-shadow .16s;
+ }
+ body.wr-training .practice-card #work .order-dropzone.drag-over {
+  border:2px solid #daff65;
+  background:#273923;
+  box-shadow:0 0 20px #b8f64339,inset 0 0 15px #b7f64c0c;
+ }
+ body.wr-training .practice-card #work .drop-hint{
+  display:flex;flex-direction:column;align-items:center;gap:2px;
+  width:100%;direction:rtl;
+  font-size:clamp(10px,2.85vw,13px);
+  line-height:1.35;
+  font-weight:450;
+  color:#b2c3b2;
+  pointer-events:none;
+ }
+ body.wr-training .practice-card #work .drop-hand {
+  display:block;
+  font:700 24px/1 system-ui,sans-serif;
+  color:#c8ff79;
+  text-shadow:0 0 12px #aaff5544;
+ }
+ body.wr-training .practice-card #work .order-wordbank{
+  grid-column:1/-1;grid-row:2;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  align-content:center;
+  flex-wrap:wrap;
+  gap:7px;
+  margin:0;
+  min-height:43px;
+  padding:4px 0;
+  direction:ltr;
+ }
+ body.wr-training .practice-card #work .order-wordbank > .tile {
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  width:auto;
+  min-width:0;
+  min-height:40px;
+  margin:0;
+  padding:7px 10px;
+  border-radius:13px;
+  background:linear-gradient(150deg,#304338,#202d2a);
+  border:1px solid #698763;
+  color:#f4f7ed;
+  font-family:system-ui,sans-serif;
+  font-weight:800;
+  font-size:clamp(12px,3.5vw,16px);
+  line-height:1.15;
+  box-shadow:inset 0 1px #d2e8b01e,0 5px 10px #0004;
+  touch-action:none;
+  -webkit-user-select:none;
+  user-select:none;
+  cursor:grab;
+ }
+ body.wr-training .practice-card #work .order-wordbank > .tile:before{
+  content:"⋮";color:#b5ff5f;
+  font-size:19px;line-height:1;
+  text-shadow:0 0 8px #b1ff5166;
+ }
+ body.wr-training .practice-card #work .order-wordbank > .tile[hidden]{display:none!important}
+ body.wr-training .practice-card #work .order-wordbank > .tile.is-dragging {opacity:.23}
+ body.wr-training .practice-card #work .order-dropzone .order-answer-token{
+  display:inline-flex;
+  align-items:center;
+  width:auto;
+  min-width:0;
+  min-height:34px;
+  margin:0;
+  padding:5px 8px;
+  color:#eaffc8;
+  background:#29402c;
+  border:1px solid #9bca61;
+  border-radius:9px;
+  font-family:system-ui,sans-serif;
+  font-size:clamp(12px,3.4vw,15px);
+  font-weight:750;
+  line-height:1.2;
+  cursor:grab;
+  touch-action:none;
+ }
+ body.wr-training .practice-card #work:has(.order-wordbank) > #undo {
+  grid-row:3;grid-column:1;
+ }
+ body.wr-training .practice-card #work:has(.order-wordbank) > #submit {
+  grid-row:3;grid-column:2;
+  background:linear-gradient(110deg,#ddff65,#c1f84e);
+  color:#15200b;
+  border:1px solid #d7ff6d;
+  box-shadow:0 5px 17px #c0f84a29;
+ }
+ body.wr-training .practice-card #work:has(.order-wordbank) > #askHint {
+  grid-row:4;grid-column:2;
+  border-style:dashed;
+  border-color:#91b64a;
+  background:#293126;
+  color:#f0ffc1;
+ }
+ body.wr-training .practice-card #work:has(.order-wordbank) > button:last-of-type:not(.tile) {
+  grid-row:4;grid-column:1;
+ }
+ body.wr-training .practice-card #work:has(.order-wordbank) > button:not(.tile) {
+  height:auto;min-height:43px;
+  width:100%;
+  padding:7px 6px;margin:0;
+  font-size:clamp(12px,3.5vw,16px);
+  font-weight:800;
+  border-radius:11px;
+  line-height:1.2;
+ }
+ body.wr-training .practice-card #work #undo:disabled{
+  opacity:.7;color:#899395;
+ }
+ body.wr-training:not(.wr-flash-training) .practice-card > #work {
+  flex:0 1 auto;
+ }
+ /* Density is only tightened on genuinely short/complex phone layouts. */
+ body.wr-training[data-wr-density="1"] .practice-card > .coach,
+ body.wr-training[data-wr-density="2"] .practice-card > .coach,
+ body.wr-training[data-wr-density="3"] .practice-card > .coach{
+  height:clamp(74px,11dvh,98px)!important;
+ }
+ body.wr-training[data-wr-density="2"] .practice-card > .prompt,
+ body.wr-training[data-wr-density="3"] .practice-card > .prompt{
+  font-size:clamp(16px,4.4vw,20px);
+  margin:3px 0;
+ }
+ body.wr-training[data-wr-density="3"] .practice-card > .practice-title .practice-title-icon {
+  width:29px;height:29px;font-size:20px;
+ }
+ body.wr-training[data-wr-density="3"] .practice-card > .practice-title .cap {
+  font-size:19px;
+ }
+ body.wr-training[data-wr-density="3"] .practice-card #work .order-dropzone {
+  min-height:53px;
+ }
+ body.wr-training[data-wr-density="3"] .practice-card #work .order-wordbank > .tile {
+  min-height:31px;padding:4px 7px;font-size:12px;
+ }
+ body.wr-training[data-wr-density="3"] .practice-card #work:has(.order-wordbank) > button:not(.tile){
+  min-height:36px;font-size:12px;
+ }
+}
+/* Drag preview can move outside the card without getting clipped. */
+.order-drag-ghost{
+ position:fixed!important;
+ z-index:2147483600;
+ left:0;top:0;
+ transform:translate(-50%,-50%) scale(1.04);
+ pointer-events:none!important;
+ padding:8px 12px;
+ border-radius:12px;
+ background:linear-gradient(145deg,#33482e,#182927);
+ border:1px solid #dbff7c;
+ color:#f7ffe5;
+ font:800 15px/1.25 system-ui,sans-serif;
+ text-align:center;
+ box-shadow:0 12px 40px #000b,0 0 24px #c6ff548a;
+ opacity:.97;
+ touch-action:none;
+}
+/* Desktop still gets the same styling without forcing a no-scroll viewport. */
+@media(min-width:851px){
+ .practice-card .practice-title{
+  display:flex;flex-direction:column;align-items:center;gap:7px;margin-bottom:18px;
+ }
+ .practice-card .practice-title-icon{
+  display:grid;place-items:center;
+  border:1px solid #b7eb5f;border-radius:12px;
+  background:#1d3222;color:#deff71;
+  width:42px;height:42px;font:800 29px system-ui;
+ }
+ .practice-card .practice-title .cap{
+  color:#f4f6eb;font-size:26px;font-weight:900;
+ }
+ .practice-card #work .order-wordbank{
+  display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
+ }
+ .practice-card #work .order-wordbank .tile{touch-action:none;cursor:grab}
+ .practice-card #work .order-dropzone{min-height:95px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px}
+ .practice-card #work .drop-hint{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;color:#aebdb1;pointer-events:none}
+ .practice-card #work .order-dropzone .order-answer-token{
+  width:auto;min-height:38px;margin:0 3px;padding:6px 10px;
+  background:#263d2e;color:#e2ffc7;border:1px solid #92bd63;
+ }
+}
